@@ -10,6 +10,7 @@ LastEditTime: 2022-06-12 18:11:18
 
 # image augmentation libaray
 from enum import Enum
+from typing import TypeVar
 
 from mltools import __auglib_version__
 
@@ -21,8 +22,13 @@ class AugmentationTypes(Enum):
         
         `Labelme` 目标分割
 
-        `OnlyImages` 只增广图片，不增广标注文件
+        `NoLabel` 只增广图片，不增广标注文件
     """
     LabelImg = 1
     Labelme = 2
-    OnlyImages = 3
+    NoLabel = 3
+
+
+from numpy import ndarray
+NullableNdArray = TypeVar("NullableNdArray", None, ndarray)
+PathOrNdarray = TypeVar("PathOrNdarray", str, ndarray)
