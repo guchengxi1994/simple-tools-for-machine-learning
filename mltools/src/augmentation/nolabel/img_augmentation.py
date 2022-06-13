@@ -8,5 +8,5 @@ class ImageAugementation(BaseAugmentation):
     def __init__(self, augType: AugmentationTypes) -> None:
         super().__init__(augType)
 
-    def go(*args, **kwargs):
+    def go(self,*args, **kwargs):
         return super().go(**kwargs)
