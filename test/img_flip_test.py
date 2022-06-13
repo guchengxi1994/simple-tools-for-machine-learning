@@ -1,6 +1,5 @@
 import sys
 
-import pytest
 sys.path.append("..")
 from time import time
 
