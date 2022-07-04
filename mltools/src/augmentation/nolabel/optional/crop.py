@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 import skimage.util.noise as snoise
 from mltools.src.utils.generate_polygon import (generatePolygon,

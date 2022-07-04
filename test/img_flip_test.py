@@ -24,5 +24,5 @@ class TestImageFlip():
             assert img[i][i][0] == i1[i][1023 - i][0]
             assert img[i][i][1] == i2[1023 - i][i][1]
             assert img[i][i][2] == i3[1023 - i][1023 - i][2]
-        
-        assert (time()-t1)<1
+
+        assert (time() - t1) < 1

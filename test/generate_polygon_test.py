@@ -7,7 +7,7 @@ from skimage import io
 mask = generatePolygon((255, 255), polygonPointCount=3)
 mask2 = generateRectangle((255, 255, 3))
 
-mask3 = generatePolygon((255, 255), polygonPointCount=12,convexHull=True)
+mask3 = generatePolygon((255, 255), polygonPointCount=12, convexHull=True)
 
 io.imsave("polygon.jpg", mask)
 io.imsave("rectangle.jpg", mask2)
