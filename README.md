@@ -5,7 +5,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 用于机器学习/深度学习/机器视觉用的小工具
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)[![Build Status](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning.svg?branch=dev)](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning)
 
 ## requirements
 > * numpy
