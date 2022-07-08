@@ -14,10 +14,10 @@ def cutmix(img1: np.ndarray, img2: np.ndarray, factor: float = 0.5):
     rectHeight = random.randint(0, int(factor * imgShape1[0]))
     rectWidth = random.randint(0, int(factor * imgShape1[1]))
 
-    img1[startX:startX + rectHeight, startY:startY + rectWidth] = 0
+    img1[startX : startX + rectHeight, startY : startY + rectWidth] = 0
     img2[0:startX, :] = 0
-    img2[startX + rectHeight:, :] = 0
+    img2[startX + rectHeight :, :] = 0
     img2[:, 0:startY] = 0
-    img2[:, startY + rectWidth:] = 0
+    img2[:, startY + rectWidth :] = 0
 
     return np.array(img1 + img2, dtype=np.uint8)

@@ -3,15 +3,15 @@ import sys
 sys.path.append("..")
 from time import time
 
-from mltools.src.augmentation.nolabel.img_flip import imgFlip
+from mltools.src.augmentation.nolabel.img_flip import img_flip
 from skimage import io
 
 
-class TestImageFlip():
+class TestImageFlip:
     def test_flip(self):
         t1 = time()
         img = io.imread("0.png")
-        results = imgFlip(img)
+        results = img_flip(img)
         i1, i2, i3 = results[0], results[1], results[2]
 
         for i in [0, 46, 178, 677]:

@@ -1,4 +1,4 @@
-'''
+"""
 Descripttion: 
 version: 
 Author: xiaoshuyui
@@ -6,7 +6,7 @@ email: guchengxi1994@qq.com
 Date: 2022-06-12 18:33:40
 LastEditors: xiaoshuyui
 LastEditTime: 2022-06-12 18:51:39
-'''
+"""
 
 from functools import wraps
 

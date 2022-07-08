@@ -1,7 +1,10 @@
 import sys
 
 sys.path.append("..")
-from mltools.src.augmentation.nolabel.optional.inpaint import rectangleInpaint, polygonInpaint
+from mltools.src.augmentation.nolabel.optional.inpaint import (
+    rectangleInpaint,
+    polygonInpaint,
+)
 
 from skimage import io
 from skimage.transform import resize

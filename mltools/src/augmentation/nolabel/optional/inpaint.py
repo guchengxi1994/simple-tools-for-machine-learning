@@ -1,7 +1,6 @@
 import numpy as np
 from skimage.restoration import inpaint
-from mltools.src.utils.generate_polygon import (generatePolygon,
-                                                generateRectangle)
+from mltools.src.utils.generate_polygon import generatePolygon, generateRectangle
 
 
 def rectangleInpaint(img: np.ndarray, startPoint: tuple = None):

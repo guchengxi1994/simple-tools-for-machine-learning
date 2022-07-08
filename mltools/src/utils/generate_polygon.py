@@ -11,26 +11,33 @@ from skimage.draw import polygon
 from skimage.morphology import convex_hull_image
 
 
-def generatePolygon(imgShape: tuple,
-                    startPoint: tuple = None,
-                    convexHull: bool = False,
-                    polygonPointCount: int = None):
-    """ imgShape 图片尺寸
-        startPoint polygon初始点，可为None
-        polygonPointCount polygon顶点个数，可为None
+def generatePolygon(
+    imgShape: tuple,
+    startPoint: tuple = None,
+    convexHull: bool = False,
+    polygonPointCount: int = None,
+):
+    """imgShape 图片尺寸
+    startPoint polygon初始点，可为None
+    polygonPointCount polygon顶点个数，可为None
     """
-    points = random.randint(
-        4, 10) if polygonPointCount is None else polygonPointCount
+    points = random.randint(4, 10) if polygonPointCount is None else polygonPointCount
     mask = np.zeros((imgShape))
 
     if startPoint is None:
         startX = random.randint(0, int(0.5 * imgShape[0]))
         startY = random.randint(0, int(0.5 * imgShape[1]))
     else:
-        startX = startPoint[0] if startPoint[0] < 0.5 * imgShape[0] else int(
-            0.5 * imgShape[0])
-        startY = startPoint[1] if startPoint[1] < 0.5 * imgShape[1] else int(
-            0.5 * imgShape[1])
+        startX = (
+            startPoint[0]
+            if startPoint[0] < 0.5 * imgShape[0]
+            else int(0.5 * imgShape[0])
+        )
+        startY = (
+            startPoint[1]
+            if startPoint[1] < 0.5 * imgShape[1]
+            else int(0.5 * imgShape[1])
+        )
 
     x_cor = np.random.randint(startX, imgShape[0], points).tolist()
     y_cor = np.random.randint(startY, imgShape[1], points).tolist()
@@ -39,8 +46,8 @@ def generatePolygon(imgShape: tuple,
     mask[rr, cc] = 255
     mask = np.array(mask, dtype=np.uint8)
     if convexHull:
-        mask = convex_hull_image(mask,tolerance=0.2)
-        mask = np.array(mask*255, dtype=np.uint8)
+        mask = convex_hull_image(mask, tolerance=0.2)
+        mask = np.array(mask * 255, dtype=np.uint8)
     # if len(imgShape) == 3:
     #     return np.dstack((mask, mask, mask))
     # else:
@@ -55,14 +62,20 @@ def generateRectangle(imgShape: tuple, startPoint: tuple = None):
         startX = random.randint(0, int(0.5 * imgShape[0]))
         startY = random.randint(0, int(0.5 * imgShape[1]))
     else:
-        startX = startPoint[0] if startPoint[0] < 0.5 * imgShape[0] else int(
-            0.5 * imgShape[0])
-        startY = startPoint[1] if startPoint[1] < 0.5 * imgShape[1] else int(
-            0.5 * imgShape[1])
+        startX = (
+            startPoint[0]
+            if startPoint[0] < 0.5 * imgShape[0]
+            else int(0.5 * imgShape[0])
+        )
+        startY = (
+            startPoint[1]
+            if startPoint[1] < 0.5 * imgShape[1]
+            else int(0.5 * imgShape[1])
+        )
 
     rectHeight = random.randint(0, int(0.5 * imgShape[0]))
     rectWidth = random.randint(0, int(0.5 * imgShape[1]))
 
-    mask[startX:startX + rectHeight, startY:startY + rectWidth] = 255
+    mask[startX : startX + rectHeight, startY : startY + rectWidth] = 255
 
     return mask.astype(np.uint8)

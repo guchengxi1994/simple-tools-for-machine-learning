@@ -7,9 +7,9 @@ from skimage import io
 from skimage import transform
 
 
-def imgRotation(oriImg: PathOrNdarray,
-                angle: float = 30,
-                resize: bool = False) -> NullableNdArray:
+def img_rotation(
+    oriImg: PathOrNdarray, angle: float = 30, resize: bool = False
+) -> NullableNdArray:
     if isinstance(oriImg, str):
         if os.path.exists(oriImg):
             img = io.imread(oriImg)
@@ -20,8 +20,10 @@ def imgRotation(oriImg: PathOrNdarray,
         img = oriImg
     else:
         logger.error(
-            'parameter oriImg type error,expected a string or ndarray,got {}'.
-            format(type(oriImg)))
+            "parameter oriImg type error,expected a string or ndarray,got {}".format(
+                type(oriImg)
+            )
+        )
 
     if resize:
         image_rotated = transform.rotate(img, angle=angle, resize=True)

@@ -20,7 +20,7 @@ def resizeScript(img, xmlpath: str, heightFactor=1, widthFactor=1, flag=True):
     elif isinstance(img, np.ndarray):
         oriImg = img
     else:
-        logger.error('Input error!')
+        logger.error("Input error!")
         return
 
     in_file = open(xmlpath)
@@ -29,24 +29,28 @@ def resizeScript(img, xmlpath: str, heightFactor=1, widthFactor=1, flag=True):
 
     parentPath, xmlFilename = os.path.split(xmlpath)
     xf, _ = os.path.splitext(xmlFilename)
-    savePath = parentPath + os.sep + xf + '_reshape.xml'
+    savePath = parentPath + os.sep + xf + "_reshape.xml"
 
-    root.find('filename').text = xf + '_reshape.jpg'
-    root.find('path').text = parentPath + os.sep + xf + '_reshape.jpg'
+    root.find("filename").text = xf + "_reshape.jpg"
+    root.find("path").text = parentPath + os.sep + xf + "_reshape.jpg"
 
     resizeImg = imgResize(oriImg, heightFactor, widthFactor)
     resizeImgShape = resizeImg.shape
     width = int(resizeImgShape[1])
     height = int(resizeImgShape[0])
 
-    size = root.find('size')
-    size.find('width').text = str(width)
-    size.find('height').text = str(height)
+    size = root.find("size")
+    size.find("width").text = str(width)
+    size.find("height").text = str(height)
 
-    for obj in root.iter('object'):
-        xmlbox = obj.find('bndbox')
-        b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text),
-             float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
+    for obj in root.iter("object"):
+        xmlbox = obj.find("bndbox")
+        b = (
+            float(xmlbox.find("xmin").text),
+            float(xmlbox.find("xmax").text),
+            float(xmlbox.find("ymin").text),
+            float(xmlbox.find("ymax").text),
+        )
         # print('===========================')
         # print(b)
         bb = x2yVert((oriImg.shape[1], oriImg.shape[0]), b)
@@ -58,10 +62,10 @@ def resizeScript(img, xmlpath: str, heightFactor=1, widthFactor=1, flag=True):
         bbox = y2xVert((resizeImgShape[1], resizeImgShape[0]), x, y, w, h)
         # print(bbox)
         # print('===========================')
-        xmlbox.find('xmin').text = str(int(bbox[0]))
-        xmlbox.find('ymin').text = str(int(bbox[2]))
-        xmlbox.find('xmax').text = str(int(bbox[1]))
-        xmlbox.find('ymax').text = str(int(bbox[3]))
+        xmlbox.find("xmin").text = str(int(bbox[0]))
+        xmlbox.find("ymin").text = str(int(bbox[2]))
+        xmlbox.find("xmax").text = str(int(bbox[1]))
+        xmlbox.find("ymax").text = str(int(bbox[3]))
 
     if flag:  # save file
         tree.write(savePath)

@@ -7,8 +7,9 @@ from mltools.src.log.logger import logger
 from skimage import io
 
 
-def imgFlip(oriImg: PathOrNdarray,
-            flip_list: list = [1, 0, -1]) -> List[NullableNdArray]:
+def img_flip(
+    oriImg: PathOrNdarray, flip_list: list = [1, 0, -1]
+) -> List[NullableNdArray]:
     if isinstance(oriImg, str):
         if os.path.exists(oriImg):
             img = io.imread(oriImg)
@@ -19,8 +20,10 @@ def imgFlip(oriImg: PathOrNdarray,
         img = oriImg
     else:
         logger.error(
-            'parameter oriImg type error,expected a string or ndarray,got {}'.
-            format(type(oriImg)))
+            "parameter oriImg type error,expected a string or ndarray,got {}".format(
+                type(oriImg)
+            )
+        )
         return []
 
     results = []

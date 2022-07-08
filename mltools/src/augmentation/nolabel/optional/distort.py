@@ -25,13 +25,13 @@ def warp(x, y, r, center: tuple = None, mouse: tuple = None):
     cx, cy = center
     mx, my = mouse
 
-    dis_x_c = sqrt((x - cx)**2 + (y - cy)**2)
-    dis_m_c = sqrt((x - mx)**2 + (y - my)**2)
+    dis_x_c = sqrt((x - cx) ** 2 + (y - cy) ** 2)
+    dis_m_c = sqrt((x - mx) ** 2 + (y - my) ** 2)
 
     div = float(r**2 - dis_x_c**2 + dis_m_c**2)
     if div == 0:
         div = 0.0000000001
-    factor = ((r**2 - dis_x_c**2) / div)**2
+    factor = ((r**2 - dis_x_c**2) / div) ** 2
 
     u = x - factor * (mx - cx)
     v = y - factor * (my - cy)
@@ -39,11 +39,13 @@ def warp(x, y, r, center: tuple = None, mouse: tuple = None):
     return u, v
 
 
-def imgFilter(img: Image,
-              radius: int = 100,
-              center: tuple = None,
-              mouse: tuple = None,
-              antialias=2):
+def imgFilter(
+    img: Image,
+    radius: int = 100,
+    center: tuple = None,
+    mouse: tuple = None,
+    antialias=2,
+):
     width, height = img.size
     new_img = img.copy()
     r = radius
@@ -61,11 +63,11 @@ def imgFilter(img: Image,
 
     for x in range(width):
         for y in range(height):
-            if sqrt((x - cx)**2 + (y - cy)**2) > r:
+            if sqrt((x - cx) ** 2 + (y - cy) ** 2) > r:
                 continue
 
             found = 0
-            psum = (0, ) * nband
+            psum = (0,) * nband
 
             # anti-alias
             for ai in range(antialias):
@@ -93,24 +95,28 @@ def imgDistort(filepath: str, flag=True):
         if os.path.exists(filepath):
             img = io.imread(filepath)
         else:
-            raise FileNotFoundError('Image file not found!')
+            raise FileNotFoundError("Image file not found!")
     elif isinstance(filepath, np.ndarray):
         img = filepath
     else:
-        logger.error('Input file error')
+        logger.error("Input file error")
         return
 
     imgShape = img.shape
     imgWidth = imgShape[1]
     imgHeight = imgShape[0]
 
-    center = (random.randint(int(0.2 * imgWidth), int(0.8 * imgWidth)),
-              random.randint(int(0.2 * imgHeight), int(0.8 * imgHeight)))
-    mouse = (random.randint(int(0.2 * imgWidth), int(0.8 * imgWidth)),
-             random.randint(int(0.2 * imgHeight), int(0.8 * imgHeight)))
+    center = (
+        random.randint(int(0.2 * imgWidth), int(0.8 * imgWidth)),
+        random.randint(int(0.2 * imgHeight), int(0.8 * imgHeight)),
+    )
+    mouse = (
+        random.randint(int(0.2 * imgWidth), int(0.8 * imgWidth)),
+        random.randint(int(0.2 * imgHeight), int(0.8 * imgHeight)),
+    )
     radious = random.randint(50, 250)
 
-    input_img = Image.fromarray(img).convert('RGB')
+    input_img = Image.fromarray(img).convert("RGB")
 
     resImg = imgFilter(input_img, radious, center, mouse)
     resImg = np.array(resImg)
