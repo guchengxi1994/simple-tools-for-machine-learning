@@ -10,17 +10,6 @@ install:
 
 script:
   - cd test
-  - python crop_test.py
-  - python cutmix_test.py
-  - python distort_test.py
-  - python generate_polygon_test.py
-  - python h_test.py
-  - python img_flip_test.py
-  - python img_rotation_test.py
-  - python img_zoom_test.py
-  - python main_test.py
-  - python mosaic_test.py
-  - python rotate_xml_test.py
   - pytest --cov=./
 
 after_success: 
