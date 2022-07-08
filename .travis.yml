@@ -19,7 +19,7 @@ script:
   - python mosaic_test.py
   - python rotate_xml_test.py
 
-
+after_success: "sbt coveralls"
 notifications:
   on_success: always
 cache: pip
