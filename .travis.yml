@@ -4,6 +4,9 @@ python:
 
 install:
   - pip install -r ./requirements.txt
+  - pip install pytest
+  - pip install pytest-cov
+  - pip install coveralls
 
 script:
   - cd test
@@ -18,8 +21,10 @@ script:
   - python main_test.py
   - python mosaic_test.py
   - python rotate_xml_test.py
+  - pytest --cov=./
 
-after_success: "sbt coveralls"
+after_success: 
+  - coveralls
 notifications:
   on_success: always
 cache: pip
