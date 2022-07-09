@@ -17,12 +17,12 @@ def rotate_xml(src, xmin, ymin, xmax, ymax, angle, scale=1.0):
         [
             math.cos(_radian),
             math.sin(_radian),
-            -math.sin(_radian) * nh * 0.5 + (1 - math.cos(_radian)) * nw * 0.5
+            -math.sin(_radian) * nh * 0.5 + (1 - math.cos(_radian)) * nw * 0.5,
         ],
         [
             -math.sin(_radian),
             math.cos(_radian),
-            (1 - math.cos(_radian)) * nh * 0.5 + math.sin(_radian) * nw * 0.5
+            (1 - math.cos(_radian)) * nh * 0.5 + math.sin(_radian) * nw * 0.5,
         ],
     ]
 
@@ -45,5 +45,9 @@ def rotate_xml(src, xmin, ymin, xmax, ymax, angle, scale=1.0):
     concat = np.vstack((point1, point2, point3, point4))
     # change type
     concat = concat.astype(np.int32)
-    return concat[0][0], concat[0][
-        1], concat[2][0] - concat[0][0] + 1, concat[2][1] - concat[0][1] + 1
+    return (
+        concat[0][0],
+        concat[0][1],
+        concat[2][0] - concat[0][0] + 1,
+        concat[2][1] - concat[0][1] + 1,
+    )
