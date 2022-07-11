@@ -1,9 +1,8 @@
 import numpy as np
 import skimage
-from skimage.transform import resize
 
 
-def imgResize(img: np.ndarray, heightFactor=1, widthFactor=1):
+def img_resize(img: np.ndarray, heightFactor=1, widthFactor=1):
     imgShape = img.shape
     resizedImg = skimage.transform.resize(
         img,
@@ -11,4 +10,9 @@ def imgResize(img: np.ndarray, heightFactor=1, widthFactor=1):
         preserve_range=True,
     )
 
+    return np.array(resizedImg).astype(np.uint8)
+
+
+def img_resize_with_shape(img: np.ndarray, height: int, width: int):
+    resizedImg = skimage.transform.resize(img, height, width, preserve_range=True)
     return np.array(resizedImg).astype(np.uint8)

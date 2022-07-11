@@ -11,10 +11,10 @@ import sys
 
 sys.path.append("..")
 
-from mltools.src.decorators import notNull
+from mltools.src.decorators import NotNull
 
 
-@notNull
+@NotNull
 def add(a, b, k):
     return a + b
 

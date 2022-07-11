@@ -11,7 +11,7 @@ from skimage.draw import polygon
 from skimage.morphology import convex_hull_image
 
 
-def generatePolygon(
+def generate_polygon(
     imgShape: tuple,
     startPoint: tuple = None,
     convexHull: bool = False,
@@ -55,7 +55,7 @@ def generatePolygon(
     return mask
 
 
-def generateRectangle(imgShape: tuple, startPoint: tuple = None):
+def generate_rectangle(imgShape: tuple, startPoint: tuple = None):
     mask = np.zeros((imgShape))
 
     if startPoint is None:

@@ -8,7 +8,7 @@ try:
 except:
     import xml.etree.ElementTree as ET
 
-from mltools.src.augmentation.nolabel.optional.resize import imgResize
+from mltools.src.augmentation.nolabel.optional.resize import img_resize
 from mltools.src.log.logger import logger
 from mltools.src.utils.xml2yolo.xml2yolo import convert as x2yVert
 from mltools.src.utils.yolo2xml.yolo2xml import convert as y2xVert
@@ -34,7 +34,7 @@ def resizeScript(img, xmlpath: str, heightFactor=1, widthFactor=1, flag=True):
     root.find("filename").text = xf + "_reshape.jpg"
     root.find("path").text = parentPath + os.sep + xf + "_reshape.jpg"
 
-    resizeImg = imgResize(oriImg, heightFactor, widthFactor)
+    resizeImg = img_resize(oriImg, heightFactor, widthFactor)
     resizeImgShape = resizeImg.shape
     width = int(resizeImgShape[1])
     height = int(resizeImgShape[0])

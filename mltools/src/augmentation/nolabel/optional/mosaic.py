@@ -2,11 +2,11 @@ import random
 
 import numpy as np
 import skimage
-from mltools.src.decorators.deprecated import deprecatedFeature
+from mltools.src.decorators.deprecated import DeprecatedFeature
 from mltools.src.log.logger import logger
 from skimage.transform import resize
 
-from .resize import imgResize
+from .resize import img_resize
 
 
 def getMeanSize(imgs: list):
@@ -19,7 +19,7 @@ def getMeanSize(imgs: list):
     return int(np.mean(height)), int(np.mean(width))
 
 
-@deprecatedFeature("`mosiac_img` is deprecated, use `mosiac_img_no_reshape` instead")
+@DeprecatedFeature("`mosiac_img` is deprecated, use `mosiac_img_no_reshape` instead")
 def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
     if not type(imgs) is list:
         logger.error("Input must be a list!")
@@ -43,7 +43,7 @@ def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
 
     mHeight, mWidth = getMeanSize(imgs)
 
-    img_left_top = imgResize(
+    img_left_top = img_resize(
         np.array(skimage.transform.resize(imgs[0], (mHeight, mWidth)) * 255).astype(
             np.uint8
         ),
@@ -51,7 +51,7 @@ def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
         widthFactor,
     )
 
-    img_right_top = imgResize(
+    img_right_top = img_resize(
         np.array(skimage.transform.resize(imgs[1], (mHeight, mWidth)) * 255).astype(
             np.uint8
         ),
@@ -59,7 +59,7 @@ def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
         1 - widthFactor,
     )
 
-    img_left_bottom = imgResize(
+    img_left_bottom = img_resize(
         np.array(skimage.transform.resize(imgs[2], (mHeight, mWidth)) * 255).astype(
             np.uint8
         ),
@@ -67,7 +67,7 @@ def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
         widthFactor,
     )
 
-    img_right_bottom = imgResize(
+    img_right_bottom = img_resize(
         np.array(skimage.transform.resize(imgs[3], (mHeight, mWidth)) * 255).astype(
             np.uint8
         ),

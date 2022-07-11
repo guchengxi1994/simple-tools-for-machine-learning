@@ -31,5 +31,5 @@ def img_translation(oriImg: PathOrNdarray, th: int = 0, tv: int = 0) -> Nullable
 
     tf_trans = transform.SimilarityTransform(translation=[trans_h, trans_v])
 
-    img = transform.warp(img, tf_trans.inverse)
-    return img
+    img = transform.warp(img, tf_trans.inverse, preserve_range=True)
+    return np.array(img, dtype=np.uint8)

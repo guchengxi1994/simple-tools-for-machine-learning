@@ -26,8 +26,10 @@ def img_rotation(
         )
 
     if resize:
-        image_rotated = transform.rotate(img, angle=angle, resize=True)
+        rotatedImage = transform.rotate(
+            img, angle=angle, resize=True, preserve_range=True
+        )
     else:
-        image_rotated = transform.rotate(img, angle=angle)
+        rotatedImage = transform.rotate(img, angle=angle, preserve_range=True)
 
-    return image_rotated
+    return np.array(rotatedImage, dtype=np.uint8)

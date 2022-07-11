@@ -7,7 +7,7 @@ from skimage import io
 img = io.imread("0.png")
 
 result = mosiac_img([img])
-io.imsave("mosiac.jpg", result)
+io.imsave("mosaic.jpg", result)
 
 result2, _, _, _ = mosiac_img_no_reshape(
     [img, img, img, img], heightFactor=0.6, widthFactor=0.3

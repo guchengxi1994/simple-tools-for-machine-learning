@@ -8,7 +8,7 @@ from scipy import ndimage
 from skimage import io
 
 
-def img_zoom(oriImg: PathOrNdarray, size: float) -> NullableNdArray:
+def img_zoom(oriImg: PathOrNdarray, size: float = 1.2) -> NullableNdArray:
     """size : The zoom factor along the axes, default 0.8~1.8"""
     if isinstance(oriImg, str):
         if os.path.exists(oriImg):
@@ -85,4 +85,4 @@ def _get_zoomed_img(img: np.ndarray, size: float) -> np.ndarray:
             return np.dstack((zoomedR, zoomedG, zoomedB))
     else:
         res = img
-    return res
+    return np.array(res, dtype=np.uint8)

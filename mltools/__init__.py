@@ -20,7 +20,7 @@ logger.info(
 """
 )
 
-__auglib_version__ = "0.0.3"
+__auglib_version__ = "0.0.4"
 
 import multiprocessing
 

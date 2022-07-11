@@ -28,10 +28,10 @@ def warp(x, y, r, center: tuple = None, mouse: tuple = None):
     dis_x_c = sqrt((x - cx) ** 2 + (y - cy) ** 2)
     dis_m_c = sqrt((x - mx) ** 2 + (y - my) ** 2)
 
-    div = float(r ** 2 - dis_x_c ** 2 + dis_m_c ** 2)
+    div = float(r**2 - dis_x_c**2 + dis_m_c**2)
     if div == 0:
         div = 0.0000000001
-    factor = ((r ** 2 - dis_x_c ** 2) / div) ** 2
+    factor = ((r**2 - dis_x_c**2) / div) ** 2
 
     u = x - factor * (mx - cx)
     v = y - factor * (my - cy)
@@ -39,7 +39,7 @@ def warp(x, y, r, center: tuple = None, mouse: tuple = None):
     return u, v
 
 
-def imgFilter(
+def img_filter(
     img: Image,
     radius: int = 100,
     center: tuple = None,
@@ -90,7 +90,7 @@ def imgFilter(
     return new_img
 
 
-def imgDistort(filepath: str, flag=True):
+def img_distort(filepath: str):
     if isinstance(filepath, str):
         if os.path.exists(filepath):
             img = io.imread(filepath)
@@ -118,7 +118,7 @@ def imgDistort(filepath: str, flag=True):
 
     input_img = Image.fromarray(img).convert("RGB")
 
-    resImg = imgFilter(input_img, radious, center, mouse)
+    resImg = img_filter(input_img, radious, center, mouse)
     resImg = np.array(resImg)
 
     return resImg

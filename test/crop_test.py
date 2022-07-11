@@ -6,5 +6,9 @@ from skimage import io
 
 img = io.imread("0.png")
 
-result = polygonCrop(img, noise=True)
+result = polygon_crop(img, noise=True)
 io.imsave("crop.jpg", result)
+
+
+result2 = multi_polygon_crop(img, noise=True)
+io.imsave("crop2.jpg", result2)

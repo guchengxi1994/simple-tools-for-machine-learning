@@ -11,7 +11,7 @@ LastEditTime: 2022-06-12 18:51:39
 from functools import wraps
 
 
-def notNull(func):
+def NotNull(func):
     @wraps(func)
     def inner(*args, **kwargs):
         print(args)

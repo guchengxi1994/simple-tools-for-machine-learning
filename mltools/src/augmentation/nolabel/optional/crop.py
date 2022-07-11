@@ -1,11 +1,11 @@
 import numpy as np
 import skimage.util.noise as snoise
-from mltools.src.utils.generate_polygon import generatePolygon, generateRectangle
+from mltools.src.utils.generate_polygon import generate_polygon, generate_rectangle
 
 
-def rectangleCrop(img: np.ndarray, startPoint: tuple = None, noise=False):
+def rectangle_crop(img: np.ndarray, startPoint: tuple = None, noise=False):
     imgShape = img.shape
-    mask = generateRectangle(imgShape, startPoint)
+    mask = generate_rectangle(imgShape, startPoint)
     mask[mask != 255] = 1
     mask[mask == 255] = 0
 
@@ -18,11 +18,11 @@ def rectangleCrop(img: np.ndarray, startPoint: tuple = None, noise=False):
     return img * mask
 
 
-def polygonCrop(
+def polygon_crop(
     img: np.ndarray, startPoint: tuple = None, convexHull=False, noise=False
 ):
     imgShape = img.shape
-    mask = generatePolygon(imgShape, startPoint, convexHull)
+    mask = generate_polygon(imgShape, startPoint, convexHull)
     mask[mask != 255] = 1
     mask[mask == 255] = 0
 
@@ -37,11 +37,11 @@ def polygonCrop(
     return img * mask
 
 
-def multiRectanleCrop(img: np.ndarray, number: int = 1, noise=False):
+def multi_rectangle_crop(img: np.ndarray, number: int = 1, noise=False):
     imgShape = img.shape
     mask = np.zeros(imgShape, dtype=np.uint8)
     for _ in range(number):
-        mask += generateRectangle(imgShape)
+        mask += generate_rectangle(imgShape)
     mask[mask != 255] = 1
     mask[mask == 255] = 0
 
@@ -54,11 +54,11 @@ def multiRectanleCrop(img: np.ndarray, number: int = 1, noise=False):
     return img * mask
 
 
-def multiPolygonCrop(img: np.ndarray, number: int = 1, noise=False, convexHull=False):
+def multi_polygon_crop(img: np.ndarray, number: int = 1, noise=False, convexHull=False):
     imgShape = img.shape
-    mask = np.zeros((imgShape[0], imgShape[1]), dtype=np.uint8)
+    mask = np.zeros(imgShape, dtype=np.uint8)
     for _ in range(number):
-        mask += generatePolygon(imgShape, convexHull=convexHull)
+        mask += generate_polygon(imgShape, convexHull=convexHull)
     mask[mask != 255] = 1
     mask[mask == 255] = 0
 

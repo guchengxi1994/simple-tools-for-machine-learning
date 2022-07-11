@@ -8,7 +8,7 @@ from skimage import io
 
 
 def img_flip(
-    oriImg: PathOrNdarray, flip_list: list = [1, 0, -1]
+    oriImg: PathOrNdarray, flipList: list = [1, 0, -1]
 ) -> List[NullableNdArray]:
     if isinstance(oriImg, str):
         if os.path.exists(oriImg):
@@ -27,15 +27,15 @@ def img_flip(
         return []
 
     results = []
-    if 1 in flip_list:
+    if 1 in flipList:
         h_ori = np.fliplr(img)
         results.append(h_ori)
 
-    if 0 in flip_list:
+    if 0 in flipList:
         v_ori = np.flipud(img)
         results.append(v_ori)
 
-    if -1 in flip_list:
+    if -1 in flipList:
         h_v_ori = np.flipud(np.fliplr(img))
         results.append(h_v_ori)
 

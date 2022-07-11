@@ -1,14 +1,14 @@
 from functools import wraps
 
 
-def DeprecatedFeature(message: str = ""):
+def UnfinishedFeature(message: str = ""):
     def dep_decorator(func):
         @wraps(func)
         def dep(*args, **kwargs):
             if message == "":
-                print(func.__name__ + " is deprecated .")
+                print(func.__name__ + " is `unfinished` .")
             else:
-                print(message)
+                print(func.__name__ + " is `unfinished` , because " + message)
             return func(*args, **kwargs)
 
         return dep
