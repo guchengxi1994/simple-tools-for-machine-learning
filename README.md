@@ -5,17 +5,6 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 用于机器学习/深度学习/机器视觉用的小工具
 
-<style>
-table th:first-of-type {
-    width: 33%;
-}
-table th:nth-of-type(2) {
-    width: 33%;
-}
-table th:nth-of-type(3) {
-    width: 34%;
-}
-</style>
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  [![Build Status](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning.svg?branch=dev)](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning)  [![Coverage Status](https://coveralls.io/repos/github/guchengxi1994/simple-tools-for-machine-learning/badge.svg?branch=dev)](https://coveralls.io/github/guchengxi1994/simple-tools-for-machine-learning?branch=dev)
 
@@ -80,15 +69,18 @@ table th:nth-of-type(3) {
   >
   > **examples**
   >
-  > | 原始图片 original                                            | 随机增广 random augmentation                                 | 翻转 flip                                                    |
-  > | ------------------------------------------------------------ | :----------------------------------------------------------- | ------------------------------------------------------------ |
+  > | <div style="width:100px">Column 1</div>                      | <div style="width:100px">Column 2</div>                      | <div style="width:100px">Column 3</div>                      |
+  > | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+  > | 原始图片original                                             | 随机增广random augmentation                                  | 翻转flip                                                     |
   > | ![0](./markdown_resources/0.png)                             | ![round1-0](./markdown_resources/round1-0.jpg)               | ![flip-1-1](./markdown_resources/flip-1-1.jpg)               |
-  > | 噪声 noise                                                   | 旋转 rotation                                                | 平移 translation                                             |
+  > | 噪声noise                                                    | 旋转rotation                                                 | 平移 translation                                             |
   > | ![noise-1-1](./markdown_resources/noise-1-1.jpg)             | ![rotation-0-1-1--131](./markdown_resources/rotation-0-1-1--131.jpg) | ![trans-0-1-0](./markdown_resources/trans-0-1-0.jpg)         |
-  > | 变焦 zoom                                                    | 裁切 crop                                                    | cutmix                                                       |
+  > | 变焦zoom                                                     | 裁切crop                                                     | cutmix                                                       |
   > | ![zoom-0-1-0-1.32](./markdown_resources/zoom-0-1-0-1.32.jpg) | ![crop-0-1-2-multi_polygon_crop](./markdown_resources/crop-0-1-2-multi_polygon_crop.jpg) | ![cutmix-3-0-0-0.5778606296552649](./markdown_resources/cutmix-3-0-0-0.5778606296552649.jpg) |
-  > | 畸变 distort                                                 | 修补 inpaint                                                 | mosaic                                                       |
+  > | 畸变distort                                                  | 修补inpaint                                                  | mosaic                                                       |
   > | ![distort-0-1-0](./markdown_resources/distort-0-1-0.jpg)     | ![inpaint-0-1-2-rectangle_inpaint](./markdown_resources/inpaint-0-1-2-rectangle_inpaint.jpg) | ![mixup-0-0-0-3-2-0.62348335516544-0.6534870361092884](./markdown_resources/mixup-0-0-0-3-2-0.62348335516544-0.6534870361092884.jpg) |
+  > | 修改尺寸 resize                                              | ...                                                          |                                                              |
+  > | ![resize](./markdown_resources/resize.png)                   |                                                              |                                                              |
   >
   > 
 
