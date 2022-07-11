@@ -69,18 +69,18 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >
   > **examples**
   >
-  > | <div style="width:100px">Column 1</div>                      | <div style="width:100px">Column 2</div>                      | <div style="width:100px">Column 3</div>                      |
-  > | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  > | 原始图片original                                             | 随机增广random augmentation                                  | 翻转flip                                                     |
-  > | ![0](./markdown_resources/0.png)                             | ![round1-0](./markdown_resources/round1-0.jpg)               | ![flip-1-1](./markdown_resources/flip-1-1.jpg)               |
-  > | 噪声noise                                                    | 旋转rotation                                                 | 平移 translation                                             |
-  > | ![noise-1-1](./markdown_resources/noise-1-1.jpg)             | ![rotation-0-1-1--131](./markdown_resources/rotation-0-1-1--131.jpg) | ![trans-0-1-0](./markdown_resources/trans-0-1-0.jpg)         |
-  > | 变焦zoom                                                     | 裁切crop                                                     | cutmix                                                       |
-  > | ![zoom-0-1-0-1.32](./markdown_resources/zoom-0-1-0-1.32.jpg) | ![crop-0-1-2-multi_polygon_crop](./markdown_resources/crop-0-1-2-multi_polygon_crop.jpg) | ![cutmix-3-0-0-0.5778606296552649](./markdown_resources/cutmix-3-0-0-0.5778606296552649.jpg) |
-  > | 畸变distort                                                  | 修补inpaint                                                  | mosaic                                                       |
-  > | ![distort-0-1-0](./markdown_resources/distort-0-1-0.jpg)     | ![inpaint-0-1-2-rectangle_inpaint](./markdown_resources/inpaint-0-1-2-rectangle_inpaint.jpg) | ![mixup-0-0-0-3-2-0.62348335516544-0.6534870361092884](./markdown_resources/mixup-0-0-0-3-2-0.62348335516544-0.6534870361092884.jpg) |
-  > | 修改尺寸 resize                                              | ...                                                          |                                                              |
-  > | ![resize](./markdown_resources/resize.png)                   |                                                              |                                                              |
+  >|<div style="width:200px">Column1</div>|<div style="width:200px">Column2</div>|<div style="width:200px">Column3</div>|
+  >|------------------------------------------------------------|------------------------------------------------------------|------------------------------------------------------------|
+  >|原始图片original|随机增广randomaugmentation|翻转flip|
+  >|<img src="./markdown_resources/0.png" width="200px" />|<img src="./markdown_resources/round1-0.jpg" width="200px" />|<img src="./markdown_resources/flip-1-1.jpg" width="200px" />|
+  >|噪声noise|旋转rotation|平移translation|
+  >|<img src="./markdown_resources/noise-1-1.jpg" width="200px" />|<img src="./markdown_resources/rotation-0-1-1--131.jpg" width="200px" />|<img src="./markdown_resources/trans-0-1-0.jpg" width="200px" />|
+  >|变焦zoom|裁切crop|cutmix|
+  >|<img src="./markdown_resources/zoom-0-1-0-1.32.jpg" width="200px" />|<img src="./markdown_resources/crop-0-1-2-multi_polygon_crop.jpg" width="200px" />|<img src="./markdown_resources/cutmix-3-0-0-0.5778606296552649.jpg" width="200px" />|
+  >|畸变distort|修补inpaint|mosaic|
+  >|<img src="./markdown_resources/distort-0-1-0.jpg" width="200px" />|<img src="./markdown_resources/inpaint-0-1-2-rectangle_inpaint.jpg" width="200px" />|<img src="./markdown_resources/mixup-0-0-0-3-2-0.62348335516544-0.6534870361092884.jpg" width="200px" />|
+  >|修改尺寸resize|...||
+  >|<img src="./markdown_resources/resize.png" width="200px" />|||
   >
   > 
 
