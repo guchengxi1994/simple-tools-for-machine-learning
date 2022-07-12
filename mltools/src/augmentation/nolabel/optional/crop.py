@@ -1,3 +1,12 @@
+'''
+Descripttion: 
+version: 
+Author: xiaoshuyui
+email: guchengxi1994@qq.com
+Date: 2022-07-09 08:43:17
+LastEditors: xiaoshuyui
+LastEditTime: 2022-07-12 19:51:29
+'''
 import numpy as np
 import skimage.util.noise as snoise
 from mltools.src.utils.generate_polygon import generate_polygon, generate_rectangle
@@ -28,8 +37,6 @@ def polygon_crop(
 
     if noise:
         noisedMask = np.ones(imgShape) * 255
-        # if len(imgShape) == 3:
-        #     mask = cv2.merge([mask, mask, mask])
         noisedMask = snoise.random_noise(noisedMask, "s&p") * 255
         noisedMask = np.array(noisedMask * (1 - mask), dtype=np.uint8)
         return img * mask + noisedMask
@@ -64,8 +71,6 @@ def multi_polygon_crop(img: np.ndarray, number: int = 1, noise=False, convexHull
 
     if noise:
         noisedMask = np.ones(imgShape) * 255
-        # if len(imgShape) == 3:
-        #     mask = cv2.merge([mask, mask, mask])
         noisedMask = snoise.random_noise(noisedMask, "s&p") * 255
         noisedMask = np.array(noisedMask * (1 - mask), dtype=np.uint8)
         return img * mask + noisedMask

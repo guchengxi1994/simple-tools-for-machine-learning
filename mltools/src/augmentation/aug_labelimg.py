@@ -36,9 +36,7 @@ class LabelimgAugmentation(BaseAugmentation):
         self.augType = AugmentationTypes.LabelImg
         self.labels = labels
 
-    def onlyRotate(
-        self,
-    ):
+    def onlyRotate(self,):
         _imgCount = 0
         for i in range(0, len(self.imgs)):
             _imgCount += 1

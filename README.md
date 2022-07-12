@@ -104,7 +104,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   > | -------- | ------------------------------------------------------------ |
   > | 原始图像 | ![image-20220712150312203](./markdown_resources/image-20220712150312203.png) |
   > | flip     | ![image-20220712150419644](./markdown_resources/image-20220712150419644.png) |
-  > |          |                                                              |
+  > | rotate   | ![捕获](./markdown_resources/捕获.PNG)                       |
   >
   > 
 
@@ -130,6 +130,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 >   > `inpaint` is slow with `skimage` . Using `opencv-python` is faster.
 
 ## 重构进度
+* 2022-07-12 添加`labelImg` 部分增广
 * 2022-07-11 大致完成无标注文件的图像增广，更新readme
 * 2022-07-04 无标注增广完成(去掉了原版`透视变换`增广)
 * 2022-06-13 开始重构，抄/改（主要还是统一`cv2`和`skimage`）了部分代码

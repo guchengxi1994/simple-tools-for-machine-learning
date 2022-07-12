@@ -203,11 +203,7 @@ class NoLabelAugmentation(BaseAugmentation):
                 _distortImg = img_distort(_img)
                 io.imsave(
                     self.savedPath
-                    + "distort-{}-{}-{}.jpg".format(
-                        split_file_name(i),
-                        _imgCount,
-                        j,
-                    ),
+                    + "distort-{}-{}-{}.jpg".format(split_file_name(i), _imgCount, j,),
                     _distortImg,
                 )
 
@@ -231,10 +227,7 @@ class NoLabelAugmentation(BaseAugmentation):
                 io.imsave(
                     self.savedPath
                     + "inpaint-{}-{}-{}-{}.jpg".format(
-                        split_file_name(i),
-                        _imgCount,
-                        j,
-                        _method.__name__,
+                        split_file_name(i), _imgCount, j, _method.__name__,
                     ),
                     result,
                 )
