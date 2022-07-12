@@ -45,9 +45,25 @@ def rotate_xml(src, xmin, ymin, xmax, ymax, angle, scale=1.0):
     concat = np.vstack((point1, point2, point3, point4))
     # change type
     concat = concat.astype(np.int32)
-    return (
-        concat[0][0],
-        concat[0][1],
-        concat[2][0] - concat[0][0] + 1,
-        concat[2][1] - concat[0][1] + 1,
+    concat0 = concat[:, 0]
+    concat1 = concat[:, 1]
+
+    _min0 = np.min(concat0)
+    _max0 = np.max(concat0)
+    _min1 = np.min(concat1)
+    _max1 = np.max(concat1)
+
+    rx, ry, rw, rh = (
+        _min0,
+        _min1,
+        _max0 - _min0 + 1,
+        _max1 - _min1 + 1,
     )
+    # print(rx, ry, rw, rh)
+
+    # rx, ry, rw, rh = cv2.boundingRect(concat)
+
+    # print(rx, ry, rw, rh)
+    # print("**********************")
+
+    return rx, ry, rw, rh

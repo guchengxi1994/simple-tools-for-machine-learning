@@ -2,7 +2,7 @@ import sys
 
 sys.path.append("..")
 from skimage import io
-from mltools.src.augmentation.labelimg.img_rotation import rotate_xml
+from mltools.src.augmentation.labelimg.xml_rotation import rotate_xml
 
 img = io.imread("0.png")
 

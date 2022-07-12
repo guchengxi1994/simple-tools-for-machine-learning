@@ -40,31 +40,31 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >
   > ```python
   > if __name__ == "__main__":
-  > # random augmentation
-  > n.go()
-  > # only flip
-  > n.onlyFlip()
-  > # only noise
-  > n.onlyNoise()
-  > # only rotation
-  > n.onlyRotation()
-  > # translation
-  > n.onlyTranslation()
-  > # zoom
-  > n.onlyZoom()
-  > # crop
-  > n.onlyCrop()
-  > # cutmix
-  > n.append("3.png")
-  > n.onlyCutmix()
-  > # distort
-  > n.onlyDistort()
-  > # inpaint
-  > n.onlyInpaint(reshape=True)
-  > # mosaic
-  > n.onlyMosiac()
-  > # resize
-  > n.onlyResize()
+  >     # random augmentation
+  >     n.go()
+  >     # only flip
+  >     n.onlyFlip()
+  >     # only noise
+  >     n.onlyNoise()
+  >     # only rotation
+  >     n.onlyRotation()
+  >     # translation
+  >     n.onlyTranslation()
+  >     # zoom
+  >     n.onlyZoom()
+  >     # crop
+  >     n.onlyCrop()
+  >     # cutmix
+  >     n.append("3.png")
+  >     n.onlyCutmix()
+  >     # distort
+  >     n.onlyDistort()
+  >     # inpaint
+  >     n.onlyInpaint(reshape=True)
+  >     # mosaic
+  >     n.onlyMosiac()
+  >     # resize
+  >     n.onlyResize()
   > ```
   >
   > **examples**
@@ -81,6 +81,30 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >|<img src="./markdown_resources/distort-0-1-0.jpg" width="200px" />|<img src="./markdown_resources/inpaint-0-1-2-rectangle_inpaint.jpg" width="200px" />|<img src="./markdown_resources/mixup-0-0-0-3-2-0.62348335516544-0.6534870361092884.jpg" width="200px" />|
   >|修改尺寸resize|...||
   >|<img src="./markdown_resources/resize.png" width="200px" />|||
+  >
+  
+* labelImg标注
+
+  > ```python
+  > ```
+  >
+  > **parameters**
+  >
+  > ```python
+  > ```
+  >
+  > **codes**
+  >
+  > ```python
+  > ```
+  >
+  > **examples**
+  >
+  > | 标注类型 | 结果                                                         |
+  > | -------- | ------------------------------------------------------------ |
+  > | 原始图像 | ![image-20220712150312203](./markdown_resources/image-20220712150312203.png) |
+  > | flip     | ![image-20220712150419644](./markdown_resources/image-20220712150419644.png) |
+  > |          |                                                              |
   >
   > 
 

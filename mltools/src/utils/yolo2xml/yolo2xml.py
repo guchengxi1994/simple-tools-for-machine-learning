@@ -10,7 +10,7 @@ from skimage import io
 from tqdm import tqdm
 
 
-def y2xConvert(txtPath, imgPath, labelPath):
+def y2x_convert(txtPath, imgPath, labelPath):
     """this function is used to convert yolo txts to xml files(in order to change)
 
     params:

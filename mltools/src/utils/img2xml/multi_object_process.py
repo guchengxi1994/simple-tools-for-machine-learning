@@ -16,10 +16,6 @@ def json_to_xml(json_str):
     return xml_str
 
 
-def root2annotion(xml_str):
-    pass
-
-
 def img2xml(
     folder: str,
     filename: str,
@@ -83,7 +79,7 @@ def img2xml(
     return json_to_xml(dicts)
 
 
-def writeXML(domTree_path, aimPath, name: str, bndbox: dict):
+def write_xml(domTree_path, aimPath, name: str, bndbox: dict):
     if os.path.exists(domTree_path):
         domTree = parse(domTree_path)
         # print(domTree)
@@ -135,7 +131,7 @@ def writeXML(domTree_path, aimPath, name: str, bndbox: dict):
             domTree.writexml(f, addindent="  ", encoding="utf-8")
 
 
-def prettyXml(
+def pretty_xml(
     element, indent, newline, level=0
 ):  # elemnt为传进来的Elment类，参数indent用于缩进，newline用于换行
     if element:  # 判断element是否有子元素
@@ -159,7 +155,7 @@ def prettyXml(
             subelement.tail = newline + indent * (level + 1)
         else:  # 如果是list的最后一个元素， 说明下一行是母元素的结束，缩进应该少一个
             subelement.tail = newline + indent * level
-        prettyXml(subelement, indent, newline, level=level + 1)  # 对子元素进行递归操作
+        pretty_xml(subelement, indent, newline, level=level + 1)  # 对子元素进行递归操作
     return element
 
 
@@ -231,10 +227,10 @@ def img2xml_multiobj(
                 bndbox["xmax"] = bn["xmax"]
                 bndbox["ymax"] = bn["ymax"]
 
-                writeXML(tmpPath, aimPath, o["name"], bndbox)
+                write_xml(tmpPath, aimPath, o["name"], bndbox)
 
         domTree = ET.parse(tmpPath)
         root = domTree.getroot()
-        root = prettyXml(root, "\t", "\n")
+        root = pretty_xml(root, "\t", "\n")
         tree = ET.ElementTree(root)
         tree.write(tmpPath)

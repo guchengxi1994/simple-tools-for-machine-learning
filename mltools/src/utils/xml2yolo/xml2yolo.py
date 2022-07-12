@@ -10,7 +10,7 @@ from mltools.src.log.logger import logger
 from tqdm import tqdm
 
 
-def x2yConvert(xmlpath, labelPath=""):
+def x2y_convert(xmlpath, labelPath=""):
     """this function is used to convert xmls to yolo txts
 
     params:

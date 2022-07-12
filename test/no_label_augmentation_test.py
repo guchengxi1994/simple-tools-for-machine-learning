@@ -1,7 +1,7 @@
 import sys
 
 sys.path.append("..")
-from mltools.src.augmentation.aug import NoLabelAugmentation
+from mltools.src.augmentation.aug_no_label import NoLabelAugmentation
 
 n = NoLabelAugmentation(["0.png"], False, augNumber=3)
 

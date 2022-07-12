@@ -17,6 +17,7 @@ import numpy as np
 from mltools import __CPUS__
 from mltools.src import split_file_name
 from mltools.src.augmentation import AugmentationTypes
+from mltools.src.augmentation.base import BaseAugmentation
 from mltools.src.augmentation.nolabel import *
 from mltools.src.augmentation.nolabel.optional.resize import img_resize_with_shape
 from mltools.src.decorators.unfinished_feature import UnfinishedFeature
@@ -25,14 +26,12 @@ from skimage import io
 from tqdm import tqdm
 
 
-class NoLabelAugmentation:
-    config = {}
-
-    def from_config(cls, c: dict):
-        cls.config = c
+class NoLabelAugmentation(BaseAugmentation):
+    def from_config(self, c: dict):
+        return super().from_config(c)
 
     def append(self, imgPath):
-        self.imgs.append(imgPath)
+        return super().append(imgPath)
 
     def __init__(
         self,
@@ -40,41 +39,15 @@ class NoLabelAugmentation:
         parallel: bool = False,
         savedPath: str = "",
         augNumber: int = 1,
-        augMethods: List[str] = ["noise", "rotation", "trans", "flip", "zoom"],
-        optionalMethods: List[str] = [],
+        augMethods: List[str] = ...,
+        optionalMethods: List[str] = ...,
     ) -> None:
-        """
-        @ imgs : 增广图片数组
-        @ parallel : 是否并行（多进程）
-        @ savedPath : 结果保存路径，可不填
-        @ augNumber : 增广数量
-        @ augMethods : 增广用到的方法，默认的有 "noise", "rotation", "trans", "flip", "zoom"
-        @ optionalMethods : 增广用到的可选方法，默认为空数组,包括 crop, cutmix, cutout, distort, inpaint,
-                            mixup, mosaic, resize
-        """
-        self.imgs = imgs
-        self.parallel = parallel
-        self.savedPath = savedPath
-        self.augNumber = augNumber
-        self.augMethods = augMethods
-        self.optionalMethods = optionalMethods
+        super().__init__(
+            imgs, parallel, savedPath, augNumber, augMethods, optionalMethods
+        )
         self.augType = AugmentationTypes.NoLabel
-        self.__prepare()
 
-    def __prepare(self):
-        if self.savedPath != "":
-            if os.path.exists(self.savedPath):
-                pass
-            else:
-                if not os.path.exists(self.savedPath):
-                    os.mkdir(self.savedPath)
-        else:
-            if not os.path.exists("results"):
-                os.mkdir("results")
-
-        self.savedPath = "./results/"
-
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyFlip(self, flipList=[1, 0, -1]):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -92,7 +65,7 @@ class NoLabelAugmentation:
                     self.savedPath + "flip-{}-{}.jpg".format(_imgCount, _flip_count), j
                 )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyNoise(self, noise_types: list = []):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -108,7 +81,7 @@ class NoLabelAugmentation:
                     self.savedPath + "noise-{}-{}.jpg".format(_imgCount, j), _noisedImg
                 )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyRotation(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -129,7 +102,7 @@ class NoLabelAugmentation:
                     _rotatedImg,
                 )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyTranslation(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -147,7 +120,7 @@ class NoLabelAugmentation:
                     _transImg,
                 )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyZoom(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -168,7 +141,7 @@ class NoLabelAugmentation:
                     _zoomImg,
                 )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyCrop(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -215,7 +188,7 @@ class NoLabelAugmentation:
                 result,
             )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyDistort(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -238,7 +211,7 @@ class NoLabelAugmentation:
                     _distortImg,
                 )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyInpaint(self, reshape: bool = True):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -319,7 +292,7 @@ class NoLabelAugmentation:
                 result,
             )
 
-    @UnfinishedFeature(message="multi processing is unfinished")
+    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyResize(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
