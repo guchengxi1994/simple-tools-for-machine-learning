@@ -8,12 +8,12 @@ from mltools.src.augmentation import AugmentationTypes
 from mltools.src.augmentation.base import BaseAugmentation
 from mltools.src.augmentation.labelimg import *
 from mltools.src.augmentation.nolabel import *
-from mltools.src.decorators.unfinished_feature import UnfinishedFeature
+from mltools.src.decorators.incomplete_feature import IncompleteFeature
 from mltools.src.decorators.unfully_test_feature import UnFullyTestedFeature
 from skimage import io
 
 
-@UnfinishedFeature()
+@IncompleteFeature()
 @UnFullyTestedFeature
 class LabelimgAugmentation(BaseAugmentation):
     def from_config(self, c: dict):

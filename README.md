@@ -17,6 +17,34 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 ## How to use
 
+* 工具 utils
+
+  * [xml2createML](test/xml2createML_test.py)
+  
+    > 将`labelImg`格式（Pascal VOC）转化为`createML`（json）格式
+    >
+    > Convert `labelImg` format (Pascal VOC) to `createML` (JSON) format
+  
+  * img2xml
+  
+    > 用来生成Pascal VOC标注文件的一个简单工具
+    >
+    > A simple tool for generating Pascal VOC annotation files
+  
+  * [json2mask](test/convert_json_to_mask_test.py)
+  
+    > 将`labelme`格式的json文件转化为用于训练的mask文件（使用的时候输入绝对路径）
+    >
+    > Convert the JSON file in `labelme` format into a mask file for training (enter the absolute path when using)
+  
+  * json2xml
+  
+    > 将`labelme` json格式文件转化为`labelImg` xml格式文件
+    >
+    > Convert `labelme` JSON file to `labelimg` XML file
+  
+  * ...
+  
 * 无标注文件图像增广 (image augmentation without label files)
 
   > ```python

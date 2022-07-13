@@ -1,14 +1,14 @@
 from functools import wraps
 
 
-def UnfinishedFeature(message: str = ""):
+def IncompleteFeature(message: str = ""):
     def dep_decorator(func):
         @wraps(func)
         def dep(*args, **kwargs):
             if message == "":
-                print(func.__name__ + " is `unfinished` .")
+                print(func.__name__ + " is incomplete .")
             else:
-                print(func.__name__ + " is `unfinished` , because " + message)
+                print(func.__name__ + " is incomplete , because " + message)
             return func(*args, **kwargs)
 
         return dep

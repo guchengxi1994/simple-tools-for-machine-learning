@@ -133,3 +133,7 @@ test/results
 test/*.jpg
 
 backup/
+
+test/mask/
+test/mask_viz/
+test/masks_/

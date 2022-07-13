@@ -8,7 +8,6 @@ LastEditors: xiaoshuyui
 LastEditTime: 2022-07-09 09:15:33
 """
 import copy
-import os
 import random
 from multiprocessing import Pool
 from typing import List
@@ -20,13 +19,13 @@ from mltools.src.augmentation import AugmentationTypes
 from mltools.src.augmentation.base import BaseAugmentation
 from mltools.src.augmentation.nolabel import *
 from mltools.src.augmentation.nolabel.optional.resize import img_resize_with_shape
-from mltools.src.decorators.unfinished_feature import UnfinishedFeature
+from mltools.src.decorators.incomplete_feature import IncompleteFeature
 from mltools.src.log.logger import logger
 from skimage import io
 from tqdm import tqdm
 
 
-@UnfinishedFeature(message="multi processing development is unfinished")
+@IncompleteFeature(message="multi processing development is incomplete")
 class NoLabelAugmentation(BaseAugmentation):
     def from_config(self, c: dict):
         return super().from_config(c)
