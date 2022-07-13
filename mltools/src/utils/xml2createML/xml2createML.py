@@ -5,5 +5,5 @@ def xml2createML(xmlPath):
     obj = dict()
     tree = ET.parse(xmlPath)
     root = tree.getroot()
-    filename = root.get(filename)
+    filename = root.get('filename')
     

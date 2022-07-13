@@ -13,7 +13,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 > * scipy
 > * scikit_image
 > * tqdm
-> * xml2dict
+> * xmltodict
 
 ## How to use
 
