@@ -1,40 +1,31 @@
-import os
-
+from skimage import io
 import numpy as np
-import skimage
 
-try:
-    import defusedxml.ElementTree as ET
-except:
-    import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET
 
 from mltools.src.augmentation.nolabel.optional.resize import img_resize
-from mltools.src.log.logger import logger
 from mltools.src.utils.xml2yolo.xml2yolo import convert as x2yVert
 from mltools.src.utils.yolo2xml.yolo2xml import convert as y2xVert
+from mltools.src.log.logger import logger
 
 
-def resizeScript(img, xmlpath: str, heightFactor=1, widthFactor=1, flag=True):
-    if isinstance(img, str) and os.path.exists(img):
-        oriImg = skimage.io.imread(img)
-    elif isinstance(img, np.ndarray):
-        oriImg = img
-    else:
-        logger.error("Input error!")
-        return
-
-    in_file = open(xmlpath)
-    tree = ET.parse(in_file)
+def resize_script(
+    oriImg: np.ndarray,
+    xmlpath: str,
+    heightFactor=1,
+    widthFactor=1,
+    savePath="",
+    fileName="",
+):
+    tree = ET.parse(xmlpath)
     root = tree.getroot()
 
-    parentPath, xmlFilename = os.path.split(xmlpath)
-    xf, _ = os.path.splitext(xmlFilename)
-    savePath = parentPath + os.sep + xf + "_reshape.xml"
-
-    root.find("filename").text = xf + "_reshape.jpg"
-    root.find("path").text = parentPath + os.sep + xf + "_reshape.jpg"
+    if fileName != "":
+        root.find("filename").text = fileName
+        root.find("path").text = savePath + fileName
 
     resizeImg = img_resize(oriImg, heightFactor, widthFactor)
+
     resizeImgShape = resizeImg.shape
     width = int(resizeImgShape[1])
     height = int(resizeImgShape[0])
@@ -67,9 +58,8 @@ def resizeScript(img, xmlpath: str, heightFactor=1, widthFactor=1, flag=True):
         xmlbox.find("xmax").text = str(int(bbox[1]))
         xmlbox.find("ymax").text = str(int(bbox[3]))
 
-    if flag:  # save file
-        tree.write(savePath)
-        in_file.close()
-        return resizeImg, savePath
-    else:
-        return tree
+    if fileName != "":
+        io.imsave(savePath + fileName, resizeImg)
+        tree.write(savePath + fileName.replace(".jpg", ".xml"))
+        logger.info("Resize augmentation saved to {}.".format(savePath))
+    return tree

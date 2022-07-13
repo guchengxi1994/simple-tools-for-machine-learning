@@ -13,10 +13,11 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 > * scipy
 > * scikit_image
 > * tqdm
+> * xml2dict
 
 ## How to use
 
-* 无标注文件图像增广 image augmentation (without label files)
+* 无标注文件图像增广 (image augmentation without label files)
 
   > ```python
   > from mltools.src.augmentation.aug import NoLabelAugmentation
@@ -40,31 +41,31 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >
   > ```python
   > if __name__ == "__main__":
-  >     # random augmentation
-  >     n.go()
-  >     # only flip
-  >     n.onlyFlip()
-  >     # only noise
-  >     n.onlyNoise()
-  >     # only rotation
-  >     n.onlyRotation()
-  >     # translation
-  >     n.onlyTranslation()
-  >     # zoom
-  >     n.onlyZoom()
-  >     # crop
-  >     n.onlyCrop()
-  >     # cutmix
-  >     n.append("3.png")
-  >     n.onlyCutmix()
-  >     # distort
-  >     n.onlyDistort()
-  >     # inpaint
-  >     n.onlyInpaint(reshape=True)
-  >     # mosaic
-  >     n.onlyMosiac()
-  >     # resize
-  >     n.onlyResize()
+  >         # random augmentation
+  >         n.go()
+  >         # only flip
+  >         n.onlyFlip()
+  >         # only noise
+  >         n.onlyNoise()
+  >         # only rotation
+  >         n.onlyRotation()
+  >         # translation
+  >         n.onlyTranslation()
+  >         # zoom
+  >         n.onlyZoom()
+  >         # crop
+  >         n.onlyCrop()
+  >         # cutmix
+  >         n.append("3.png")
+  >         n.onlyCutmix()
+  >         # distort
+  >         n.onlyDistort()
+  >         # inpaint
+  >         n.onlyInpaint(reshape=True)
+  >         # mosaic
+  >         n.onlyMosaic()
+  >         # resize
+  >         n.onlyResize()
   > ```
   >
   > **examples**
@@ -83,28 +84,55 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >|<img src="./markdown_resources/resize.png" width="200px" />|||
   >
   
-* labelImg标注
+* labelImg标注增广  (augmentation for labelImg)
 
   > ```python
+  > from mltools.src.augmentation.aug_labelimg import LabelimgAugmentation
+  > l = LabelimgAugmentation(["0.png"], ["0.xml"])
   > ```
   >
   > **parameters**
   >
   > ```python
+  > """ ...
+  >     labels: List[str], 标注储存的地址，要和图片一一对应
+  > """
   > ```
   >
   > **codes**
   >
   > ```python
+  > if __name__ == "__main__":
+  >     # flip
+  >     l.onlyFlip()
+  >     # rotate
+  >     l.onlyRotate()
+  >     # translation
+  >     l.onlyTrans()
+  >     # zoom
+  >     l.onlyZoom()
+  >     # noise
+  >     l.onlyNoise()
+  >     # mosaic
+  >     l.append("3.png", "3.xml")
+  >     l.onlyMosaic()
+  >     # resize
+  >     l.onlyResize()
   > ```
   >
   > **examples**
   >
-  > | 标注类型 | 结果                                                         |
-  > | -------- | ------------------------------------------------------------ |
-  > | 原始图像 | ![image-20220712150312203](./markdown_resources/image-20220712150312203.png) |
-  > | flip     | ![image-20220712150419644](./markdown_resources/image-20220712150419644.png) |
-  > | rotate   | ![捕获](./markdown_resources/捕获.PNG)                       |
+  > | 标注类型    | 结果                                                         |
+  > | ----------- | ------------------------------------------------------------ |
+  > | 原始图像    | ![image-20220712150312203](./markdown_resources/image-20220712150312203.png) |
+  > | flip        | ![image-20220712150419644](./markdown_resources/image-20220712150419644.png) |
+  > | rotate      | ![捕获](./markdown_resources/捕获.PNG)                       |
+  > | translation | ![image-20220713082158383](./markdown_resources/image-20220713082158383.png) |
+  > | zoom        | ![image-20220713094235950](./markdown_resources/image-20220713094235950.png) |
+  > | noise       | ![image-20220713094736375](./markdown_resources/image-20220713094736375.png) |
+  > | mosaic      | ![image-20220713104120390](./markdown_resources/image-20220713104120390.png) |
+  > | resize      | ![image-20220713111823197](./markdown_resources/image-20220713111823197.png) |
+  > | ...         |                                                              |
   >
   > 
 
@@ -130,6 +158,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 >   > `inpaint` is slow with `skimage` . Using `opencv-python` is faster.
 
 ## 重构进度
+* 2022-07-13 添加`labelImg` 部分增广
 * 2022-07-12 添加`labelImg` 部分增广
 * 2022-07-11 大致完成无标注文件的图像增广，更新readme
 * 2022-07-04 无标注增广完成(去掉了原版`透视变换`增广)

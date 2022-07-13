@@ -54,11 +54,5 @@ def rotate_xml(src, xmin, ymin, xmax, ymax, angle):
         _max0 - _min0 + 1,
         _max1 - _min1 + 1,
     )
-    # print(rx, ry, rw, rh)
-
-    # rx, ry, rw, rh = cv2.boundingRect(concat)
-
-    # print(rx, ry, rw, rh)
-    # print("**********************")
 
     return rx, ry, rw, rh

@@ -26,6 +26,7 @@ from skimage import io
 from tqdm import tqdm
 
 
+@UnfinishedFeature(message="multi processing development is unfinished")
 class NoLabelAugmentation(BaseAugmentation):
     def from_config(self, c: dict):
         return super().from_config(c)
@@ -47,7 +48,6 @@ class NoLabelAugmentation(BaseAugmentation):
         )
         self.augType = AugmentationTypes.NoLabel
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyFlip(self, flipList=[1, 0, -1]):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -65,7 +65,6 @@ class NoLabelAugmentation(BaseAugmentation):
                     self.savedPath + "flip-{}-{}.jpg".format(_imgCount, _flip_count), j
                 )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyNoise(self, noise_types: list = []):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -81,7 +80,6 @@ class NoLabelAugmentation(BaseAugmentation):
                     self.savedPath + "noise-{}-{}.jpg".format(_imgCount, j), _noisedImg
                 )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyRotation(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -102,7 +100,6 @@ class NoLabelAugmentation(BaseAugmentation):
                     _rotatedImg,
                 )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyTranslation(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -120,7 +117,6 @@ class NoLabelAugmentation(BaseAugmentation):
                     _transImg,
                 )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyZoom(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -141,7 +137,6 @@ class NoLabelAugmentation(BaseAugmentation):
                     _zoomImg,
                 )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyCrop(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -188,7 +183,6 @@ class NoLabelAugmentation(BaseAugmentation):
                 result,
             )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyDistort(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -203,11 +197,10 @@ class NoLabelAugmentation(BaseAugmentation):
                 _distortImg = img_distort(_img)
                 io.imsave(
                     self.savedPath
-                    + "distort-{}-{}-{}.jpg".format(split_file_name(i), _imgCount, j,),
+                    + "distort-{}-{}-{}.jpg".format(split_file_name(i), _imgCount, j),
                     _distortImg,
                 )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyInpaint(self, reshape: bool = True):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -227,7 +220,10 @@ class NoLabelAugmentation(BaseAugmentation):
                 io.imsave(
                     self.savedPath
                     + "inpaint-{}-{}-{}-{}.jpg".format(
-                        split_file_name(i), _imgCount, j, _method.__name__,
+                        split_file_name(i),
+                        _imgCount,
+                        j,
+                        _method.__name__,
                     ),
                     result,
                 )
@@ -252,7 +248,7 @@ class NoLabelAugmentation(BaseAugmentation):
                 result,
             )
 
-    def onlyMosiac(self):
+    def onlyMosaic(self):
         if len(self.imgs) == 0:
             return
 
@@ -266,14 +262,14 @@ class NoLabelAugmentation(BaseAugmentation):
             img3 = io.imread(i3)
             img4 = io.imread(i4)
 
-            result, _, f1, f2 = mosiac_img_no_reshape(
+            result, _, f1, f2 = mosaic_img_no_reshape(
                 [img1, img2, img3, img4],
                 widthFactor=random.uniform(0.3, 0.7),
                 heightFactor=random.uniform(0.3, 0.7),
             )
             io.imsave(
                 self.savedPath
-                + "mixup-{}-{}-{}-{}-{}-{}-{}.jpg".format(
+                + "mosaic-{}-{}-{}-{}-{}-{}-{}.jpg".format(
                     split_file_name(i1),
                     split_file_name(i2),
                     split_file_name(i3),
@@ -285,7 +281,6 @@ class NoLabelAugmentation(BaseAugmentation):
                 result,
             )
 
-    @UnfinishedFeature(message="multi processing development is unfinished")
     def onlyResize(self):
         if self.parallel:
             pool = Pool(__CPUS__ - 1)
@@ -391,7 +386,7 @@ def random_aug(img: np.ndarray, index=0, augMethods=[], augNumber=1, savedPath="
                     img = _method(img)
 
                 elif i[0] == "mosaic":
-                    img, _, _, _ = mosiac_img_no_reshape([img, img, img, img])
+                    img, _, _, _ = mosaic_img_no_reshape([img, img, img, img])
 
                 elif i[0] == "resize":
                     img = img_resize(img)

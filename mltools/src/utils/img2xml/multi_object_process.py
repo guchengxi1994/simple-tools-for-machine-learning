@@ -1,9 +1,6 @@
 import os
 
-try:
-    import defusedxml.ElementTree as ET
-except:
-    import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET
 from xml.dom.minidom import parse
 
 import xmltodict
@@ -134,15 +131,17 @@ def write_xml(domTree_path, aimPath, name: str, bndbox: dict):
 def pretty_xml(
     element, indent, newline, level=0
 ):  # elemnt为传进来的Elment类，参数indent用于缩进，newline用于换行
-    if element:  # 判断element是否有子元素
-        if element.text == None or element.text.isspace():  # 如果element的text没有内容
+    if element is not None:  # 判断element是否有子元素
+        if element.text is None or element.text.isspace():  # 如果element的text没有内容
             element.text = newline + indent * (level + 1)
         else:
             element.text = (
-                newline
+                # newline
+                ""
                 + indent * (level + 1)
                 + element.text.strip()
-                + newline
+                # + newline
+                + ""
                 + indent * (level + 1)
             )
     # else:  # 此处两行如果把注释去掉，Element的text也会另起一行
@@ -231,6 +230,6 @@ def img2xml_multiobj(
 
         domTree = ET.parse(tmpPath)
         root = domTree.getroot()
-        root = pretty_xml(root, "\t", "\n")
+        root = pretty_xml(root, " ", "\n")
         tree = ET.ElementTree(root)
         tree.write(tmpPath)

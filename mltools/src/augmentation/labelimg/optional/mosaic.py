@@ -4,25 +4,22 @@ import os
 import random
 import skimage
 from mltools.src.log.logger import logger
-from mltools.src.augmentation.nolabel.optional.mosaic import mosiac_img_no_reshape
+from mltools.src.augmentation.nolabel.optional.mosaic import mosaic_img_no_reshape
 from mltools.src.utils.img2xml.multi_object_process import img2xml_multiobj
-from .resize import resizeScript
+from .resize import resize_script
 
-try:
-    import defusedxml.ElementTree as ET
-except:
-    import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
 
 
-def getName(xmls: list):
+def get_name(xmls: list):
     s = str(datetime.datetime.now())
     for i in xmls:
         s += i
     return str(abs(hash(s)))
 
 
-def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
+def mosaic_script_no_reshape(imgs: list, xmls: list, savePath: str, imgName: str):
     heightFactor = random.uniform(0.1, 0.5)
     widthFactor = random.uniform(0.1, 0.5)
 
@@ -32,37 +29,34 @@ def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
         logger.error("Input must be list!")
         return
 
-    imgname = getName(xmls)
+    imgname = imgName
     folder = savePath
-    mosiacImg, res, _, _ = mosiac_img_no_reshape(imgs, heightFactor, widthFactor)
+    mosaicImg, res, _, _ = mosaic_img_no_reshape(imgs, heightFactor, widthFactor)
     front = res[0]
 
     heightFactor = min(heightFactor, 1 - heightFactor)
     widthFactor = min(widthFactor, 1 - widthFactor)
 
     tree1 = ET.parse(xmls[0])
-    tree2 = resizeScript(
+    tree2 = resize_script(
         img2,
         xmls[1],
         heightFactor=img1.shape[0] / img2.shape[0],
         widthFactor=img1.shape[1] / img2.shape[1],
-        flag=False,
     )
 
-    tree3 = resizeScript(
+    tree3 = resize_script(
         img3,
         xmls[2],
         heightFactor=img1.shape[0] / img3.shape[0],
         widthFactor=img1.shape[1] / img3.shape[1],
-        flag=False,
     )
 
-    tree4 = resizeScript(
+    tree4 = resize_script(
         img4,
         xmls[3],
         heightFactor=img1.shape[0] / img4.shape[0],
         widthFactor=img1.shape[1] / img4.shape[1],
-        flag=False,
     )
 
     root1 = tree1.getroot()
@@ -72,8 +66,8 @@ def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
         ymin = float(box.find("ymin").text)
         xmax = float(box.find("xmax").text)
         ymax = float(box.find("ymax").text)
-        box.find("xmin").text = str(int(xmin + widthFactor * mosiacImg.shape[1]))
-        box.find("xmax").text = str(int(xmax + widthFactor * mosiacImg.shape[1]))
+        box.find("xmin").text = str(int(xmin + widthFactor * mosaicImg.shape[1]))
+        box.find("xmax").text = str(int(xmax + widthFactor * mosaicImg.shape[1]))
 
     root3 = tree3.getroot()
     for box in root3.iter("bndbox"):
@@ -81,8 +75,8 @@ def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
         ymin = float(box.find("ymin").text)
         xmax = float(box.find("xmax").text)
         ymax = float(box.find("ymax").text)
-        box.find("ymin").text = str(int(ymin + heightFactor * mosiacImg.shape[0]))
-        box.find("ymax").text = str(int(ymax + heightFactor * mosiacImg.shape[0]))
+        box.find("ymin").text = str(int(ymin + heightFactor * mosaicImg.shape[0]))
+        box.find("ymax").text = str(int(ymax + heightFactor * mosaicImg.shape[0]))
 
     root4 = tree4.getroot()
     for box in root4.iter("bndbox"):
@@ -90,19 +84,19 @@ def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
         ymin = float(box.find("ymin").text)
         xmax = float(box.find("xmax").text)
         ymax = float(box.find("ymax").text)
-        box.find("xmin").text = str(int(xmin + widthFactor * mosiacImg.shape[1]))
-        box.find("xmax").text = str(int(xmax + widthFactor * mosiacImg.shape[1]))
-        box.find("ymin").text = str(int(ymin + heightFactor * mosiacImg.shape[0]))
-        box.find("ymax").text = str(int(ymax + heightFactor * mosiacImg.shape[0]))
+        box.find("xmin").text = str(int(xmin + widthFactor * mosaicImg.shape[1]))
+        box.find("xmax").text = str(int(xmax + widthFactor * mosaicImg.shape[1]))
+        box.find("ymin").text = str(int(ymin + heightFactor * mosaicImg.shape[0]))
+        box.find("ymax").text = str(int(ymax + heightFactor * mosaicImg.shape[0]))
     boxes = []
 
-    r1, r2, r3, r4 = getBoxes(
+    r1, r2, r3, r4 = get_boxex(
         front,
         root1,
         root2,
         root3,
         root4,
-        mosiacImg.shape,
+        mosaicImg.shape,
         heightFactor=heightFactor,
         widthFactor=widthFactor,
     )
@@ -119,7 +113,7 @@ def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
     for box in r4.iter("object"):
         boxes.append(box)
     # print(len(boxes))
-    imgshape = mosiacImg.shape
+    imgshape = mosaicImg.shape
     objs = []
     for o in boxes:
         obj = dict()
@@ -157,13 +151,11 @@ def mosiacScript_no_reshape(imgs: list, xmls: list, savePath: str, flag=False):
         tmpPath, tmpPath, folder, filename, filepath, imgshape[1], imgshape[0], objs
     )
 
-    logger.info("Saved to {}.".format(tmpPath))
-
-    if flag:
-        skimage.io.imsave(filepath, mosiacImg)
+    skimage.io.imsave(filepath, mosaicImg)
+    logger.info("Mosaic augmentation saved to {}.".format(tmpPath))
 
 
-def getBoxes(
+def get_boxex(
     front: int,
     root1: Element,
     root2: Element,

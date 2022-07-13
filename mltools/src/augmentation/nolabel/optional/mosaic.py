@@ -19,8 +19,8 @@ def getMeanSize(imgs: list):
     return int(np.mean(height)), int(np.mean(width))
 
 
-@DeprecatedFeature("`mosiac_img` is deprecated, use `mosiac_img_no_reshape` instead")
-def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
+@DeprecatedFeature("`mosaic_img` is deprecated, use `mosaic_img_no_reshape` instead")
+def mosaic_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
     if not type(imgs) is list:
         logger.error("Input must be a list!")
         return
@@ -81,7 +81,7 @@ def mosiac_img(imgs: list, heightFactor=0.5, widthFactor=0.5):
     return np.vstack((h1, h2))
 
 
-def mosiac_img_no_reshape(imgs: list, heightFactor=0.5, widthFactor=0.5):
+def mosaic_img_no_reshape(imgs: list, heightFactor=0.5, widthFactor=0.5):
     assert (
         type(imgs) is list and len(imgs) == 4
     ), "input must be a list[str_or_ndarray] with length=4"

@@ -1,11 +1,9 @@
 import glob
 import os
 
-# import xml.etree.ElementTree as ET
-
 from mltools.src.utils.img2xml.multi_object_process import img2xml_multiobj
 from mltools.src.log.logger import logger
-from mltools.src.utils.xml2yolo.xml2yolo import readLabels
+from mltools.src.utils.xml2yolo.xml2yolo import read_labels
 from skimage import io
 from tqdm import tqdm
 
@@ -31,7 +29,7 @@ def y2x_convert(txtPath, imgPath, labelPath):
 
     """
     logger.info("only *.jpg supported right now!")
-    labels = readLabels(labelPath)
+    labels = read_labels(labelPath)
     if not os.path.exists(txtPath):
         raise FileNotFoundError("file not found")
     else:

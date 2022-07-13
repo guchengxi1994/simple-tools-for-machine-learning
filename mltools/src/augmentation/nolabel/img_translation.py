@@ -29,7 +29,7 @@ def img_translation(oriImg: PathOrNdarray, th: int = 0, tv: int = 0) -> Nullable
     trans_h = random.randint(0, int(0.5 * imgShape[1])) if th == 0 else th
     trans_v = random.randint(0, int(0.5 * imgShape[0])) if tv == 0 else tv
 
-    tf_trans = transform.SimilarityTransform(translation=[trans_h, trans_v])
+    tf_trans = transform.SimilarityTransform(translation=[trans_v, trans_h])
 
     img = transform.warp(img, tf_trans.inverse, preserve_range=True)
     return np.array(img, dtype=np.uint8)

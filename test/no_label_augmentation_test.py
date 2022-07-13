@@ -28,6 +28,6 @@ if __name__ == "__main__":
     # inpaint
     n.onlyInpaint(reshape=True)
     # mosaic
-    n.onlyMosiac()
+    n.onlyMosaic()
     # resize
     n.onlyResize()

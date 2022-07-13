@@ -13,7 +13,7 @@ from .optional import (
     polygon_inpaint,
     rectangle_inpaint,
     mixup,
-    mosiac_img,
-    mosiac_img_no_reshape,
+    mosaic_img,
+    mosaic_img_no_reshape,
     img_resize,
 )

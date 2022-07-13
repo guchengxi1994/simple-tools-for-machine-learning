@@ -1,11 +1,7 @@
 import glob
 import os
 
-try:
-    import defusedxml.ElementTree as ET
-except:
-    import xml.etree.ElementTree as ET
-
+import xml.etree.ElementTree as ET
 from mltools.src.log.logger import logger
 from tqdm import tqdm
 
@@ -29,7 +25,7 @@ def x2y_convert(xmlpath, labelPath=""):
              '''
 
     """
-    labels = readLabels(labelPath)
+    labels = read_labels(labelPath)
     parent_path = os.path.dirname(xmlpath)
     if not os.path.exists(xmlpath):
         raise FileNotFoundError("file not found")
@@ -69,7 +65,7 @@ def x2y_convert(xmlpath, labelPath=""):
             logger.info("see here {}".format(parent_path + os.sep + "txts_"))
 
 
-def readLabels(labelPath):
+def read_labels(labelPath):
     if os.path.exists(labelPath):
         try:
             labels = open(labelPath).read().strip().split("\n")
