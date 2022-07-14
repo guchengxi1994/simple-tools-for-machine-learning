@@ -10,10 +10,26 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 ## requirements
 > * numpy
+>
 > * scipy
+>
 > * scikit_image
+>
 > * tqdm
+>
 > * xmltodict
+>
+> * matplotlib
+>
+> * PyYAML
+>
+>   > PyYAML 在低版本（5.3左右）有一个致命的漏洞，但是它是`distutils `，在升级的时候使用以下指令
+>   >
+>   > `pip3 install --ignore-installed PyYAML`
+>   >
+>   > 或者指定版本号
+>   >
+>   > `pip3 install --ignore-installed PyYAML==5.4`
 
 ## How to use
 
