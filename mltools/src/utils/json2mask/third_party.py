@@ -37,6 +37,19 @@ def img_data_to_pil(img_data):
 
 
 @ThirdPartyFeature("labelme", False)
+def img_arr_to_b64(img_arr):
+    img_pil = PIL.Image.fromarray(img_arr)
+    f = io.BytesIO()
+    img_pil.save(f, format="PNG")
+    img_bin = f.getvalue()
+    if hasattr(base64, "encodebytes"):
+        img_b64 = base64.encodebytes(img_bin)
+    else:
+        img_b64 = base64.encodestring(img_bin)
+    return img_b64
+
+
+@ThirdPartyFeature("labelme", False)
 def labelme_shapes_to_label(img_shape, shapes):
     label_name_to_value = {"_background_": 0}
     for shape in shapes:

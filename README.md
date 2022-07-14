@@ -33,7 +33,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 ## How to use
 
-* 工具 utils
+* 工具 (utils)
 
   * [xml2createML](test/xml2createML_test.py)
   
@@ -41,7 +41,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
     >
     > Convert `labelImg` format (Pascal VOC) to `createML` (JSON) format
   
-  * img2xml
+  * [img2xml](mltools/src/utils/img2xml/multi_object_process.py)
   
     > 用来生成Pascal VOC标注文件的一个简单工具
     >
@@ -53,13 +53,33 @@ Simple tools for machine learning. Including computer vision, deep learning,...
     >
     > Convert the JSON file in `labelme` format into a mask file for training (enter the absolute path when using)
   
-  * json2xml
+  * [json2xml](mltools/src/utils/json2xml/json2xml.py)
   
     > 将`labelme` json格式文件转化为`labelImg` xml格式文件
     >
     > Convert `labelme` JSON file to `labelimg` XML file
   
-  * ...
+  * [split](mltools/src/utils/split/split_xml.py)
+  
+    > 将长宽比差距较大的图像和标注文件（例如，管道图），切分为长宽比1：1的图像和标注文件
+    >
+    > Images/annotations with a large difference in aspect ratio (eg. pipeline images) , split into  images/annotations  with an aspect ratio of 1:1
+  
+  * [yolo_train_val_dataset_split](mltools/src/utils/yolo_train_val_dataset_split/script.py)
+  
+    > yolo格式（txt）的标注文件自动分配训练以及验证数据集
+  
+  * [widerface_convert](mltools/src/utils/widerface_convert/winderface_convert.py)
+  
+    > 将[`widerface`](http://shuoyang1213.me/WIDERFACE/)数据集格式转化为可用于`labelImg`展示的xml格式
+  
+  * [xml2json](mltools/src/utils/xml2json/xml2json.py)
+  
+    > xml格式`labelImg`数据转化为json`labelme`格式数据
+  
+  * [xml2mask](mltools/src/utils/xml2mask/x2m.py)
+  
+  * 
   
 * 无标注文件图像增广 (image augmentation without label files)
 
@@ -84,8 +104,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   > **codes**
   >
   > ```python
-  > if __name__ == "__main__":
-  >    # random augmentation
+  > # random augmentation
   >    n.go()
   >    # only flip
   >    n.onlyFlip()
@@ -110,10 +129,10 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >    n.onlyMosaic()
   >    # resize
   >    n.onlyResize()
-  > ```
-  >
-  > **examples**
-  >
+  >    ```
+  > 
+  >**examples**
+  > 
   >|<div style="width:200px">Column1</div>|<div style="width:200px">Column2</div>|<div style="width:200px">Column3</div>|
   >|------------------------------------------------------------|------------------------------------------------------------|------------------------------------------------------------|
   >|原始图片original|随机增广randomaugmentation|翻转flip|
@@ -128,7 +147,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >|<img src="./markdown_resources/resize.png" width="200px" />|||
   >
   
-* labelImg标注增广  (augmentation for labelImg)
+* `labelImg`标注增广  (augmentation for `labelImg`)
 
   > ```python
   > from mltools.src.augmentation.aug_labelimg import LabelimgAugmentation
@@ -146,27 +165,26 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   > **codes**
   >
   > ```python
-  > if __name__ == "__main__":
-  >     # flip
-  >     l.onlyFlip()
-  >     # rotate
-  >     l.onlyRotate()
-  >     # translation
-  >     l.onlyTrans()
-  >     # zoom
-  >     l.onlyZoom()
-  >     # noise
-  >     l.onlyNoise()
-  >     # mosaic
-  >     l.append("3.png", "3.xml")
-  >     l.onlyMosaic()
-  >     # resize
-  >     l.onlyResize()
-  > ```
-  >
-  > **examples**
-  >
-  > | 标注类型    | 结果                           |
+  > # flip
+  >    l.onlyFlip()
+  >    # rotate
+  >    l.onlyRotate()
+  >    # translation
+  >    l.onlyTrans()
+  >    # zoom
+  >    l.onlyZoom()
+  >    # noise
+  >    l.onlyNoise()
+  >    # mosaic
+  >    l.append("3.png", "3.xml")
+  >    l.onlyMosaic()
+  >    # resize
+  >    l.onlyResize()
+  >    ```
+  > 
+  >**examples**
+  > 
+  >| 标注类型    | 结果                           |
   > | ----------- | ------------------------------------------------------------ |
   > | 原始图像    | ![image-20220712150312203](./markdown_resources/image-20220712150312203.png) |
   > | flip        | ![image-20220712150419644](./markdown_resources/image-20220712150419644.png) |
@@ -177,6 +195,47 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   > | mosaic      | ![image-20220713104120390](./markdown_resources/image-20220713104120390.png) |
   > | resize      | ![image-20220713111823197](./markdown_resources/image-20220713111823197.png) |
   > | ...    |                                |
+  > 
+  
+* `labelme`标注增广  (augmentation for `labelme`)
+
+  > ```python
+  > from mltools.src.augmentation.aug_labelme import LabelmeAugementation
+  > l = LabelmeAugementation(["3.png"],["3.json"],"3.yaml")
+  > ```
+  >
+  > **parameters**
+  >
+  > ```python
+  > """ ...
+  >  labels: List[str], 标注储存的地址，要和图片一一对应
+  >  yamlPath: str, 储存标注信息的文件，形如：
+  >  	label_names:
+  >       _background_: 0
+  >       eye: 1
+  >       mouth: 3
+  >       nose: 2
+  > """
+  > ```
+  >
+  > **codes**
+  >
+  > ```python
+  > # flip
+  > l.onlyFlip()
+  > ```
+  >
+  > **examples**
+  >
+  > | 标注类型       | 结果                                                         |
+  > | -------------- | ------------------------------------------------------------ |
+  > | original image | ![image-20220714163231977](./markdown_resources/image-20220714163231977.png) |
+  > | flip           | ![image-20220714163307972](./markdown_resources/image-20220714163307972.png) |
+  > | noise          | ![image-20220714165436377](./markdown_resources/image-20220714165436377.png) |
+  > | rotate         |                                                              |
+  > | translation    |                                                              |
+  > | zoom           |                                                              |
+  > | ...            |                                                              |
   >
   > 
 
@@ -202,6 +261,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 >   > `inpaint` is slow with `skimage` . Using `opencv-python` is faster.
 
 ## 重构进度
+* 2022-07-14 添加`labelme`部分增广，添加部分工具
 * 2022-07-13 添加`labelImg` 部分增广
 * 2022-07-12 添加`labelImg` 部分增广
 * 2022-07-11 大致完成无标注文件的图像增广，更新readme

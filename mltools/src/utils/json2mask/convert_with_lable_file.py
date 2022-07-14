@@ -42,9 +42,9 @@ def convert_json_to_mask_with_label(jsonPath, yamlPath, saveFile: bool = True):
             maskvizdir = parent_path + "masks_" + os.sep + "mask_viz"
 
             out_dir1 = maskdir
-            PIL.Image.fromarray(mask).save(out_dir1 + "/" + save_file_name + ".png")
+            PIL.Image.fromarray(mask).save(out_dir1 + os.sep + save_file_name + ".png")
             PIL.Image.fromarray(lbl_viz).save(
-                maskvizdir + "/" + save_file_name + "_label_viz.png"
+                maskvizdir + os.sep + save_file_name + "_label_viz.png"
             )
 
             with open(os.path.join(out_dir1, "label_names.txt"), "w") as f:

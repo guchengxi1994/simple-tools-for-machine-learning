@@ -14,5 +14,5 @@ def img_resize(img: np.ndarray, heightFactor=1, widthFactor=1):
 
 
 def img_resize_with_shape(img: np.ndarray, height: int, width: int):
-    resizedImg = skimage.transform.resize(img, height, width, preserve_range=True)
+    resizedImg = skimage.transform.resize(img, (height, width), preserve_range=True)
     return np.array(resizedImg).astype(np.uint8)

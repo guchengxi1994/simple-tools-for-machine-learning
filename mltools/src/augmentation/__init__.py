@@ -12,7 +12,7 @@ LastEditTime: 2022-06-12 18:11:18
 from enum import Enum
 from typing import TypeVar
 
-from mltools import __auglib_version__
+from mltools import __version__
 
 
 # enum

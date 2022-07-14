@@ -82,7 +82,7 @@ def _get_zoomed_img(img: np.ndarray, size: float) -> np.ndarray:
                 b, ((vDisHalf, vDis - vDisHalf), (hDisHalf, hDis - hDisHalf))
             )
 
-            return np.dstack((zoomedR, zoomedG, zoomedB))
+            res = np.dstack((zoomedR, zoomedG, zoomedB))
     else:
         res = img
     return np.array(res, dtype=np.uint8)
