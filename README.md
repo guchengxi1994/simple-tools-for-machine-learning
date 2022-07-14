@@ -105,31 +105,31 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >
   > ```python
   > # random augmentation
-  >    n.go()
-  >    # only flip
-  >    n.onlyFlip()
-  >    # only noise
-  >    n.onlyNoise()
-  >    # only rotation
-  >    n.onlyRotation()
-  >    # translation
-  >    n.onlyTranslation()
-  >    # zoom
-  >    n.onlyZoom()
-  >    # crop
-  >    n.onlyCrop()
-  >    # cutmix
-  >    n.append("3.png")
-  >    n.onlyCutmix()
-  >    # distort
-  >    n.onlyDistort()
-  >    # inpaint
-  >    n.onlyInpaint(reshape=True)
-  >    # mosaic
-  >    n.onlyMosaic()
-  >    # resize
-  >    n.onlyResize()
-  >    ```
+  > n.go()
+  > # only flip
+  > n.onlyFlip()
+  > # only noise
+  > n.onlyNoise()
+  > # only rotation
+  > n.onlyRotation()
+  > # translation
+  > n.onlyTranslation()
+  > # zoom
+  > n.onlyZoom()
+  > # crop
+  > n.onlyCrop()
+  > # cutmix
+  > n.append("3.png")
+  > n.onlyCutmix()
+  > # distort
+  > n.onlyDistort()
+  > # inpaint
+  > n.onlyInpaint(reshape=True)
+  > # mosaic
+  > n.onlyMosaic()
+  > # resize
+  > n.onlyResize()
+  > ```
   > 
   >**examples**
   > 
@@ -166,21 +166,21 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   >
   > ```python
   > # flip
-  >    l.onlyFlip()
-  >    # rotate
-  >    l.onlyRotate()
-  >    # translation
-  >    l.onlyTrans()
-  >    # zoom
-  >    l.onlyZoom()
-  >    # noise
-  >    l.onlyNoise()
-  >    # mosaic
-  >    l.append("3.png", "3.xml")
-  >    l.onlyMosaic()
-  >    # resize
-  >    l.onlyResize()
-  >    ```
+  > l.onlyFlip()
+  > # rotate
+  > l.onlyRotate()
+  > # translation
+  > l.onlyTrans()
+  > # zoom
+  > l.onlyZoom()
+  > # noise
+  > l.onlyNoise()
+  > # mosaic
+  > l.append("3.png", "3.xml")
+  > l.onlyMosaic()
+  > # resize
+  > l.onlyResize()
+  > ```
   > 
   >**examples**
   > 
