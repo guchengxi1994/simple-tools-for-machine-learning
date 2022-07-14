@@ -39,8 +39,8 @@ class NoLabelAugmentation(BaseAugmentation):
         parallel: bool = False,
         savedPath: str = "",
         augNumber: int = 1,
-        augMethods: List[str] = ...,
-        optionalMethods: List[str] = ...,
+        augMethods: List[str] = ["noise", "rotation", "trans", "flip", "zoom"],
+        optionalMethods: List[str] = [],
     ) -> None:
         super().__init__(
             imgs, parallel, savedPath, augNumber, augMethods, optionalMethods

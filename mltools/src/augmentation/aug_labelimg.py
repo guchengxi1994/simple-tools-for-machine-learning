@@ -30,8 +30,8 @@ class LabelimgAugmentation(BaseAugmentation):
         parallel: bool = False,
         savedPath: str = "",
         augNumber: int = 1,
-        augMethods: List[str] = ...,
-        optionalMethods: List[str] = ...,
+        augMethods: List[str] = ["noise", "rotation", "trans", "flip", "zoom"],
+        optionalMethods: List[str] = [],
     ) -> None:
         """imgs 和 labels 要一一对应"""
         super().__init__(
