@@ -25,6 +25,11 @@ class _WorkboardState extends State<Workboard> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
@@ -38,13 +43,9 @@ class _WorkboardState extends State<Workboard> {
           scrollDirection: Axis.horizontal,
           child: SingleChildScrollView(
             controller: controller,
-            child: context.watch<ImageController>().image != null
-                ? Image.memory(
-                    context.watch<ImageController>().image!.imageData!,
-                    scale: context.watch<ImageController>().scale,
-                    fit: BoxFit.cover,
-                  )
-                : null,
+            child: ImageView(
+              key: context.read<ImageController>().globalKey,
+            ),
           ),
         ),
       ),

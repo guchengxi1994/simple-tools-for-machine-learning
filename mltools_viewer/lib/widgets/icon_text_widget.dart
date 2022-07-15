@@ -3,16 +3,21 @@ import 'package:mltools_viewer/app_style.dart';
 
 class IconTextWidget extends StatelessWidget {
   const IconTextWidget(
-      {Key? key, required this.icon, required this.label, required this.onTap})
+      {Key? key,
+      required this.icon,
+      required this.label,
+      required this.onTap,
+      this.enable = true})
       : super(key: key);
   final Widget icon;
   final Text label;
   final VoidCallback onTap;
+  final bool enable;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onTap(),
+      onTap: !enable ? null : () => onTap(),
       child: SizedBox(
         width: AppStyle.sidemenuWidthHalf,
         height: AppStyle.iconWidgetHeight,

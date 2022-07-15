@@ -14,7 +14,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   file_picker: ^4.6.1
   provider: ^6.0.3
-  image_size_getter: ^2.1.2
+  taichi:
+    git:
+        url: https://github.com/guchengxi1994/taichi
+        ref: dev
+        path: taichi_core
 
 dev_dependencies:
   flutter_test:

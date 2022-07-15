@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/menu_controller.dart';
 import 'package:mltools_viewer/utils/common.dart';
 import 'package:mltools_viewer/widgets/future_builder.dart';
@@ -48,6 +49,8 @@ class _MainScreenState extends State<MainScreen> {
               elevation: 0,
               automaticallyImplyLeading: !ScreenTypeUtils.isDesktop(context),
               backgroundColor: AppStyle.lightBlue,
+              title: apptitle(context),
+              centerTitle: true,
             ),
           ),
           key: context.read<MenuController>().scaffoldKey,
@@ -68,6 +71,23 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ))
       ],
+    );
+  }
+
+  Widget apptitle(BuildContext context) {
+    String imageName =
+        context.watch<ImageController>().image?.imageName ?? "Unknow Image";
+    String s = (1 / context.watch<ImageController>().scale).toString();
+    String scale;
+    if (s.length <= 3) {
+      scale = s;
+    } else {
+      scale = s.substring(0, 3);
+    }
+
+    return Text(
+      "$imageName  scale:$scale",
+      maxLines: 2,
     );
   }
 }

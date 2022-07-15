@@ -50,6 +50,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
+  dart_date:
+    dependency: transitive
+    description:
+      name: dart_date
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.1"
   fake_async:
     dependency: transitive
     description:
@@ -100,20 +107,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  hashcodes:
+  intl:
     dependency: transitive
     description:
-      name: hashcodes
+      name: intl
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.0"
-  image_size_getter:
-    dependency: "direct main"
-    description:
-      name: image_size_getter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.2"
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -210,6 +210,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
+  taichi:
+    dependency: "direct main"
+    description:
+      path: taichi_core
+      ref: dev
+      resolved-ref: "3a272e1078eb84b596ae8b1aaf9f1eed0eaa5c37"
+      url: "https://github.com/guchengxi1994/taichi"
+    source: git
+    version: "0.0.7+4"
   term_glyph:
     dependency: transitive
     description:
@@ -224,6 +233,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.9"
+  timeago:
+    dependency: transitive
+    description:
+      name: timeago
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.2.2"
   vector_math:
     dependency: transitive
     description:

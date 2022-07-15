@@ -1,14 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_size_getter/image_size_getter.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/model/image_model.dart';
 import 'package:provider/provider.dart';
+import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
 import 'icon_text_widget.dart';
 
@@ -49,6 +50,12 @@ class SideMenu extends StatelessWidget {
             ),
             const Divider(),
             IconTextWidget(
+                enable: context.watch<ImageController>().image != null,
+                icon: const Icon(Icons.create),
+                label: const Text("Create Label"),
+                onTap: () => {}),
+            const Divider(),
+            IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
                 label: const Text("Zoom In"),
                 onTap: () => zoomIn(context)),
@@ -74,15 +81,23 @@ class SideMenu extends StatelessWidget {
     );
 
     if (result != null) {
-      Uint8List? fileBytes = result.files.first.bytes;
+      Uint8List? fileBytes;
+
+      if (TaichiDevUtils.isWeb) {
+        fileBytes = result.files.first.bytes;
+      } else {
+        File file = File(result.files.single.path!);
+        fileBytes = file.readAsBytesSync();
+      }
+
       if (fileBytes != null) {
-        final memoryImageSize = ImageSizeGetter.getSize(MemoryInput(fileBytes));
-        debugPrint('memoryImageSize = $memoryImageSize');
         MltoolImage image = MltoolImage();
+        image.imageHeight = 0;
+        image.imageWidth = 0;
+
         image.imageData = fileBytes;
         image.imageName = result.files.first.name;
-        image.imageHeight = memoryImageSize.height;
-        image.imageWidth = memoryImageSize.width;
+
         context.read<ImageController>().changeImage(image);
       }
     }
