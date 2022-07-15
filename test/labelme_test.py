@@ -75,5 +75,5 @@ class TestLabelme:
         assert len(files) > 0 and exists("json",files)
 
 
-l = LabelmeAugementation(["3.png"], ["3.json"], "3.yaml")
-l.onlyZoom()
+# l = LabelmeAugementation(["3.png"], ["3.json"], "3.yaml")
+# l.onlyZoom()

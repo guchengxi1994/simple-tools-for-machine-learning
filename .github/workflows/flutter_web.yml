@@ -1,0 +1,23 @@
+name: mltools viewer Build and Deploy
+on: [push]
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+      - run: flutter --version
+      - name: "Web Build 🔧"
+        run: |
+          cd mltools_viewer/
+          flutter pub get
+          flutter build web --release --base-href="/simple-tools-for-machine-learning/"  --web-renderer html
+      - name: "Web Deploy 🚀"
+        # https://github.com/JamesIves/github-pages-deploy-action
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: mltools-viewer-demo
+          folder: ./mltools_viewer/build/web
