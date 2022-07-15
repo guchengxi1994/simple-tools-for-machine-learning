@@ -35,4 +35,3 @@ class TestNolabelAugmentation:
         n.onlyResize()
 
         assert os.path.exists("results")
-

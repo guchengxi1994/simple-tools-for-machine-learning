@@ -13,3 +13,8 @@ import os
 def split_file_name(p: str) -> str:
     s = os.path.split(p)[-1]
     return os.path.splitext(s)[0]
+
+
+def exists(s: str, ls: list) -> bool:
+    res = [s in ls for v in ls]
+    return len(res) > 0

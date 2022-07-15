@@ -232,9 +232,9 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   > | original image | ![image-20220714163231977](./markdown_resources/image-20220714163231977.png) |
   > | flip           | ![image-20220714163307972](./markdown_resources/image-20220714163307972.png) |
   > | noise          | ![image-20220714165436377](./markdown_resources/image-20220714165436377.png) |
-  > | rotate         |                                                              |
-  > | translation    |                                                              |
-  > | zoom           |                                                              |
+  > | rotate         | ![image-20220715084558872](./markdown_resources/image-20220715084558872.png) |
+  > | translation    | ![image-20220715090556786](./markdown_resources/image-20220715090556786.png) |
+  > | zoom           | ![image-20220715093241691](./markdown_resources/image-20220715093241691.png) |
   > | ...            |                                                              |
   >
   > 
@@ -261,6 +261,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 >   > `inpaint` is slow with `skimage` . Using `opencv-python` is faster.
 
 ## 重构进度
+* 2022-07-15 已完成重构工作，准备着手UI工具开发
 * 2022-07-14 添加`labelme`部分增广，添加部分工具
 * 2022-07-13 添加`labelImg` 部分增广
 * 2022-07-12 添加`labelImg` 部分增广
