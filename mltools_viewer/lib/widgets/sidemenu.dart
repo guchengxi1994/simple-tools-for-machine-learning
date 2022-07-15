@@ -6,8 +6,10 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/model/image_model.dart';
+import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
@@ -52,8 +54,8 @@ class SideMenu extends StatelessWidget {
             IconTextWidget(
                 enable: context.watch<ImageController>().image != null,
                 icon: const Icon(Icons.create),
-                label: const Text("Create Label"),
-                onTap: () => {}),
+                label: const Text("Create Annotation"),
+                onTap: () => addRect(context)),
             const Divider(),
             IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
@@ -113,5 +115,9 @@ class SideMenu extends StatelessWidget {
 
   reset(BuildContext context) {
     context.read<ImageController>().reset();
+  }
+
+  addRect(BuildContext context) {
+    context.read<BoardController>().addWidget(RectBox(id: 0));
   }
 }

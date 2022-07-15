@@ -19,6 +19,7 @@ dependencies:
         url: https://github.com/guchengxi1994/taichi
         ref: dev
         path: taichi_core
+  xml: ^6.1.0
 
 dev_dependencies:
   flutter_test:

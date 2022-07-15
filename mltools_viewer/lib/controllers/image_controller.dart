@@ -32,7 +32,6 @@ class ImageViewState extends State<ImageView> {
 class ImageController extends ChangeNotifier {
   MltoolImage? image;
   double scale = 1.0;
-  GlobalKey<ImageViewState> globalKey = GlobalKey();
 
   changeImage(MltoolImage? image) {
     scale = 1.0;

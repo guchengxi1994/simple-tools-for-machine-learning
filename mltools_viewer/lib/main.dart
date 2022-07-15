@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/menu_controller.dart';
 import 'package:mltools_viewer/screens/main_screen.dart';
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MenuController()),
-        ChangeNotifierProvider(create: (_) => ImageController())
+        ChangeNotifierProvider(create: (_) => ImageController()),
+        ChangeNotifierProvider(
+            create: (_) => BoardController()..addWidget(const ImageView()))
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
