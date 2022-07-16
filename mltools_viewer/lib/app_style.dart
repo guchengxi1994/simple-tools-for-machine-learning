@@ -1,8 +1,19 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: xiaoshuyui
+ * @email: guchengxi1994@qq.com
+ * @Date: 2022-07-15 19:04:06
+ * @LastEditors: xiaoshuyui
+ * @LastEditTime: 2022-07-16 23:42:01
+ */
 /// copied from taichi_admin
 import 'package:flutter/material.dart';
 
 class AppStyle {
   AppStyle._();
+
+  static const double defaultPadding = 20;
 
   static const double headerHeight = 200;
   static const double sidemenuWidth = 300;

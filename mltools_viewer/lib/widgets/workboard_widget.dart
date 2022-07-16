@@ -1,5 +1,15 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: xiaoshuyui
+ * @email: guchengxi1994@qq.com
+ * @Date: 2022-07-15 19:04:06
+ * @LastEditors: xiaoshuyui
+ * @LastEditTime: 2022-07-16 23:27:52
+ */
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
+import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:provider/provider.dart';
 
 class Workboard extends StatefulWidget {
@@ -44,6 +54,7 @@ class _WorkboardState extends State<Workboard> {
           child: SingleChildScrollView(
             controller: controller,
             child: Stack(
+              key: context.read<ImageController>().stackKey,
               children: context.watch<BoardController>().boardWidgets,
             ),
           ),
