@@ -61,9 +61,9 @@ class _RectState extends State<Rect> {
     int leftTopY = topLeftKey.currentState!.offset.dy.toInt();
 
     int rightBottomX =
-        bottomRightKey.currentState!.offset.dx.toInt() + circleSize.ceil();
+        bottomRightKey.currentState!.offset.dx.toInt() + pointSize.ceil();
     int rightBottomY =
-        bottomRightKey.currentState!.offset.dy.toInt() + circleSize.ceil();
+        bottomRightKey.currentState!.offset.dy.toInt() + pointSize.ceil();
 
     return [leftTopX, leftTopY, rightBottomX, rightBottomY];
   }
@@ -118,6 +118,18 @@ class _RectState extends State<Rect> {
   setTop(double top) {
     setState(() {
       defaultTop = top;
+    });
+  }
+
+  addTop(double top) {
+    setState(() {
+      defaultTop += top;
+    });
+  }
+
+  addLeft(double left) {
+    setState(() {
+      defaultLeft += left;
     });
   }
 
@@ -217,12 +229,12 @@ class _RectState extends State<Rect> {
     //             defaultTop = offset.dy;
     //             topLeftKey.currentState!.offset = offset;
     //             topRightKey.currentState!.offset =
-    //                 Offset(offset.dx - circleSize + width, offset.dy);
+    //                 Offset(offset.dx - pointSize + width, offset.dy);
     //             bottomLeftKey.currentState!.offset =
-    //                 Offset(offset.dx, offset.dy - circleSize + height);
+    //                 Offset(offset.dx, offset.dy - pointSize + height);
     //             bottomRightKey.currentState!.offset = Offset(
-    //                 offset.dx - circleSize + width,
-    //                 offset.dy - circleSize + height);
+    //                 offset.dx - pointSize + width,
+    //                 offset.dy - pointSize + height);
     //           });
     //         },
     //         feedback: Container(
@@ -294,7 +306,7 @@ class _RectState extends State<Rect> {
         p = Point(
           key: key,
           color: Colors.red,
-          woffset: Offset(width - circleSize + defaultLeft, defaultTop),
+          woffset: Offset(width - pointSize + defaultLeft, defaultTop),
           globalKeys: widget.globalKeys,
           rectKey: widget.key as GlobalKey<_RectState>,
         );
@@ -303,7 +315,7 @@ class _RectState extends State<Rect> {
         p = Point(
           key: key,
           color: Colors.red,
-          woffset: Offset(defaultLeft, height - circleSize + defaultTop),
+          woffset: Offset(defaultLeft, height - pointSize + defaultTop),
           globalKeys: widget.globalKeys,
           rectKey: widget.key as GlobalKey<_RectState>,
         );
@@ -312,8 +324,8 @@ class _RectState extends State<Rect> {
         p = Point(
           key: key,
           color: Colors.red,
-          woffset: Offset(width - circleSize + defaultLeft,
-              height - circleSize + defaultTop),
+          woffset: Offset(
+              width - pointSize + defaultLeft, height - pointSize + defaultTop),
           globalKeys: widget.globalKeys,
           rectKey: widget.key as GlobalKey<_RectState>,
         );

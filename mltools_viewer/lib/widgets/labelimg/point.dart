@@ -26,9 +26,6 @@ class _PointState extends State<Point> {
   double _left = 0;
   double _top = 0;
 
-  double _moveX = 0;
-  double _moveY = 0;
-
   late Offset currentOffset;
 
   void setLeft(double left) {
@@ -60,16 +57,16 @@ class _PointState extends State<Point> {
     offset = widget.woffset;
 
     if (widget.key == topRightKey) {
-      _left = rectKey.currentState!.width - circleSize;
+      _left = rectKey.currentState!.width - pointSize;
     }
 
     if (widget.key == bottomLeftKey) {
-      _top = rectKey.currentState!.height - circleSize;
+      _top = rectKey.currentState!.height - pointSize;
     }
 
     if (widget.key == bottomRightKey) {
-      _top = rectKey.currentState!.height - circleSize;
-      _left = rectKey.currentState!.width - circleSize;
+      _top = rectKey.currentState!.height - pointSize;
+      _left = rectKey.currentState!.width - pointSize;
     }
     // print(this.offset);
   }
@@ -95,129 +92,68 @@ class _PointState extends State<Point> {
             setState(() {
               _left += details.delta.dx;
               _top += details.delta.dy;
-              rectKey.currentState!.setWidth(_left + circleSize);
-              // if (_left>rectKey.currentState!.width)
               // debugPrint("[left]:$_left");
               // debugPrint("[top]:$_top");
+
+              if (widget.key == bottomRightKey) {
+                rectKey.currentState!.setWidth(_left + pointSize);
+                rectKey.currentState!.setHeight(_top + pointSize);
+                topRightKey.currentState!.setLeft(_left);
+                bottomLeftKey.currentState!.setTop(_top);
+              }
+
+              if (widget.key == topRightKey) {
+                double h = rectKey.currentState!.height;
+                rectKey.currentState!.setWidth(_left + pointSize);
+                rectKey.currentState!.setHeight(h - _top);
+                rectKey.currentState!.addTop(_top);
+
+                bottomRightKey.currentState!.setTop(h - _top - pointSize);
+                bottomRightKey.currentState!.setLeft(_left);
+                bottomLeftKey.currentState!.setTop(h - _top - pointSize);
+                _top = 0;
+              }
+
+              if (widget.key == bottomLeftKey) {
+                double w = rectKey.currentState!.width;
+                rectKey.currentState!.setWidth(w - _left);
+                rectKey.currentState!.setHeight(_top + pointSize);
+
+                rectKey.currentState!.addLeft(_left);
+                topRightKey.currentState!.setLeft(w - _left - pointSize);
+                bottomRightKey.currentState!.setLeft(w - _left - pointSize);
+                bottomRightKey.currentState!
+                    .setTop(_top + pointSize - pointSize);
+                _left = 0;
+              }
+
+              if (widget.key == topLeftKey) {
+                double h = rectKey.currentState!.height;
+                double w = rectKey.currentState!.width;
+                rectKey.currentState!.setWidth(w - _left);
+                rectKey.currentState!.setHeight(h - _top);
+                rectKey.currentState!.addLeft(_left);
+                rectKey.currentState!.addTop(_top);
+
+                bottomLeftKey.currentState!.setTop(h - _top - pointSize);
+                topRightKey.currentState!.setLeft(w - _left - pointSize);
+
+                bottomRightKey.currentState!.setLeft(w - _left - pointSize);
+                bottomRightKey.currentState!.setTop(h - _top - pointSize);
+
+                _left = 0;
+                _top = 0;
+              }
             });
           },
           child: Container(
-              width: circleSize,
-              height: circleSize,
+              width: pointSize,
+              height: pointSize,
               decoration: BoxDecoration(
                 color: widget.color,
                 borderRadius: BorderRadius.circular(150),
                 border: Border.all(color: widget.color, width: 0.5),
               )),
         ));
-
-    // return Positioned(
-    //     left: _left,
-    //     top: _top,
-    //     child: Draggable(
-    //         onDraggableCanceled: (Velocity velocity, Offset _offset) {
-    //           // print(_offset);
-    //           currentOffset = offset;
-    //           Offset topLeftOffset = topLeftKey.currentState!.offset;
-    //           Offset topRightOffset = topRightKey.currentState!.offset;
-    //           Offset bottomLeftOffset = bottomLeftKey.currentState!.offset;
-    //           Offset bottomRightOffset = bottomRightKey.currentState!.offset;
-
-    //           // print("左上:" + topLeftOffset.toString());
-    //           // print("右上:" + topRightOffset.toString());
-    //           // print("左下:" + bottomLeftOffset.toString());
-    //           // print("右下:" + bottomRightOffset.toString());
-
-    //           _moveX = _offset.dx - currentOffset.dx;
-    //           _moveY = _offset.dx - currentOffset.dx;
-    //           if (widget.key == topLeftKey) {
-    //             topLeftOffset = _offset;
-    //             topRightOffset = Offset(topRightOffset.dx, _offset.dy);
-    //             bottomLeftOffset = Offset(_offset.dx, bottomLeftOffset.dy);
-    //           }
-
-    //           if (widget.key == topRightKey) {
-    //             topLeftOffset = Offset(topLeftOffset.dx, _offset.dy);
-    //             topRightOffset = _offset;
-    //             bottomRightOffset = Offset(_offset.dx, bottomRightOffset.dy);
-    //           }
-
-    //           if (widget.key == bottomLeftKey) {
-    //             bottomLeftOffset = _offset;
-    //             topLeftOffset = Offset(_offset.dx, topLeftOffset.dy);
-    //             bottomRightOffset = Offset(bottomRightOffset.dx, _offset.dy);
-    //           }
-
-    //           if (widget.key == bottomRightKey) {
-    //             bottomRightOffset = _offset;
-    //             topRightOffset = Offset(_offset.dx + _moveX, _offset.dy);
-    //             bottomLeftOffset = Offset(_offset.dx, _offset.dy + _moveY);
-    //           }
-
-    //           topLeftKey.currentState!.moveTO(topLeftOffset);
-    //           topRightKey.currentState!.moveTO(topRightOffset);
-    //           bottomLeftKey.currentState!.moveTO(bottomLeftOffset);
-    //           bottomRightKey.currentState!.moveTO(bottomRightOffset);
-
-    //           // print("--------------------------------------------");
-    //           // print("左上:" + topLeftOffset.toString());
-    //           // print("右上:" + topRightOffset.toString());
-    //           // print("左下:" + bottomLeftOffset.toString());
-    //           // print("右下:" + bottomRightOffset.toString());
-
-    //           late double width;
-    //           late double height;
-
-    //           width = (topLeftKey.currentState!.offset.dx -
-    //                       bottomRightKey.currentState!.offset.dx)
-    //                   .abs() +
-    //               circleSize;
-
-    //           height = (topLeftKey.currentState!.offset.dy -
-    //                       bottomRightKey.currentState!.offset.dy)
-    //                   .abs() +
-    //               circleSize;
-
-    //           // print("========================");
-    //           // print(width);
-    //           // print(height);
-    //           // print("========================");
-
-    //           rectKey.currentState!.setHeight(height);
-    //           rectKey.currentState!.setWidth(width);
-
-    //           topLeftKey.currentState!.setLeft(0.0);
-    //           topLeftKey.currentState!.setTop(0.0);
-
-    //           topRightKey.currentState!.setLeft(width - circleSize);
-    //           topRightKey.currentState!.setTop(0.0);
-
-    //           bottomLeftKey.currentState!.setLeft(0.0);
-    //           bottomLeftKey.currentState!.setTop(height - circleSize);
-
-    //           bottomRightKey.currentState!.setLeft(width - circleSize);
-    //           bottomRightKey.currentState!.setTop(height - circleSize);
-
-    //           // print(topRightKey.currentState!.offset);
-    //           // print(topLeftKey.currentState!.offset);
-    //           // print("========================");
-
-    //           rectKey.currentState!.moveTo(topLeftKey.currentState!.offset);
-    //         },
-    //         feedback: Container(
-    //             width: circleSize,
-    //             height: circleSize,
-    //             decoration: BoxDecoration(
-    //                 color: Colors.transparent,
-    //                 borderRadius: BorderRadius.circular(150),
-    //                 border: Border.all(color: widget.color, width: 0.5))),
-    //         child: Container(
-    //             width: circleSize,
-    //             height: circleSize,
-    //             decoration: BoxDecoration(
-    //               color: Colors.transparent,
-    //               borderRadius: BorderRadius.circular(150),
-    //               border: Border.all(color: widget.color, width: 0.5),
-    //             ))));
   }
 }
