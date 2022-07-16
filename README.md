@@ -225,6 +225,14 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   > ```python
   > # flip
   > l.onlyFlip()
+  > # rotate
+  > l.onlyRotate()
+  > # translation
+  > l.onlyTrans()
+  > # zoom
+  > l.onlyZoom()
+  > # noise
+  > l.onlyNoise()
   > ```
   >
   > **examples**
