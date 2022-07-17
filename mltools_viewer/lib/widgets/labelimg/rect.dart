@@ -151,6 +151,19 @@ class _RectState extends State<Rect> {
     });
   }
 
+  changeScale(double scale) {
+    setState(() {
+      defaultLeft = scale * defaultLeft;
+      defaultTop = scale * defaultTop;
+      width = scale * width;
+      height = scale * height;
+    });
+    topRightKey.currentState!.setLeft(width - pointSize);
+    bottomLeftKey.currentState!.setTop(height - pointSize);
+    bottomRightKey.currentState!.setTop(height - pointSize);
+    bottomRightKey.currentState!.setLeft(width - pointSize);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -218,76 +231,6 @@ class _RectState extends State<Rect> {
             ),
           ),
         ));
-
-    // return Positioned(
-    //     left: defaultLeft,
-    //     top: defaultTop,
-    //     child: Draggable(
-    //         onDraggableCanceled: (velocity, offset) {
-    //           setState(() {
-    //             defaultLeft = offset.dx;
-    //             defaultTop = offset.dy;
-    //             topLeftKey.currentState!.offset = offset;
-    //             topRightKey.currentState!.offset =
-    //                 Offset(offset.dx - pointSize + width, offset.dy);
-    //             bottomLeftKey.currentState!.offset =
-    //                 Offset(offset.dx, offset.dy - pointSize + height);
-    //             bottomRightKey.currentState!.offset = Offset(
-    //                 offset.dx - pointSize + width,
-    //                 offset.dy - pointSize + height);
-    //           });
-    //         },
-    //         feedback: Container(
-    //           color: Colors.blue,
-    //           height: height,
-    //           width: width,
-    //         ),
-    //         child: Opacity(
-    //           opacity: 0.7,
-    //           child: InkWell(
-    //             onDoubleTap: () async {
-    //               var result = await showCupertinoDialog(
-    //                   context: context,
-    //                   builder: (context) {
-    //                     return CupertinoAlertDialog(
-    //                       title: const Text("请输入类名"),
-    //                       content: Material(
-    //                           child: TextField(
-    //                         maxLength: 30,
-    //                         controller: controller,
-    //                       )),
-    //                       actions: [
-    //                         CupertinoActionSheetAction(
-    //                           child: const Text("确定"),
-    //                           onPressed: () {
-    //                             Navigator.of(context).pop(controller.text);
-    //                           },
-    //                         )
-    //                       ],
-    //                     );
-    //                   });
-    //               className = result.toString();
-    //             },
-    //             onLongPress: () async {},
-    //             child: Container(
-    //               // margin: EdgeInsets.only(top: 100, left: 50),
-    //               height: height,
-    //               width: width,
-    //               decoration: BoxDecoration(
-    //                 border: Border.all(color: Colors.green, width: 0.5),
-    //                 color: Colors.blueAccent,
-    //               ),
-    //               child: Stack(
-    //                 children: [
-    //                   getPoint(0, topLeftKey),
-    //                   getPoint(1, topRightKey),
-    //                   getPoint(2, bottomLeftKey),
-    //                   getPoint(3, bottomRightKey),
-    //                 ],
-    //               ),
-    //             ),
-    //           ),
-    //         )));
   }
 
   Widget getPoint(int position, GlobalKey key) {
