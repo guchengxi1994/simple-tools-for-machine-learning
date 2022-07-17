@@ -105,6 +105,7 @@ class SideMenu extends StatelessWidget {
 
     double s = currentScale * k.currentContext!.size!.width / w;
     context.read<ImageController>().changeScale(s);
+    context.read<BoardController>().whenScaleChanged(1 / s);
   }
 
   fitHeight(BuildContext context) {
@@ -123,6 +124,7 @@ class SideMenu extends StatelessWidget {
 
     double s = currentScale * k.currentContext!.size!.height / h;
     context.read<ImageController>().changeScale(s);
+    context.read<BoardController>().whenScaleChanged(1 / s);
   }
 
   Future onOpenButtonClicked(BuildContext context) async {
@@ -157,14 +159,20 @@ class SideMenu extends StatelessWidget {
 
   zoomIn(BuildContext context) {
     context.read<ImageController>().zoomIn();
+    double currentScale = context.read<ImageController>().scale;
+    context.read<BoardController>().whenScaleChanged(1 / currentScale);
   }
 
   zoomOut(BuildContext context) {
     context.read<ImageController>().zoomOut();
+    double currentScale = context.read<ImageController>().scale;
+    context.read<BoardController>().whenScaleChanged(1 / currentScale);
   }
 
   reset(BuildContext context) {
     context.read<ImageController>().reset();
+    double currentScale = context.read<ImageController>().scale;
+    context.read<BoardController>().whenScaleChanged(1 / currentScale);
   }
 
   addRect(BuildContext context) {
