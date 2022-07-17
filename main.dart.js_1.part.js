@@ -35,14 +35,14 @@ w=t.d
 if(w==null)w=0
 v=t.e
 if(v==null)v=0
-return A.m4(A.AD(A.cs(u,u,u,u,new A.en(u,u,new A.cM(D.r,D.r,A.ajB(e,u,x),D.r),u,u,u,D.aQ),x,new A.er(w,0,v,0),u,u),u,u),s,u)}}
+return A.oR(A.AD(A.cm(u,u,u,u,new A.en(u,u,new A.cM(D.r,D.r,A.ajB(e,u,x),D.r),u,u,u,D.aQ),x,new A.er(w,0,v,0),u,u),u,u),s,u)}}
 C.TP.prototype={}
 C.hp.prototype={
 J(d,e){var x=this,w=null,v=!x.f?w:new C.S3(x)
-return A.a8q(!1,!0,A.m4(A.O8(A.b([x.c,B.F4,x.d],y.u),D.f1,D.Cf,D.cR),60,150),w,!0,w,w,w,w,w,w,w,w,w,w,v,w,w,w)}}
+return A.a8q(!1,!0,A.cm(w,A.O8(A.b([x.c,B.F5,x.d],y.u),D.f1,D.Cg,D.cS),w,B.vh,w,w,w,w,150),w,!0,w,w,w,w,w,w,w,w,w,w,v,w,w,w)}}
 C.m2.prototype={
 J(d,e){var x=this,w=null,v=e.K(y.x).f
-return A.cs(w,A.F6(A.O8(A.b([B.F2,B.F3,new C.hp(B.yx,B.JL,new C.XU(x,e),!0,w),B.lM,new C.hp(B.yw,B.JE,new C.XV(x,e),A.bh(e,!0,y.q).a!=null,w),B.lM,new C.hp(B.yv,B.JF,new C.XW(x,e),!0,w),new C.hp(B.yy,B.JJ,new C.XX(x,e),!0,w),new C.hp(B.yB,B.JM,new C.XY(x,e),!0,w),new C.hp(B.yu,B.JN,new C.XZ(x,e),!0,w),new C.hp(B.yA,B.JD,new C.Y_(x,e),!0,w)],y.u),D.f1,D.ea,D.cR),w,D.ab),D.rj,w,w,v.a.b,w,w,150)},
+return A.cm(w,A.F6(A.O8(A.b([B.F3,B.F4,new C.hp(B.yy,B.JM,new C.XU(x,e),!0,w),B.lM,new C.hp(B.yx,B.JJ,new C.XV(x,e),A.bh(e,!0,y.q).a!=null,w),B.lM,new C.hp(B.yw,B.JF,new C.XW(x,e),!0,w),new C.hp(B.yz,B.JK,new C.XX(x,e),!0,w),new C.hp(B.yC,B.JN,new C.XY(x,e),!0,w),new C.hp(B.yv,B.JO,new C.XZ(x,e),!0,w),new C.hp(B.yB,B.JE,new C.Y_(x,e),!0,w)],y.u),D.f1,D.ea,D.cS),w,D.ab),D.rj,w,w,v.a.b,w,w,150)},
 a_W(d){var x,w,v,u=y.q,t=A.bh(d,!1,u).c,s=A.bh(d,!1,u).b
 if($.x.q$.z.h(0,t)==null)return
 x=$.x.q$.z.h(0,t)
@@ -129,32 +129,33 @@ x(A.au,[C.Bl,C.hp,C.m2])
 w(C.TP,A.G)
 x(A.rn,[C.S3,C.XU,C.XV,C.XW,C.XX,C.XY,C.XZ,C.Y_])})()
 A.a9v(b.typeUniverse,JSON.parse('{"Bl":{"au":[],"i":[]},"hp":{"au":[],"i":[]},"m2":{"au":[],"i":[]}}'))
-var y={F:A.a3("i7"),q:A.a3("im"),A:A.a3("u<t>"),u:A.a3("u<i>"),x:A.a3("f6"),b:A.a3("@")};(function constants(){B.lM=new C.Bl(null)
-B.yl=new A.e2(58120,!1)
-B.yu=new A.et(B.yl,null,null)
-B.yp=new A.e2(59133,!1)
-B.yv=new A.et(B.yp,null,null)
-B.yk=new A.e2(57757,!1)
-B.yw=new A.et(B.yk,null,null)
-B.yr=new A.e2(984319,!1)
-B.yx=new A.et(B.yr,30,null)
-B.yq=new A.e2(59134,!1)
-B.yy=new A.et(B.yq,null,null)
-B.yn=new A.e2(58644,!1)
-B.yA=new A.et(B.yn,null,null)
-B.ys=new A.e2(985046,!1)
-B.yB=new A.et(B.ys,null,null)
-B.IQ=new A.m(!0,null,null,null,null,null,25,D.bV,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.JG=new A.dy("Viewer",null,B.IQ,null,null,null,null,null,null)
-B.wd=new A.kR(D.aa,null,null,B.JG,null)
-B.F2=new A.hM(150,50,B.wd,null)
-B.F3=new A.hM(null,20,null,null)
-B.F4=new A.hM(null,5,null,null)
-B.JD=new A.dy("Reset",null,null,null,null,null,null,null,null)
-B.JE=new A.dy("Create Annotation",null,null,null,null,null,null,null,null)
+var y={F:A.a3("i7"),q:A.a3("im"),A:A.a3("u<t>"),u:A.a3("u<i>"),x:A.a3("f6"),b:A.a3("@")};(function constants(){B.vh=new A.aq(0,1/0,60,1/0)
+B.lM=new C.Bl(null)
+B.ym=new A.e2(58120,!1)
+B.yv=new A.et(B.ym,null,null)
+B.yq=new A.e2(59133,!1)
+B.yw=new A.et(B.yq,null,null)
+B.yl=new A.e2(57757,!1)
+B.yx=new A.et(B.yl,null,null)
+B.ys=new A.e2(984319,!1)
+B.yy=new A.et(B.ys,30,null)
+B.yr=new A.e2(59134,!1)
+B.yz=new A.et(B.yr,null,null)
+B.yo=new A.e2(58644,!1)
+B.yB=new A.et(B.yo,null,null)
+B.yt=new A.e2(985046,!1)
+B.yC=new A.et(B.yt,null,null)
+B.IR=new A.m(!0,null,null,null,null,null,25,D.bV,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+B.JG=new A.dy("Viewer",null,B.IR,null,null,null,null,null,null)
+B.we=new A.kR(D.aa,null,null,B.JG,null)
+B.F3=new A.hM(150,50,B.we,null)
+B.F4=new A.hM(null,20,null,null)
+B.F5=new A.hM(null,5,null,null)
+B.JE=new A.dy("Reset",null,null,null,null,null,null,null,null)
 B.JF=new A.dy("Zoom In",null,null,null,null,null,null,null,null)
-B.JJ=new A.dy("Zoom Out",null,null,null,null,null,null,null,null)
-B.JL=new A.dy("Open",null,null,null,null,null,null,null,null)
-B.JM=new A.dy("Fit width",null,null,null,null,null,null,null,null)
-B.JN=new A.dy("Fit Height",null,null,null,null,null,null,null,null)})()}
-$__dart_deferred_initializers__["/WXegHY3/nkyd4NZEknKo6iw8HY="] = $__dart_deferred_initializers__.current
+B.JJ=new A.dy("Create Annotation\nBy Default",null,null,D.ck,null,null,2,null,null)
+B.JK=new A.dy("Zoom Out",null,null,null,null,null,null,null,null)
+B.JM=new A.dy("Open",null,null,null,null,null,null,null,null)
+B.JN=new A.dy("Fit width",null,null,null,null,null,null,null,null)
+B.JO=new A.dy("Fit Height",null,null,null,null,null,null,null,null)})()}
+$__dart_deferred_initializers__["ESme9fBU+2EodmUEB8a9kLLSqKI="] = $__dart_deferred_initializers__.current
