@@ -7,7 +7,15 @@ class RectBox extends StatelessWidget {
   // 这里要初始化一个 bndbox
   ClassObject? classObject;
   // Bndbox? bndbox;
-  RectBox({Key? key, required this.id, this.classObject}) : super(key: key);
+  RectBox(
+      {Key? key,
+      required this.id,
+      this.classObject,
+      this.left = 0,
+      this.top = 0,
+      this.width = defaultRectSize,
+      this.height = defaultRectSize})
+      : super(key: key);
 
   GlobalKey<_PointState> topLeftKey = GlobalKey(debugLabel: "topLeftKey");
   GlobalKey<_PointState> topRightKey = GlobalKey(debugLabel: "topRightKey");
@@ -16,13 +24,22 @@ class RectBox extends StatelessWidget {
       GlobalKey(debugLabel: "bottomRightKey");
   GlobalKey<_RectState> rectKey = GlobalKey(debugLabel: "rectKey");
 
+  double left;
+  double top;
+  double width;
+  double height;
+
   @override
   Widget build(BuildContext context) {
     return Rect(
       id: id,
       key: rectKey,
+      left: left,
       globalKeys: [topLeftKey, topRightKey, bottomLeftKey, bottomRightKey],
       classObject: classObject,
+      height: height,
+      top: top,
+      width: width,
     );
   }
 }
@@ -32,8 +49,22 @@ class Rect extends StatefulWidget {
   int id;
   // Bndbox? bndbox;
   ClassObject? classObject;
-  Rect({Key? key, required this.globalKeys, required this.id, this.classObject})
-      : super(key: key);
+  Rect(
+      {Key? key,
+      required this.globalKeys,
+      required this.id,
+      this.classObject,
+      required this.height,
+      required this.width,
+      required this.left,
+      required this.top})
+      : assert(height > 0 && width > 0),
+        super(key: key);
+
+  double left;
+  double top;
+  double width;
+  double height;
 
   @override
   _RectState createState() => _RectState();
@@ -43,8 +74,8 @@ class _RectState extends State<Rect> {
   late double height;
   late double width;
 
-  double defaultLeft = 0;
-  double defaultTop = 0;
+  late double defaultLeft;
+  late double defaultTop;
 
   final TextEditingController controller = TextEditingController();
 
@@ -71,6 +102,8 @@ class _RectState extends State<Rect> {
   @override
   void initState() {
     super.initState();
+    defaultLeft = widget.left;
+    defaultTop = widget.top;
     topLeftKey = widget.globalKeys[0] as GlobalKey<_PointState>;
     topRightKey = widget.globalKeys[1] as GlobalKey<_PointState>;
     bottomLeftKey = widget.globalKeys[2] as GlobalKey<_PointState>;
@@ -78,8 +111,8 @@ class _RectState extends State<Rect> {
     // print(_workboardBloc.state.param.imageName);
 
     if (null == widget.classObject) {
-      width = defaultRectSize;
-      height = defaultRectSize;
+      width = widget.width;
+      height = widget.height;
     } else {
       // print("true");
       width = (widget.classObject!.bndbox!.xmax! -
