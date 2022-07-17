@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: xiaoshuyui
+ * @email: guchengxi1994@qq.com
+ * @Date: 2022-07-15 19:04:06
+ * @LastEditors: xiaoshuyui
+ * @LastEditTime: 2022-07-17 19:26:25
+ */
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 
@@ -18,9 +27,9 @@ class IconTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: !enable ? null : () => onTap(),
-      child: SizedBox(
+      child: Container(
         width: AppStyle.sidemenuWidthHalf,
-        height: AppStyle.iconWidgetHeight,
+        constraints: const BoxConstraints(minHeight: AppStyle.iconWidgetHeight),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

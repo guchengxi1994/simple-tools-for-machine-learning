@@ -55,7 +55,11 @@ class SideMenu extends StatelessWidget {
             IconTextWidget(
                 enable: context.watch<ImageController>().image != null,
                 icon: const Icon(Icons.create),
-                label: const Text("Create Annotation"),
+                label: const Text(
+                  "Create Annotation\nBy Default",
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                ),
                 onTap: () => addRect(context)),
             const Divider(),
             IconTextWidget(

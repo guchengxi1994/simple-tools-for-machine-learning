@@ -5,7 +5,7 @@
  * @email: guchengxi1994@qq.com
  * @Date: 2022-07-15 19:04:06
  * @LastEditors: xiaoshuyui
- * @LastEditTime: 2022-07-16 23:27:52
+ * @LastEditTime: 2022-07-17 19:33:38
  */
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
@@ -46,6 +46,7 @@ class _WorkboardState extends State<Workboard> {
       width: widget.boardWidth,
       height: widget.boardHeight,
       child: Scrollbar(
+        thickness: 20,
         controller: controller2,
         thumbVisibility: true,
         child: SingleChildScrollView(
