@@ -2,6 +2,10 @@ language: python
 python:
   - "3.8"
 
+branches:
+  only:
+    - dev
+
 install:
   - pip install -r ./requirements.txt
   - pip install pytest
