@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: xiaoshuyui
+ * @email: guchengxi1994@qq.com
+ * @Date: 2022-07-15 19:04:06
+ * @LastEditors: xiaoshuyui
+ * @LastEditTime: 2022-07-16 23:44:32
+ */
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/model/image_model.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +41,7 @@ class ImageViewState extends State<ImageView> {
 class ImageController extends ChangeNotifier {
   MltoolImage? image;
   double scale = 1.0;
+  final GlobalKey stackKey = GlobalKey();
 
   changeImage(MltoolImage? image) {
     scale = 1.0;
@@ -51,6 +61,11 @@ class ImageController extends ChangeNotifier {
 
   reset() {
     scale = 1.0;
+    notifyListeners();
+  }
+
+  changeScale(double s) {
+    scale = s;
     notifyListeners();
   }
 }
