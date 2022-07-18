@@ -19,4 +19,13 @@ class MenuController extends ChangeNotifier {
       _scaffoldKey.currentState!.openDrawer();
     }
   }
+
+  void closeDrawer() {
+    _scaffoldKey.currentState!.closeDrawer();
+  }
+
+  @Deprecated("not used")
+  void closeEndDrawer() {
+    _scaffoldKey.currentState!.closeEndDrawer();
+  }
 }

@@ -17,6 +17,8 @@ import 'package:mltools_viewer/utils/common.dart';
 import 'package:mltools_viewer/widgets/future_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:mltools_viewer/widgets/sidemenu.dart' deferred as sidemenu;
+import 'package:mltools_viewer/widgets/right_sidemenu.dart'
+    deferred as rightsidemenu;
 import 'package:mltools_viewer/widgets/workboard_widget.dart'
     deferred as workboard;
 
@@ -30,16 +32,23 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   var loadSidemenuLib;
   var loadWorkboard;
+  var loadRightSidemenuLib;
 
   @override
   void initState() {
     super.initState();
     loadSidemenuLib = sidemenu.loadLibrary();
     loadWorkboard = workboard.loadLibrary();
+    loadRightSidemenuLib = rightsidemenu.loadLibrary();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (context.read<MenuController>().scaffoldKey.currentState != null &&
+        context.read<MenuController>().scaffoldKey.currentState!.isDrawerOpen) {
+      context.read<MenuController>().closeDrawer();
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,6 +69,8 @@ class _MainScreenState extends State<MainScreen> {
               backgroundColor: AppStyle.lightBlue,
               title: apptitle(context),
               centerTitle: true,
+              actions:
+                  ScreenTypeUtils.isDesktop(context) ? [Container()] : null,
             ),
           ),
           key: context.read<MenuController>().scaffoldKey,
@@ -78,14 +89,23 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-        ))
+        )),
+        Visibility(
+            visible: ScreenTypeUtils.isDesktop(context),
+            maintainState: true,
+            child: Material(
+              child: FutureLoaderWidget(
+                loadWidgetFuture: loadRightSidemenuLib,
+                builder: (context) => rightsidemenu.RightSidemenu(),
+              ),
+            ))
       ],
     );
   }
 
   Widget apptitle(BuildContext context) {
     String imageName =
-        context.watch<ImageController>().image?.imageName ?? "Unknow Image";
+        context.watch<ImageController>().currentImageName ?? "Unknow Image";
     String s = (1 / context.watch<ImageController>().scale).toString();
     String scale;
     if (s.length <= 3) {

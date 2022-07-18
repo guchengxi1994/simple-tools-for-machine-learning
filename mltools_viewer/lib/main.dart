@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/menu_controller.dart';
+import 'package:mltools_viewer/controllers/right_menu_controller.dart';
 import 'package:mltools_viewer/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => MenuController()),
         ChangeNotifierProvider(create: (_) => ImageController()),
         ChangeNotifierProvider(
-            create: (_) => BoardController()..addWidget(const ImageView()))
+            create: (_) => BoardController()..addWidget(const ImageView())),
+        ChangeNotifierProvider(create: (_) => RightMenuController())
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

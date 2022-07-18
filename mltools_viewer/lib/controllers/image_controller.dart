@@ -7,6 +7,8 @@
  * @LastEditors: xiaoshuyui
  * @LastEditTime: 2022-07-17 17:06:42
  */
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/model/image_model.dart';
@@ -59,16 +61,16 @@ class ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     if (TaichiDevUtils.isMobile) {
       return Container(
-        child: context.watch<ImageController>().image != null
+        child: context.watch<ImageController>().images.isNotEmpty
             ? Image.memory(
-                context.watch<ImageController>().image!.imageData!,
+                context.watch<ImageController>().currentImageData,
                 scale: context.watch<ImageController>().scale,
                 fit: BoxFit.cover,
               )
             : null,
       );
     } else {
-      if (context.watch<ImageController>().image != null) {
+      if (context.watch<ImageController>().images.isNotEmpty) {
         return GestureDetector(
           onPanDown: (details) {
             debugPrint("[down details]:$details");
@@ -115,7 +117,7 @@ class ImageViewState extends State<ImageView> {
           child: MouseRegion(
             cursor: SystemMouseCursors.precise,
             child: Image.memory(
-              context.watch<ImageController>().image!.imageData!,
+              context.watch<ImageController>().currentImageData,
               scale: context.watch<ImageController>().scale,
               fit: BoxFit.cover,
             ),
@@ -129,11 +131,25 @@ class ImageViewState extends State<ImageView> {
 }
 
 class ImageController extends ChangeNotifier {
-  MltoolImage? image;
+  List<MltoolImage?> images = [];
   double scale = 1.0;
   final GlobalKey stackKey = GlobalKey();
   double bndboxPreviewWidth = 0;
   double bndboxPreviewHeight = 0;
+
+  String? get currentImageName =>
+      images.isEmpty ? null : images[_currentImageIndex]!.imageName;
+
+  int _currentImageIndex = 0;
+
+  int get currentImageIndex => _currentImageIndex;
+
+  Uint8List get currentImageData => images[_currentImageIndex]!.imageData!;
+
+  changeCurrentIndex(int index) {
+    _currentImageIndex = index;
+    notifyListeners();
+  }
 
   changeBndboxPreviewWidth(double w) {
     bndboxPreviewWidth = w;
@@ -147,7 +163,15 @@ class ImageController extends ChangeNotifier {
 
   changeImage(MltoolImage? image) {
     scale = 1.0;
-    this.image = image;
+    images = [image];
+    _currentImageIndex = 0;
+    notifyListeners();
+  }
+
+  changeImages(List<MltoolImage?> images) {
+    scale = 1.0;
+    this.images = images;
+    _currentImageIndex = 0;
     notifyListeners();
   }
 

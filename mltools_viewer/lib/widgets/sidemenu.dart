@@ -51,9 +51,20 @@ class SideMenu extends StatelessWidget {
               ),
               label: const Text("Open"),
             ),
+            IconTextWidget(
+              onTap: () => onChooseFolderButtonClicked(context),
+              icon: const Icon(
+                Icons.file_copy,
+                size: 30,
+              ),
+              label: const Text(
+                "Choose Multiple Files",
+                maxLines: 2,
+              ),
+            ),
             const Divider(),
             IconTextWidget(
-                enable: context.watch<ImageController>().image != null,
+                enable: context.watch<ImageController>().images.isNotEmpty,
                 icon: const Icon(Icons.create),
                 label: const Text(
                   "Create Annotation\nBy Default",
@@ -181,5 +192,39 @@ class SideMenu extends StatelessWidget {
 
   addRect(BuildContext context) {
     context.read<BoardController>().addWidget(RectBox(id: 0));
+  }
+
+  onChooseFolderButtonClicked(BuildContext context) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png'],
+    );
+
+    if (result != null) {
+      List<Uint8List?> filesBytes = [];
+      List<String> filenames = [];
+      for (final i in result.files) {
+        if (TaichiDevUtils.isWeb) {
+          filesBytes.add(i.bytes);
+          filenames.add(i.name);
+        } else {
+          File file = File(i.path!);
+          filesBytes.add(file.readAsBytesSync());
+          filenames.add(file.path);
+        }
+      }
+      List<MltoolImage> images = [];
+      // print(filenames);
+      for (int i = 0; i < filenames.length; i++) {
+        images.add(MltoolImage(
+            imageData: filesBytes[i],
+            imageName: filenames[i],
+            imageHeight: 0,
+            imageWidth: 0));
+      }
+
+      context.read<ImageController>().changeImages(images);
+    }
   }
 }
