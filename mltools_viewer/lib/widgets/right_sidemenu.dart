@@ -14,6 +14,7 @@ class RightSidemenu extends StatefulWidget {
 class _RightSidemenuState extends State<RightSidemenu> {
   final TextEditingController controller = TextEditingController();
   final ScrollController fileListController = ScrollController();
+  final ScrollController annotationListController = ScrollController();
 
   @override
   void initState() {
@@ -23,6 +24,8 @@ class _RightSidemenuState extends State<RightSidemenu> {
   @override
   void dispose() {
     controller.dispose();
+    fileListController.dispose();
+    annotationListController.dispose();
     super.dispose();
   }
 
@@ -68,7 +71,7 @@ class _RightSidemenuState extends State<RightSidemenu> {
               maxLength: 35,
               maxLines: null,
               controller: controller,
-              decoration: getInputDecotation(),
+              decoration: AppStyle.getInputDecotation(),
               enabled:
                   context.watch<RightMenuController>().defaultLabelSelected,
             ),
@@ -129,27 +132,6 @@ class _RightSidemenuState extends State<RightSidemenu> {
               ),
             )),
           ],
-        ),
-      ),
-    );
-  }
-
-  InputDecoration getInputDecotation() {
-    return const InputDecoration(
-      isCollapsed: true,
-      contentPadding:
-          EdgeInsets.symmetric(horizontal: 8, vertical: 10), //内容内边距，影响高度
-      border: OutlineInputBorder(
-        ///设置边框四个角的弧度
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-
-        ///用来配置边框的样式
-        borderSide: BorderSide(
-          ///设置边框的颜色
-          color: Colors.red,
-
-          ///设置边框的粗细
-          width: 2.0,
         ),
       ),
     );

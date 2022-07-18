@@ -13,10 +13,32 @@ import 'package:flutter/material.dart';
 class AppStyle {
   AppStyle._();
 
+  static InputDecoration getInputDecotation() {
+    return const InputDecoration(
+      isCollapsed: true,
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: 8, vertical: 10), //内容内边距，影响高度
+      border: OutlineInputBorder(
+        ///设置边框四个角的弧度
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+
+        ///用来配置边框的样式
+        borderSide: BorderSide(
+          ///设置边框的颜色
+          color: Colors.red,
+
+          ///设置边框的粗细
+          width: 2.0,
+        ),
+      ),
+    );
+  }
+
   static const double defaultPadding = 20;
 
   static const double headerHeight = 200;
   static const double sidemenuWidth = 300;
+  static const double dialogWidth = 400;
   static const double sidemenuWidthHalf = 150;
   static const double collapseSidemenuWidth = 50;
   static const double appbarHeight = 50;

@@ -9,7 +9,11 @@
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/model/labelimg_objs.dart';
+import 'package:provider/provider.dart';
+import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
 part './point.dart';
 part './rect.dart';

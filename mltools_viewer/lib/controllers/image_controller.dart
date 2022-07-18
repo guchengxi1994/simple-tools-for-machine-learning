@@ -105,6 +105,7 @@ class ImageViewState extends State<ImageView> {
             double rectHeight = _top - _initialTop;
 
             context.read<BoardController>().removeWidget(bndBoxPreviewWidget);
+            context.read<ImageController>().bndReset();
             // 后续id需要改一下，暂时定为1
             context.read<BoardController>().addWidget(RectBox(
                   id: 1,
@@ -158,6 +159,12 @@ class ImageController extends ChangeNotifier {
 
   changeBndboxPreviewHeight(double h) {
     bndboxPreviewHeight = h;
+    notifyListeners();
+  }
+
+  bndReset() {
+    bndboxPreviewHeight = 0;
+    bndboxPreviewWidth = 0;
     notifyListeners();
   }
 

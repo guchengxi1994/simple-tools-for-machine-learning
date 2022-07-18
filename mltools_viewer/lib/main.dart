@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/menu_controller.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ImageController()),
         ChangeNotifierProvider(
             create: (_) => BoardController()..addWidget(const ImageView())),
-        ChangeNotifierProvider(create: (_) => RightMenuController())
+        ChangeNotifierProvider(create: (_) => RightMenuController()),
+        ChangeNotifierProvider(create: (_) => LabelImgAnnotationController())
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
