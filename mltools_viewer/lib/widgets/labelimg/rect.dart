@@ -2,15 +2,17 @@
 
 part of "./labelimg_widget.dart";
 
+@Deprecated(
+    "there is a bug when making this invisible\nUse `RectBoxV2` instead")
 class RectBox extends StatelessWidget {
   int id;
   // 这里要初始化一个 bndbox
-  ClassObject? classObject;
+  // ClassObject? classObject;
   // Bndbox? bndbox;
   RectBox(
       {Key? key,
       required this.id,
-      this.classObject,
+      // this.classObject,
       this.left = 0,
       this.top = 0,
       this.width = defaultRectSize,
@@ -31,16 +33,26 @@ class RectBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Rect(
-      id: id,
-      key: rectKey,
-      left: left,
-      globalKeys: [topLeftKey, topRightKey, bottomLeftKey, bottomRightKey],
-      classObject: classObject,
-      height: height,
-      top: top,
-      width: width,
-    );
+    // print(left);
+    // print(top);
+    // print(width);
+    // print(height);
+    // print("====================");
+
+    return Visibility(
+        visible:
+            context.watch<LabelImgAnnotationController>().getStatusById(id),
+        // maintainState: true,
+        child: Rect(
+          id: id,
+          key: rectKey,
+          left: left,
+          globalKeys: [topLeftKey, topRightKey, bottomLeftKey, bottomRightKey],
+          // classObject: classObject,
+          height: height,
+          top: top,
+          width: width,
+        ));
   }
 }
 
@@ -48,12 +60,11 @@ class Rect extends StatefulWidget {
   List<GlobalKey> globalKeys;
   int id;
   // Bndbox? bndbox;
-  ClassObject? classObject;
+
   Rect(
       {Key? key,
       required this.globalKeys,
       required this.id,
-      this.classObject,
       required this.height,
       required this.width,
       required this.left,
@@ -108,30 +119,29 @@ class _RectState extends State<Rect> {
     topRightKey = widget.globalKeys[1] as GlobalKey<_PointState>;
     bottomLeftKey = widget.globalKeys[2] as GlobalKey<_PointState>;
     bottomRightKey = widget.globalKeys[3] as GlobalKey<_PointState>;
-    // print(_workboardBloc.state.param.imageName);
 
-    if (null == widget.classObject) {
-      width = widget.width;
-      height = widget.height;
-    } else {
-      // print("true");
-      width = (widget.classObject!.bndbox!.xmax! -
-              widget.classObject!.bndbox!.xmin!) *
-          1.0;
-      height = (widget.classObject!.bndbox!.ymax! -
-              widget.classObject!.bndbox!.ymin!) *
-          1.0;
-      defaultLeft = widget.classObject!.bndbox!.xmin! * 1.0;
-      defaultTop = widget.classObject!.bndbox!.ymin! * 1.0;
+    // if (null == widget.classObject) {
+    //   width = widget.width;
+    //   height = widget.height;
+    // } else {
+    //   // print("true");
+    //   width = (widget.classObject!.bndbox!.xmax! -
+    //           widget.classObject!.bndbox!.xmin!) *
+    //       1.0;
+    //   height = (widget.classObject!.bndbox!.ymax! -
+    //           widget.classObject!.bndbox!.ymin!) *
+    //       1.0;
+    //   defaultLeft = widget.classObject!.bndbox!.xmin! * 1.0;
+    //   defaultTop = widget.classObject!.bndbox!.ymin! * 1.0;
 
-      controller.text = widget.classObject!.name!;
-      className = widget.classObject!.name!;
+    //   controller.text = widget.classObject!.name!;
+    //   className = widget.classObject!.name!;
 
-      // print(width);
-      // print(height);
-      // print(defaultLeft);
-      // print(defaultTop);
-    }
+    //   // print(width);
+    //   // print(height);
+    //   // print(defaultLeft);
+    //   // print(defaultTop);
+    // }
   }
 
   setHeight(double height) {

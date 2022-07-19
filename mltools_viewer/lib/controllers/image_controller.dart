@@ -111,13 +111,27 @@ class ImageViewState extends State<ImageView> {
 
               context.read<BoardController>().removeWidget(bndBoxPreviewWidget);
               context.read<ImageController>().bndReset();
-              // 后续id需要改一下，暂时定为1
-              context.read<BoardController>().addWidget(RectBox(
-                    id: 1,
-                    left: _initialLeft,
-                    top: _initialTop,
-                    width: rectWidth,
-                    height: rectHeight,
+              int currentIndex =
+                  context.read<BoardController>().currentLabelImgIndex;
+              context.read<LabelImgAnnotationController>().addDetail(
+                  LabelImgAnnotationDetails(
+                      id: currentIndex,
+                      className: "",
+                      xmin: _initialLeft,
+                      xmax: (_initialLeft + rectWidth),
+                      ymin: _initialTop,
+                      ymax: (_initialTop + rectHeight),
+                      scale: context.read<ImageController>().scale));
+              debugPrint("[currentIndex]:$currentIndex");
+              // context.read<BoardController>().addWidget(RectBox(
+              //       id: currentIndex,
+              //       left: _initialLeft,
+              //       top: _initialTop,
+              //       width: rectWidth,
+              //       height: rectHeight,
+              //     ));
+              context.read<BoardController>().addWidget(RectBoxV2(
+                    id: currentIndex,
                   ));
             },
             child: MouseRegion(
@@ -201,13 +215,17 @@ class ImageController extends ChangeNotifier {
   }
 
   changeBndboxPreviewWidth(double w) {
-    bndboxPreviewWidth = w;
-    notifyListeners();
+    if (w > 0) {
+      bndboxPreviewWidth = w;
+      notifyListeners();
+    }
   }
 
   changeBndboxPreviewHeight(double h) {
-    bndboxPreviewHeight = h;
-    notifyListeners();
+    if (h > 0) {
+      bndboxPreviewHeight = h;
+      notifyListeners();
+    }
   }
 
   bndReset() {

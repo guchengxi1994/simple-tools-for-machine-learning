@@ -14,36 +14,38 @@ enum AnnotationType { /*labelImg*/ rect, /*labelme*/ polygon }
 
 class BoardController extends ChangeNotifier {
   List<Widget> boardWidgets = [];
-  List<RectBox> boxes = [];
+  List<RectBoxV2> boxes = [];
   AnnotationType annotationType = AnnotationType.rect;
   changeAnnotationType(AnnotationType t) {
     annotationType = t;
     notifyListeners();
   }
 
-  double _lastScale = 1.0;
+  int get currentLabelImgIndex =>
+      boardWidgets.whereType<RectBoxV2>().toList().length;
 
   addWidget(Widget w) {
     boardWidgets.add(w);
-    if (w is RectBox) {
+    if (w is RectBoxV2) {
       boxes.add(w);
     }
     notifyListeners();
   }
 
-  whenScaleChanged(double scale) {
-    debugPrint("[scale]:$scale");
-    if (boxes.isEmpty) {
-      _lastScale = scale;
-      return;
-    }
-    for (final box in boxes) {
-      if (box.rectKey.currentState != null) {
-        box.rectKey.currentState!.changeScale(scale / _lastScale);
-      }
-    }
-    _lastScale = scale;
-  }
+  // @Deprecated("use `LabelImgAnnotationController.whenScaleChanged` instead")
+  // whenScaleChanged(double scale) {
+  //   debugPrint("[scale]:$scale");
+  //   if (boxes.isEmpty) {
+  //     _lastScale = scale;
+  //     return;
+  //   }
+  //   for (final box in boxes) {
+  //     if (box.rectKey.currentState != null) {
+  //       box.rectKey.currentState!.changeScale(scale / _lastScale);
+  //     }
+  //   }
+  //   _lastScale = scale;
+  // }
 
   removeWidget(Widget w) {
     boardWidgets.remove(w);

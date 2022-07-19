@@ -1,0 +1,144 @@
+// ignore_for_file: must_be_immutable, library_private_types_in_public_api
+
+part of "./labelimg_widget.dart";
+
+class RectBoxV2 extends StatelessWidget {
+  const RectBoxV2({Key? key, required this.id, this.useDefault = false})
+      : super(key: key);
+  final int id;
+  final bool useDefault;
+
+  @override
+  Widget build(BuildContext context) {
+    final LabelImgAnnotationDetails details;
+    // this `if-else` branch is duplicated
+    if (useDefault) {
+      details = LabelImgAnnotationDetails(
+          id: id,
+          xmin: 0,
+          xmax: 0,
+          ymax: defaultRectSize,
+          ymin: defaultRectSize,
+          scale: context.read<ImageController>().scale,
+          className: "");
+    } else {
+      details =
+          context.watch<LabelImgAnnotationController>().getDetailsById(id);
+    }
+
+    return Visibility(
+        visible: details.enabled && details.visible,
+        child: Positioned(
+            left: details.xmin,
+            top: details.ymin,
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                context
+                    .read<LabelImgAnnotationController>()
+                    .changeBndBoxPosition(id, details);
+              },
+              child: Opacity(
+                opacity: 0.7,
+                child: Container(
+                  // margin: EdgeInsets.only(top: 100, left: 50),
+                  height: context
+                      .read<LabelImgAnnotationController>()
+                      .getHeightById(id),
+                  width: context
+                      .read<LabelImgAnnotationController>()
+                      .getWidthById(id),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.green, width: 0.5),
+                    color: Colors.blueAccent,
+                  ),
+                  child: Stack(
+                    children: [
+                      // left top
+                      Positioned(
+                          left: 0,
+                          top: 0,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+                              context
+                                  .read<LabelImgAnnotationController>()
+                                  .changeBndBoxByLeftTopPosition(id, details);
+                            },
+                            child: Container(
+                                width: pointSize,
+                                height: pointSize,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(150),
+                                  border:
+                                      Border.all(color: Colors.red, width: 0.5),
+                                )),
+                          )),
+                      // right top
+                      Positioned(
+                          right: 0,
+                          top: 0,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+                              context
+                                  .read<LabelImgAnnotationController>()
+                                  .changeBndBoxByRightTopPosition(id, details);
+                            },
+                            child: Container(
+                                width: pointSize,
+                                height: pointSize,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(150),
+                                  border:
+                                      Border.all(color: Colors.red, width: 0.5),
+                                )),
+                          )),
+                      // left bottom
+                      Positioned(
+                          left: 0,
+                          bottom: 0,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+                              context
+                                  .read<LabelImgAnnotationController>()
+                                  .changeBndBoxByLeftBottomPosition(
+                                      id, details);
+                            },
+                            child: Container(
+                                width: pointSize,
+                                height: pointSize,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(150),
+                                  border:
+                                      Border.all(color: Colors.red, width: 0.5),
+                                )),
+                          )),
+                      // right bottom
+                      Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: GestureDetector(
+                            onPanUpdate: (details) {
+                              context
+                                  .read<LabelImgAnnotationController>()
+                                  .changeBndBoxByRightBottomPosition(
+                                      id, details);
+                            },
+                            child: Container(
+                                width: pointSize,
+                                height: pointSize,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(150),
+                                  border:
+                                      Border.all(color: Colors.red, width: 0.5),
+                                )),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            )));
+  }
+}
