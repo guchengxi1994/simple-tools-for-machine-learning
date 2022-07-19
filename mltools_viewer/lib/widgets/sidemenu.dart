@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/model/image_model.dart';
@@ -137,7 +138,8 @@ class SideMenu extends StatelessWidget {
 
     double s = currentScale * k.currentContext!.size!.width / w;
     context.read<ImageController>().changeScale(s);
-    context.read<BoardController>().whenScaleChanged(1 / s);
+    // context.read<BoardController>().whenScaleChanged(1 / s);
+    context.read<LabelImgAnnotationController>().whenScaleChanged(1 / s);
   }
 
   fitHeight(BuildContext context) {
@@ -156,7 +158,8 @@ class SideMenu extends StatelessWidget {
 
     double s = currentScale * k.currentContext!.size!.height / h;
     context.read<ImageController>().changeScale(s);
-    context.read<BoardController>().whenScaleChanged(1 / s);
+    // context.read<BoardController>().whenScaleChanged(1 / s);
+    context.read<LabelImgAnnotationController>().whenScaleChanged(1 / s);
   }
 
   Future onOpenButtonClicked(BuildContext context) async {
@@ -192,23 +195,45 @@ class SideMenu extends StatelessWidget {
   zoomIn(BuildContext context) {
     context.read<ImageController>().zoomIn();
     double currentScale = context.read<ImageController>().scale;
-    context.read<BoardController>().whenScaleChanged(1 / currentScale);
+    // context.read<BoardController>().whenScaleChanged(1 / currentScale);
+    context
+        .read<LabelImgAnnotationController>()
+        .whenScaleChanged(1 / currentScale);
   }
 
   zoomOut(BuildContext context) {
     context.read<ImageController>().zoomOut();
     double currentScale = context.read<ImageController>().scale;
-    context.read<BoardController>().whenScaleChanged(1 / currentScale);
+    // context.read<BoardController>().whenScaleChanged(1 / currentScale);
+    context
+        .read<LabelImgAnnotationController>()
+        .whenScaleChanged(1 / currentScale);
   }
 
   reset(BuildContext context) {
     context.read<ImageController>().reset();
     double currentScale = context.read<ImageController>().scale;
-    context.read<BoardController>().whenScaleChanged(1 / currentScale);
+    // context.read<BoardController>().whenScaleChanged(1 / currentScale);
+    context
+        .read<LabelImgAnnotationController>()
+        .whenScaleChanged(1 / currentScale);
   }
 
   addRect(BuildContext context) {
-    context.read<BoardController>().addWidget(RectBox(id: 0));
+    int currentIndex = context.read<BoardController>().currentLabelImgIndex;
+    // print(currentIndex);
+    context.read<LabelImgAnnotationController>().addDetail(
+        LabelImgAnnotationDetails(
+            id: currentIndex,
+            className: "",
+            xmin: 0,
+            xmax: defaultRectSize,
+            ymin: 0,
+            ymax: defaultRectSize,
+            scale: context.read<ImageController>().scale));
+    context.read<BoardController>().addWidget(RectBoxV2(
+          id: currentIndex,
+        ));
   }
 
   onChooseFolderButtonClicked(BuildContext context) async {

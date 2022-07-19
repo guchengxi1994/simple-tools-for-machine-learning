@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/right_menu_controller.dart';
 import 'package:provider/provider.dart';
@@ -78,9 +79,32 @@ class _RightSidemenuState extends State<RightSidemenu> {
             const Divider(
               thickness: 3,
             ),
-            const Text(
-              "Annotation List",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                const Text(
+                  "Annotation List",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Expanded(child: Container()),
+                IconButton(
+                    tooltip: "Show all",
+                    onPressed: () {
+                      context.read<LabelImgAnnotationController>().showAll();
+                    },
+                    icon: const Icon(
+                      Icons.smart_display_outlined,
+                      color: Colors.green,
+                    )),
+                IconButton(
+                    tooltip: "Hide all",
+                    onPressed: () {
+                      context.read<LabelImgAnnotationController>().hideAll();
+                    },
+                    icon: const Icon(
+                      Icons.hide_source,
+                      color: Colors.red,
+                    )),
+              ],
             ),
             Expanded(
                 child: Container(

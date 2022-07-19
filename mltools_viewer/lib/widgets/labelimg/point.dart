@@ -2,6 +2,7 @@
 
 part of "./labelimg_widget.dart";
 
+@Deprecated("will be removed later")
 class Point extends StatefulWidget {
   Point(
       {required Key key,

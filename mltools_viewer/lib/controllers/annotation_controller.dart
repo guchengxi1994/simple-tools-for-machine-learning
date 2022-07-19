@@ -3,11 +3,11 @@ import 'package:mltools_viewer/widgets/labelme/polygon_point.dart'
     show PolygonEntity, PolygonPoint, PolygonPointState;
 
 class LabelImgAnnotationDetails {
-  String? className;
-  int? xmin;
-  int? xmax;
-  int? ymin;
-  int? ymax;
+  String className;
+  double xmin;
+  double xmax;
+  double ymin;
+  double ymax;
   int id;
 
   /// if not enable,
@@ -15,17 +15,20 @@ class LabelImgAnnotationDetails {
   /// xml files
   bool enabled;
   bool visible;
+  double scale;
   LabelImgAnnotationDetails(
       {required this.id,
-      this.className,
-      this.xmax,
-      this.xmin,
-      this.ymax,
-      this.ymin,
+      this.className = "",
+      this.xmax = 100,
+      this.xmin = 0,
+      this.ymax = 100,
+      this.ymin = 0,
       this.enabled = true,
-      this.visible = true});
+      this.visible = true,
+      this.scale = 1.0});
 }
 
+/// rect annotation details
 class LabelImgAnnotationController extends ChangeNotifier {
   List<String> savedClassNames = [];
   addClassNames(String s) {
@@ -34,8 +37,102 @@ class LabelImgAnnotationController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  double _lastScale = 1.0;
+
+  whenScaleChanged(double scale) {
+    debugPrint("[scale]:$scale");
+    if (details.isEmpty) {
+      _lastScale = scale;
+      return;
+    }
+    for (final i in details) {
+      i.xmin = scale / _lastScale * i.xmin;
+      i.xmax = scale / _lastScale * i.xmax;
+      i.ymin = scale / _lastScale * i.ymin;
+      i.ymax = scale / _lastScale * i.ymax;
+      i.scale = scale;
+    }
+    _lastScale = scale;
+    notifyListeners();
+  }
+
+  changeBndBoxPosition(int index, DragUpdateDetails d) {
+    details[index].xmin += d.delta.dx;
+    details[index].ymin += d.delta.dy;
+    details[index].xmax += d.delta.dx;
+    details[index].ymax += d.delta.dy;
+    notifyListeners();
+  }
+
+  changeBndBoxByRightBottomPosition(int index, DragUpdateDetails d) {
+    details[index].xmax += d.delta.dx;
+    details[index].ymax += d.delta.dy;
+    notifyListeners();
+  }
+
+  changeBndBoxByLeftTopPosition(int index, DragUpdateDetails d) {
+    details[index].xmin += d.delta.dx;
+    details[index].ymin += d.delta.dy;
+    notifyListeners();
+  }
+
+  changeBndBoxByRightTopPosition(int index, DragUpdateDetails d) {
+    details[index].xmax += d.delta.dx;
+    details[index].ymin += d.delta.dy;
+    notifyListeners();
+  }
+
+  changeBndBoxByLeftBottomPosition(int index, DragUpdateDetails d) {
+    details[index].xmin += d.delta.dx;
+    details[index].ymax += d.delta.dy;
+    notifyListeners();
+  }
+
+  double getHeightById(int id) {
+    return details[id].ymax - details[id].ymin;
+  }
+
+  double getWidthById(int id) {
+    return details[id].xmax - details[id].xmin;
+  }
+
+  List<LabelImgAnnotationDetails> details = [];
+
+  bool getStatusById(int index) {
+    return details[index].visible && details[index].enabled;
+  }
+
+  LabelImgAnnotationDetails getDetailsById(int index) {
+    return details[index];
+  }
+
+  addDetail(LabelImgAnnotationDetails d) {
+    details.add(d);
+    notifyListeners();
+  }
+
+  removeDetail(int index) {
+    details[index].enabled = false;
+    notifyListeners();
+  }
+
+  showAll() {
+    for (final i in details) {
+      i.visible = true;
+    }
+    notifyListeners();
+  }
+
+  hideAll() {
+    for (final i in details) {
+      i.visible = false;
+    }
+    notifyListeners();
+  }
 }
 
+/// polygon annotation details
 class LabelmeAnnotationController extends ChangeNotifier {
   List<PolygonEntity> polygons = [];
   addPolygon(PolygonEntity p) {
