@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (_) => BoardController()..addWidget(const ImageView())),
         ChangeNotifierProvider(create: (_) => RightMenuController()),
-        ChangeNotifierProvider(create: (_) => LabelImgAnnotationController())
+        ChangeNotifierProvider(create: (_) => LabelImgAnnotationController()),
+        ChangeNotifierProvider(create: (_) => LabelmeAnnotationController()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

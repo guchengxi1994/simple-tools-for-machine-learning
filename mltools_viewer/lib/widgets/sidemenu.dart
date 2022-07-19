@@ -72,6 +72,13 @@ class SideMenu extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 onTap: () => addRect(context)),
+            IconTextWidget(
+                icon: const Icon(Icons.style),
+                label: Text(context.watch<BoardController>().annotationType ==
+                        AnnotationType.rect
+                    ? "Rect"
+                    : "Polygon"),
+                onTap: () => switchMode(context)),
             const Divider(),
             IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
@@ -97,6 +104,16 @@ class SideMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  switchMode(BuildContext context) {
+    if (context.read<BoardController>().annotationType == AnnotationType.rect) {
+      context
+          .read<BoardController>()
+          .changeAnnotationType(AnnotationType.polygon);
+    } else {
+      context.read<BoardController>().changeAnnotationType(AnnotationType.rect);
+    }
   }
 
   fitWidth(BuildContext context) {

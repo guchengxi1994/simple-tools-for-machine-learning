@@ -10,9 +10,16 @@
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
 
+enum AnnotationType { /*labelImg*/ rect, /*labelme*/ polygon }
+
 class BoardController extends ChangeNotifier {
   List<Widget> boardWidgets = [];
   List<RectBox> boxes = [];
+  AnnotationType annotationType = AnnotationType.rect;
+  changeAnnotationType(AnnotationType t) {
+    annotationType = t;
+    notifyListeners();
+  }
 
   double _lastScale = 1.0;
 
