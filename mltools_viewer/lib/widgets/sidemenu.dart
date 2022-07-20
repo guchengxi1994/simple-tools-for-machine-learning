@@ -18,7 +18,8 @@ import 'package:taichi/taichi.dart' show TaichiDevUtils;
 import 'icon_text_widget.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({Key? key}) : super(key: key);
+  SideMenu({Key? key}) : super(key: key);
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class SideMenu extends StatelessWidget {
       width: AppStyle.sidemenuWidthHalf,
       color: AppStyle.lightBlue,
       child: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,9 +84,9 @@ class SideMenu extends StatelessWidget {
                 onTap: () => switchMode(context)),
             const Divider(),
             IconTextWidget(
-                icon: const Icon(Icons.style),
+                icon: const Icon(Icons.save),
                 label: const Text("Save File"),
-                onTap: () {}),
+                onTap: () => saveFile(context)),
             const Divider(),
             IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
@@ -112,6 +114,13 @@ class SideMenu extends StatelessWidget {
     );
   }
 
+  saveFile(BuildContext context) async {
+    final images = context.read<ImageController>().images;
+    for (final i in images) {
+      if (i != null) {}
+    }
+  }
+
   switchMode(BuildContext context) {
     if (context.read<BoardController>().annotationType == AnnotationType.rect) {
       context
@@ -136,7 +145,8 @@ class SideMenu extends StatelessWidget {
       /// 桌面的情况，主窗体为左右结构，需去除左侧sidemenu宽度
       w = MediaQuery.of(context).size.width -
           AppStyle.sidemenuWidthHalf -
-          2 * AppStyle.defaultPadding;
+          2 * AppStyle.defaultPadding -
+          AppStyle.sidemenuWidth;
     } else {
       w = MediaQuery.of(context).size.width - 2 * AppStyle.defaultPadding;
     }

@@ -2,6 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:mltools_viewer/widgets/labelme/polygon_point.dart'
     show PolygonEntity, PolygonPoint, PolygonPointState;
 
+/// [LabelImgAnnotationDetails]
+///
+/// [className] : string
+///
+/// [imageName] : string, on web, it is a string like `xxx.ext`,
+/// on other platforms, it is a string like `xxx/xxx/xxx.ext`
+///
+/// [xmin] : double
+///
+/// [xmax] : double
+///
+/// [ymin] : double
+///
+/// [ymax] : double
+///
+/// (xmin,ymin) is the left-top point of the bndbox
+///
+/// (xmin,ymax) is the left-bottom point of the bndbox
+///
+/// (xmax,ymin) is the right-top point of the bndbox
+///
+/// (xmax,ymax) is the right-bottom point of the bndbox
+///
+/// [id] : int, the index of the bndbox
+///
+/// [enabled] : bool, if false, this bndbox will not be displayed on the board
+/// and will not be saved
+///
+/// [visible] : bool, if false, this bndbox will not be displayed on the board
+///
+/// [scale] : double, the scale of the image
 class LabelImgAnnotationDetails {
   String className;
   String imageName;
@@ -10,10 +41,6 @@ class LabelImgAnnotationDetails {
   double ymin;
   double ymax;
   int id;
-
-  /// if not enable,
-  /// will not be added to
-  /// xml files
   bool enabled;
   bool visible;
   double scale;
@@ -30,7 +57,38 @@ class LabelImgAnnotationDetails {
       this.scale = 1.0});
 }
 
-/// rect annotation details
+/// [LabelImgAnnotationController] provider of labelImg-like annotations
+/// including:
+/// ------
+/// [changeLabelName] change annotation name by id
+///
+/// [whenScaleChanged] change annotation position, size when [scale] changed
+///
+/// [changeBndBoxPosition] change annotation position when dragging bndbox by id
+///
+/// [changeBndBoxByRightBottomPosition] change annotation when dragging `right-bottom` point by id
+///
+/// [changeBndBoxByLeftTopPosition] change annotation when dragging `left-top` point by id
+///
+/// [changeBndBoxByRightTopPosition] change annotation when dragging `right-top` point by id
+///
+/// [getHeightById] get a bndbox height by id
+///
+/// [getWidthById] get a bndbox width by id
+///
+/// [details] : a list of  [LabelImgAnnotationDetails]
+///
+/// [getStatusById] get a bndbox `enabled && visible` by id
+///
+/// [getDetailsById] get [LabelImgAnnotationDetails] from [details] by id
+///
+/// [addDetail] push a [LabelImgAnnotationDetails] into [details]
+///
+/// [removeDetail] set some of [details] `enabled = false` by id
+///
+/// [showAll] set all of [details] `visible = true`
+///
+/// [hideAll] set all of [details] `visible = false`
 class LabelImgAnnotationController extends ChangeNotifier {
   List<String> savedClassNames = [];
   addClassNames(String s) {
@@ -128,6 +186,7 @@ class LabelImgAnnotationController extends ChangeNotifier {
     return details[id].xmax - details[id].xmin;
   }
 
+  /// rect annotation details
   List<LabelImgAnnotationDetails> details = [];
 
   bool getStatusById(int index) {
@@ -163,8 +222,11 @@ class LabelImgAnnotationController extends ChangeNotifier {
   }
 }
 
-/// polygon annotation details
+/// [LabelmeAnnotationController] provider of labelme-like annotations
+/// including:
+/// ------
 class LabelmeAnnotationController extends ChangeNotifier {
+  /// polygon annotation details
   List<PolygonEntity> polygons = [];
   addPolygon(PolygonEntity p) {
     polygons.add(p);

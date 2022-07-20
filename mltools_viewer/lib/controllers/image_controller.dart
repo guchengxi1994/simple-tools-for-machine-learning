@@ -19,6 +19,13 @@ import 'package:mltools_viewer/widgets/labelme/polygon_point.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart';
 
+/// [BndBoxPreviewWidget] a widget only on desktop and web.
+///
+/// before we create a bndbox on workboard, a cursor of [precise] will be displayed.
+/// then we select a region of the workboard as a bndbnx.
+///
+/// this widget will be displayed when selecting the region, then will be removed
+/// when bndbox is generated.
 class BndBoxPreviewWidget extends StatelessWidget {
   const BndBoxPreviewWidget({Key? key, required this.left, required this.top})
       : super(key: key);
@@ -41,6 +48,7 @@ class BndBoxPreviewWidget extends StatelessWidget {
   }
 }
 
+/// [ImageView] a stateful widget showing the image
 class ImageView extends StatefulWidget {
   const ImageView({Key? key}) : super(key: key);
 
@@ -103,9 +111,6 @@ class ImageViewState extends State<ImageView> {
                   .changeBndboxPreviewWidth(_left - _initialLeft);
             },
             onPanEnd: (details) {
-              // debugPrint("[end details]:$details");
-              // debugPrint("[_left]:$_left");
-              // debugPrint("[_top]:$_top");
               double rectWidth = _left - _initialLeft;
               double rectHeight = _top - _initialTop;
 
@@ -190,6 +195,43 @@ class ImageViewState extends State<ImageView> {
   }
 }
 
+/// [ImageController] provider of [ImageView]
+/// including:
+/// ------
+/// [images] : a list of [MltoolImage], which is nullable
+///
+/// [scale] : image scale
+///
+/// [stackKey] : the child of [ImageView] is a [Stack], this is
+/// the [GlobalKey] of the [Stack]
+///
+/// [bndboxPreviewWidth] : width of [BndBoxPreviewWidget]
+///
+/// [bndboxPreviewHeight] : height of [BndBoxPreviewWidget]
+///
+/// [currentImageName] : get the image name
+///
+/// [currentImageIndex] : get the image index(if multiple files are selected)
+///
+/// [currentImageData] : Uint8List of the image
+///
+/// [changeCurrentIndex] : change image index by index
+///
+/// [changeBndboxPreviewWidth] : change [BndBoxPreviewWidget] width
+///
+/// [changeBndboxPreviewHeight] : change [BndBoxPreviewWidget] height
+///
+/// [changeImage] : select single image
+///
+/// [changeImages] : select multiple images
+///
+/// [zoomIn] : zoom in image by multiply 1.2 each time
+///
+/// [zoomOut] : zoom out image by divide 1.2 each time
+///
+/// [reset] : reset [scale] to `1.0`
+///
+/// [changeScale] : change scale with a specific number
 class ImageController extends ChangeNotifier {
   List<MltoolImage?> images = [];
   double scale = 1.0;

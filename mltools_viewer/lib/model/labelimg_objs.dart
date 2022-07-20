@@ -2,6 +2,7 @@
 
 import 'package:xml/xml.dart';
 
+@Deprecated("use `MltoolsSaveModel` instead")
 class ImageObjs {
   Annotation? annotation;
 

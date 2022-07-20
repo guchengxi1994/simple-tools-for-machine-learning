@@ -9,6 +9,7 @@
  */
 import 'package:flutter/material.dart';
 
+/// [MenuController] provider of side menu
 class MenuController extends ChangeNotifier {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
