@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -10,10 +11,13 @@ import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/model/image_model.dart';
+import 'package:mltools_viewer/model/labelimg_objs.dart';
+import 'package:mltools_viewer/model/mltool_image_save_model.dart';
 import 'package:mltools_viewer/utils/common.dart';
 import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
+import 'package:path/path.dart' as p;
 
 import 'icon_text_widget.dart';
 
@@ -87,6 +91,14 @@ class SideMenu extends StatelessWidget {
                 icon: const Icon(Icons.save),
                 label: const Text("Save File"),
                 onTap: () => saveFile(context)),
+            IconTextWidget(
+                icon: const Icon(Icons.file_present),
+                label: const Text(
+                  'Load Data From ".ml" Files',
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                ),
+                onTap: () {}),
             const Divider(),
             IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
@@ -116,8 +128,43 @@ class SideMenu extends StatelessWidget {
 
   saveFile(BuildContext context) async {
     final images = context.read<ImageController>().images;
+    final scale = context.read<ImageController>().scale;
+    final savedClassNames =
+        context.read<LabelImgAnnotationController>().savedClassNames;
+    List<Annotation> annotations = [];
     for (final i in images) {
-      if (i != null) {}
+      if (i != null) {
+        String imageName = i.imageName!;
+        final details = context
+            .read<LabelImgAnnotationController>()
+            .details
+            .where((element) => element.imageName == imageName)
+            .toList();
+
+        if (!TaichiDevUtils.isWeb) {
+          imageName = p.basename(imageName);
+        }
+        String imageData = base64Encode(i.imageData!);
+
+        for (final d in details) {
+          Bndbox bndbox = Bndbox(
+              xmax: d.xmax.toInt(),
+              xmin: d.xmin.toInt(),
+              ymax: d.ymax.toInt(),
+              ymin: d.ymin.toInt());
+          annotations.add(Annotation(labelName: d.className, bndbox: bndbox));
+        }
+        String fileName =
+            imageName.split(".").first + MltoolsSaveModel.extension;
+
+        MltoolsSaveModel model = MltoolsSaveModel(
+            imageData: imageData,
+            imageName: imageName,
+            annotations: annotations,
+            scale: scale,
+            savedClassNames: savedClassNames);
+        await model.toFile(fileName);
+      }
     }
   }
 

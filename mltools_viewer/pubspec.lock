@@ -157,19 +157,12 @@ packages:
     source: hosted
     version: "1.0.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.1"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "5.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -184,6 +177,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.0.3"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -247,6 +247,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.2.2"
+  tuple:
+    dependency: "direct main"
+    description:
+      name: tuple
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   vector_math:
     dependency: transitive
     description:
@@ -261,13 +268,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.6.1"
-  xml:
-    dependency: "direct main"
-    description:
-      name: xml
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "6.1.0"
 sdks:
   dart: ">=2.17.5 <3.0.0"
   flutter: ">=2.8.0"
