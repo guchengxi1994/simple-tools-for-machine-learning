@@ -8,10 +8,8 @@
  * @LastEditTime: 2022-07-17 19:33:38
  */
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
-import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
 import 'package:provider/provider.dart';
 
 class Workboard extends StatefulWidget {
@@ -58,32 +56,14 @@ class _WorkboardState extends State<Workboard> {
             controller: controller,
             child: Stack(
               key: context.read<ImageController>().stackKey,
-              children: context.watch<BoardController>().boardWidgets,
+              children: context
+                  .watch<BoardController>()
+                  .getRectBoxesByImageName(
+                      context.watch<ImageController>().currentImageName ?? ""),
             ),
           ),
         ),
       ),
     );
-  }
-
-  @Deprecated("not used")
-  List<Widget> getWidgets() {
-    List<Widget> results = [];
-    final widgets = context.watch<BoardController>().boardWidgets;
-    for (final i in widgets) {
-      if (i is RectBox) {
-        final index = i.id;
-        final status =
-            context.watch<LabelImgAnnotationController>().getStatusById(index);
-
-        results.add(Visibility(
-          visible: status,
-          child: i,
-        ));
-      } else {
-        results.add(i);
-      }
-    }
-    return results;
   }
 }

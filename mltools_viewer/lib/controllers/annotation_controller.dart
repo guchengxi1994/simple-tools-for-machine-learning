@@ -4,6 +4,7 @@ import 'package:mltools_viewer/widgets/labelme/polygon_point.dart'
 
 class LabelImgAnnotationDetails {
   String className;
+  String imageName;
   double xmin;
   double xmax;
   double ymin;
@@ -18,6 +19,7 @@ class LabelImgAnnotationDetails {
   double scale;
   LabelImgAnnotationDetails(
       {required this.id,
+      required this.imageName,
       this.className = "",
       this.xmax = 100,
       this.xmin = 0,
@@ -39,6 +41,11 @@ class LabelImgAnnotationController extends ChangeNotifier {
   }
 
   double _lastScale = 1.0;
+
+  changeLabelName(int index, String labelName) {
+    details[index].className = labelName;
+    notifyListeners();
+  }
 
   whenScaleChanged(double scale) {
     debugPrint("[scale]:$scale");
@@ -62,6 +69,14 @@ class LabelImgAnnotationController extends ChangeNotifier {
     details[index].ymin += d.delta.dy;
     details[index].xmax += d.delta.dx;
     details[index].ymax += d.delta.dy;
+
+    if (details[index].xmin < 0) {
+      details[index].xmin = 0;
+    }
+
+    if (details[index].ymin < 0) {
+      details[index].ymin = 0;
+    }
     notifyListeners();
   }
 
@@ -74,18 +89,34 @@ class LabelImgAnnotationController extends ChangeNotifier {
   changeBndBoxByLeftTopPosition(int index, DragUpdateDetails d) {
     details[index].xmin += d.delta.dx;
     details[index].ymin += d.delta.dy;
+
+    if (details[index].xmin < 0) {
+      details[index].xmin = 0;
+    }
+
+    if (details[index].ymin < 0) {
+      details[index].ymin = 0;
+    }
     notifyListeners();
   }
 
   changeBndBoxByRightTopPosition(int index, DragUpdateDetails d) {
     details[index].xmax += d.delta.dx;
     details[index].ymin += d.delta.dy;
+
+    if (details[index].ymin < 0) {
+      details[index].ymin = 0;
+    }
     notifyListeners();
   }
 
   changeBndBoxByLeftBottomPosition(int index, DragUpdateDetails d) {
     details[index].xmin += d.delta.dx;
     details[index].ymax += d.delta.dy;
+
+    if (details[index].xmin < 0) {
+      details[index].xmin = 0;
+    }
     notifyListeners();
   }
 

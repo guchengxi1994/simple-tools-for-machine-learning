@@ -1,3 +1,4 @@
+```dart
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, prefer_typing_uninitialized_variables, no_leading_underscores_for_local_identifiers, deprecated_member_use_from_same_package
 
 part of "./labelimg_widget.dart";
@@ -158,3 +159,4 @@ class _PointState extends State<Point> {
         ));
   }
 }
+```

@@ -113,8 +113,11 @@ class ImageViewState extends State<ImageView> {
               context.read<ImageController>().bndReset();
               int currentIndex =
                   context.read<BoardController>().currentLabelImgIndex;
+              String imageName =
+                  context.read<ImageController>().currentImageName ?? '';
               context.read<LabelImgAnnotationController>().addDetail(
                   LabelImgAnnotationDetails(
+                      imageName: imageName,
                       id: currentIndex,
                       className: "",
                       xmin: _initialLeft,
@@ -123,14 +126,8 @@ class ImageViewState extends State<ImageView> {
                       ymax: (_initialTop + rectHeight),
                       scale: context.read<ImageController>().scale));
               debugPrint("[currentIndex]:$currentIndex");
-              // context.read<BoardController>().addWidget(RectBox(
-              //       id: currentIndex,
-              //       left: _initialLeft,
-              //       top: _initialTop,
-              //       width: rectWidth,
-              //       height: rectHeight,
-              //     ));
               context.read<BoardController>().addWidget(RectBoxV2(
+                    imageName: imageName,
                     id: currentIndex,
                   ));
             },

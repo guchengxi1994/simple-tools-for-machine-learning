@@ -1,3 +1,4 @@
+```dart
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api, deprecated_member_use_from_same_package
 
 part of "./labelimg_widget.dart";
@@ -397,3 +398,4 @@ class _RectState extends State<Rect> {
     return p;
   }
 }
+```

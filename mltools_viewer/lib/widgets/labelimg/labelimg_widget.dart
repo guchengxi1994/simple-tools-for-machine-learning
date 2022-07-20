@@ -16,8 +16,6 @@ import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
-part './point.dart';
-part './rect.dart';
 part './rect_v2.dart';
 
 const double pointSize = 20;

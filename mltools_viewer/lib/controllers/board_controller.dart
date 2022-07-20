@@ -32,20 +32,19 @@ class BoardController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // @Deprecated("use `LabelImgAnnotationController.whenScaleChanged` instead")
-  // whenScaleChanged(double scale) {
-  //   debugPrint("[scale]:$scale");
-  //   if (boxes.isEmpty) {
-  //     _lastScale = scale;
-  //     return;
-  //   }
-  //   for (final box in boxes) {
-  //     if (box.rectKey.currentState != null) {
-  //       box.rectKey.currentState!.changeScale(scale / _lastScale);
-  //     }
-  //   }
-  //   _lastScale = scale;
-  // }
+  List<Widget> getRectBoxesByImageName(String imgName) {
+    List<Widget> ws = [];
+    for (final i in boardWidgets) {
+      if (i is RectBoxV2) {
+        if ((i).imageName == imgName) {
+          ws.add(i);
+        }
+      } else {
+        ws.add(i);
+      }
+    }
+    return ws;
+  }
 
   removeWidget(Widget w) {
     boardWidgets.remove(w);

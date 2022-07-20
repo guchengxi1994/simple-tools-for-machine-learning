@@ -3,10 +3,15 @@
 part of "./labelimg_widget.dart";
 
 class RectBoxV2 extends StatelessWidget {
-  RectBoxV2({Key? key, required this.id, this.useDefault = false})
+  RectBoxV2(
+      {Key? key,
+      required this.id,
+      this.useDefault = false,
+      required this.imageName})
       : super(key: key);
   final int id;
   final bool useDefault;
+  final String imageName;
 
   String className = '';
   final TextEditingController controller = TextEditingController();
@@ -17,6 +22,7 @@ class RectBoxV2 extends StatelessWidget {
     // this `if-else` branch is duplicated
     if (useDefault) {
       details = LabelImgAnnotationDetails(
+          imageName: imageName,
           id: id,
           xmin: 0,
           xmax: 0,
@@ -99,6 +105,11 @@ class RectBoxV2 extends StatelessWidget {
                                                         LabelImgAnnotationController>()
                                                     .addClassNames(
                                                         controller.text);
+                                                context
+                                                    .read<
+                                                        LabelImgAnnotationController>()
+                                                    .changeLabelName(
+                                                        id, controller.text);
                                                 Navigator.of(context).pop();
                                               },
                                               icon: const Icon(

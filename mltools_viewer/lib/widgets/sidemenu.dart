@@ -82,6 +82,11 @@ class SideMenu extends StatelessWidget {
                 onTap: () => switchMode(context)),
             const Divider(),
             IconTextWidget(
+                icon: const Icon(Icons.style),
+                label: const Text("Save File"),
+                onTap: () {}),
+            const Divider(),
+            IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
                 label: const Text("Zoom In"),
                 onTap: () => zoomIn(context)),
@@ -221,9 +226,11 @@ class SideMenu extends StatelessWidget {
 
   addRect(BuildContext context) {
     int currentIndex = context.read<BoardController>().currentLabelImgIndex;
+    String imageName = context.read<ImageController>().currentImageName ?? '';
     // print(currentIndex);
     context.read<LabelImgAnnotationController>().addDetail(
         LabelImgAnnotationDetails(
+            imageName: imageName,
             id: currentIndex,
             className: "",
             xmin: 0,
@@ -232,6 +239,7 @@ class SideMenu extends StatelessWidget {
             ymax: defaultRectSize,
             scale: context.read<ImageController>().scale));
     context.read<BoardController>().addWidget(RectBoxV2(
+          imageName: imageName,
           id: currentIndex,
         ));
   }

@@ -32,6 +32,14 @@ class _RightSidemenuState extends State<RightSidemenu> {
 
   @override
   Widget build(BuildContext context) {
+    final imageName = context.watch<ImageController>().currentImageName;
+
+    final details = context
+        .watch<LabelImgAnnotationController>()
+        .details
+        .where((element) => element.enabled && element.imageName == imageName)
+        .toList();
+
     return Container(
       padding: const EdgeInsets.only(top: AppStyle.appbarHeight),
       height: MediaQuery.of(context).size.height,
@@ -107,13 +115,31 @@ class _RightSidemenuState extends State<RightSidemenu> {
               ],
             ),
             Expanded(
-                child: Container(
-              width: AppStyle.sidemenuWidth,
-              decoration:
-                  BoxDecoration(border: Border.all(color: AppStyle.dark_grey)),
-              margin: const EdgeInsets.all(5),
-              child: SingleChildScrollView(),
-            )),
+              child: Container(
+                  width: AppStyle.sidemenuWidth,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: AppStyle.dark_grey)),
+                  margin: const EdgeInsets.all(5),
+                  child: ListView.builder(
+                      itemCount: details.length,
+                      itemBuilder: (context, index) {
+                        var suffix =
+                            details[index].visible == true ? "" : "  (已隐藏)";
+                        var labelName = details[index].className == ""
+                            ? " 未命名"
+                            : " ${details[index].className}";
+                        return RichText(
+                            maxLines: null,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: labelName,
+                                  style: const TextStyle(color: Colors.black)),
+                              TextSpan(
+                                  text: suffix,
+                                  style: const TextStyle(color: Colors.red))
+                            ]));
+                      })),
+            ),
             const Text(
               "File List",
               style: TextStyle(fontWeight: FontWeight.bold),
