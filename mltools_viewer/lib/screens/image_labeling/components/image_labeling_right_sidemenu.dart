@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/right_menu_controller.dart';
+import 'package:mltools_viewer/model/image_model.dart';
 import 'package:provider/provider.dart';
 
 class ImageLabelingRightSidemenu extends StatefulWidget {
@@ -14,6 +16,7 @@ class ImageLabelingRightSidemenu extends StatefulWidget {
 
 class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
   final TextEditingController controller = TextEditingController();
+  final TextEditingController controller2 = TextEditingController();
   final ScrollController fileListController = ScrollController();
   final ScrollController annotationListController = ScrollController();
 
@@ -25,6 +28,7 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
   @override
   void dispose() {
     controller.dispose();
+    controller2.dispose();
     fileListController.dispose();
     annotationListController.dispose();
     super.dispose();
@@ -32,13 +36,48 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
 
   @override
   Widget build(BuildContext context) {
-    final imageName = context.watch<ImageController>().currentImageName;
+    final imageName = context.select<ImageController, String?>(
+      (value) {
+        return value.currentImageName;
+      },
+    );
 
     final details = context
-        .watch<LabelImgAnnotationController>()
-        .details
-        .where((element) => element.enabled && element.imageName == imageName)
-        .toList();
+        .select<LabelImgAnnotationController, List<LabelImgAnnotationDetails>>(
+      (value) {
+        return value.details
+            .where(
+                (element) => element.enabled && element.imageName == imageName)
+            .toList();
+      },
+    );
+
+    final labelmeDetails = context
+        .select<LabelmeAnnotationController, List<LabelmeAnnotationDetails>>(
+            (value) => value.details
+                .where((element) => element.imageName == imageName)
+                .toList());
+
+    // List<String> labelNames = [];
+    Map<String, String> labelNameIdMap = {};
+
+    for (final i in details) {
+      if (i.visible) {
+        labelNameIdMap.addAll({"r${i.id}": '${i.className}[rectangle]'});
+      } else {
+        labelNameIdMap.addAll({"r${i.id}": '${i.className}[rectangle](已隐藏)'});
+      }
+    }
+
+    for (final i in labelmeDetails) {
+      labelNameIdMap.addAll({"p${i.polygonId}": '${i.className}[polygon]'});
+    }
+
+    final images = context.select<ImageController, List<MltoolImage?>>(
+      (value) {
+        return value.images;
+      },
+    );
 
     return Container(
       padding: const EdgeInsets.only(top: AppStyle.appbarHeight),
@@ -121,23 +160,64 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
                       border: Border.all(color: AppStyle.dark_grey)),
                   margin: const EdgeInsets.all(5),
                   child: ListView.builder(
-                      itemCount: details.length,
+                      itemCount: labelNameIdMap.length,
                       itemBuilder: (context, index) {
-                        var suffix =
-                            details[index].visible == true ? "" : "  (已隐藏)";
-                        var labelName = details[index].className == ""
-                            ? " 未命名"
-                            : " ${details[index].className}";
-                        return RichText(
-                            maxLines: null,
-                            text: TextSpan(children: [
-                              TextSpan(
-                                  text: labelName,
-                                  style: const TextStyle(color: Colors.black)),
-                              TextSpan(
-                                  text: suffix,
-                                  style: const TextStyle(color: Colors.red))
-                            ]));
+                        return InkWell(
+                          onDoubleTap: () async {
+                            final entry =
+                                labelNameIdMap.entries.toList()[index];
+                            int? widgetId =
+                                int.tryParse(entry.key.substring(1));
+                            if (widgetId == null) {
+                              return;
+                            }
+
+                            await showCupertinoDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CupertinoAlertDialog(
+                                    title: const Text("Operation"),
+                                    content: Material(
+                                        color: Colors.transparent,
+                                        child: Column(
+                                          children: [
+                                            TextButton(
+                                              onPressed: () {
+                                                if (entry.value
+                                                    .contains("[rectangle]")) {
+                                                } else {}
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("Delete"),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            TextField(
+                                              controller: controller2,
+                                              decoration:
+                                                  AppStyle.getInputDecotation(),
+                                            )
+                                          ],
+                                        )),
+                                    actions: [
+                                      CupertinoActionSheetAction(
+                                          onPressed: () {
+                                            if (entry.value
+                                                .contains("[rectangle]")) {
+                                            } else {}
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("确定"))
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Text(
+                            labelNameIdMap.values.toList()[index],
+                            maxLines: 2,
+                          ),
+                        );
                       })),
             ),
             const Text(
@@ -151,7 +231,7 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
                   BoxDecoration(border: Border.all(color: AppStyle.dark_grey)),
               margin: const EdgeInsets.all(5),
               child: ListView.builder(
-                itemCount: context.watch<ImageController>().images.length,
+                itemCount: images.length,
                 itemBuilder: ((context, index) {
                   return InkWell(
                     onDoubleTap: () {
@@ -166,7 +246,7 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
                       padding: const EdgeInsets.all(5),
                       constraints: const BoxConstraints(minHeight: 20),
                       child: Text(
-                        "${index + 1}. ${context.watch<ImageController>().images[index]!.imageName ?? ""}",
+                        "${index + 1}. ${images[index]!.imageName ?? ""}",
                         style: TextStyle(
                             color: context
                                         .watch<ImageController>()

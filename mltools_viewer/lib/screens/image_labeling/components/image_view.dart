@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
+import 'package:mltools_viewer/model/image_model.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
@@ -31,8 +34,11 @@ class BndBoxPreviewWidget extends StatelessWidget {
           opacity: 0.7,
           child: Container(
             color: Colors.blueAccent,
-            width: context.watch<ImageController>().bndboxPreviewWidth,
-            height: context.watch<ImageController>().bndboxPreviewHeight,
+            // width: context.watch<ImageController>().bndboxPreviewWidth,
+            width: context.select<ImageController, double>(
+                (value) => value.bndboxPreviewWidth),
+            height: context.select<ImageController, double>(
+                (value) => value.bndboxPreviewHeight),
           ),
         ));
   }
@@ -65,16 +71,26 @@ class ImageViewState extends State<ImageView> {
         AnnotationType.rect) {
       if (TaichiDevUtils.isMobile) {
         return Container(
-          child: context.watch<ImageController>().images.isNotEmpty
+          child: context.select<ImageController, List<MltoolImage?>>(
+            (value) {
+              return value.images;
+            },
+          ).isEmpty
               ? Image.memory(
-                  context.watch<ImageController>().currentImageData,
-                  scale: context.watch<ImageController>().scale,
+                  context.select<ImageController, Uint8List>(
+                      (value) => value.currentImageData),
+                  scale: context
+                      .select<ImageController, double>((value) => value.scale),
                   fit: BoxFit.cover,
                 )
               : null,
         );
       } else {
-        if (context.watch<ImageController>().images.isNotEmpty) {
+        if (context.select<ImageController, List<MltoolImage?>>(
+          (value) {
+            return value.images;
+          },
+        ).isNotEmpty) {
           return GestureDetector(
             onPanDown: (details) {
               debugPrint("[down details]:$details");
@@ -105,6 +121,13 @@ class ImageViewState extends State<ImageView> {
               double rectWidth = _left - _initialLeft;
               double rectHeight = _top - _initialTop;
 
+              if (rectWidth <= 0 || rectHeight <= 0) {
+                context
+                    .read<BoardController>()
+                    .removeWidget(bndBoxPreviewWidget);
+                return;
+              }
+
               context.read<BoardController>().removeWidget(bndBoxPreviewWidget);
               context.read<ImageController>().bndReset();
               int currentIndex =
@@ -115,7 +138,7 @@ class ImageViewState extends State<ImageView> {
                   LabelImgAnnotationDetails(
                       imageName: imageName,
                       id: currentIndex,
-                      className: "",
+                      className: "未定义",
                       xmin: _initialLeft,
                       xmax: (_initialLeft + rectWidth),
                       ymin: _initialTop,
@@ -130,8 +153,10 @@ class ImageViewState extends State<ImageView> {
             child: MouseRegion(
               cursor: SystemMouseCursors.precise,
               child: Image.memory(
-                context.watch<ImageController>().currentImageData,
-                scale: context.watch<ImageController>().scale,
+                context.select<ImageController, Uint8List>(
+                    (value) => value.currentImageData),
+                scale: context
+                    .select<ImageController, double>((value) => value.scale),
                 fit: BoxFit.cover,
               ),
             ),
@@ -186,9 +211,8 @@ class ImageViewState extends State<ImageView> {
             final details = context.read<LabelmeAnnotationController>().details;
             for (final i in details) {
               if (i.path != null) {
-                Offset off = Offset(d.localPosition.dx, d.localPosition.dy);
                 // print(i.path!.contains(off));
-                if (i.path!.contains(off)) {
+                if (i.path!.contains(d.localPosition)) {
                   setState(() {
                     currentEditingPolygonId = i.polygonId;
                   });
@@ -211,11 +235,14 @@ class ImageViewState extends State<ImageView> {
         },
         child: CustomPaint(
           foregroundPainter: LinePainter(
-              details: context.watch<LabelmeAnnotationController>().details,
+              details: context.select<LabelmeAnnotationController,
+                  List<LabelmeAnnotationDetails>>((value) => value.details),
               context: context),
           child: Image.memory(
-            context.watch<ImageController>().currentImageData,
-            scale: context.watch<ImageController>().scale,
+            context.select<ImageController, Uint8List>(
+                (value) => value.currentImageData),
+            scale:
+                context.select<ImageController, double>((value) => value.scale),
             fit: BoxFit.cover,
           ),
         ),

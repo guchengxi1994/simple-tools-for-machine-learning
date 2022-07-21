@@ -45,7 +45,7 @@ class LabelImgAnnotationDetails {
   LabelImgAnnotationDetails(
       {required this.id,
       required this.imageName,
-      this.className = "",
+      this.className = "未定义",
       this.xmax = 100,
       this.xmin = 0,
       this.ymax = 100,
@@ -233,7 +233,7 @@ class LabelmeAnnotationDetails {
       required this.points,
       required this.polygonId,
       this.scale = 1.0,
-      this.className = "",
+      this.className = "未定义",
       this.path});
 }
 
@@ -251,11 +251,29 @@ enum PolygonOperationType { create, edit }
 /// ------
 class LabelmeAnnotationController extends ChangeNotifier {
   List<LabelmeAnnotationDetails> details = [];
+  List<String> savedClassNames = [];
   double _lastScale = 1.0;
   int _currentPolygonIndex = 0;
 
   int get currentPolygonIndex => _currentPolygonIndex;
 
+  changePolygonClassName(String s, int polygonId) {
+    details[polygonId].className = s;
+    if (!savedClassNames.contains(s)) {
+      notifyListeners();
+    }
+    savedClassNames.add(s);
+  }
+
+  @Deprecated("will be removed")
+  addSavedClassName(String s) {
+    if (!savedClassNames.contains(s)) {
+      savedClassNames.add(s);
+      notifyListeners();
+    }
+  }
+
+  @Deprecated("will be removed")
   addOne() {
     _currentPolygonIndex += 1;
     notifyListeners();
@@ -302,6 +320,12 @@ class LabelmeAnnotationController extends ChangeNotifier {
   }
 
   PolygonOperationType operationType = PolygonOperationType.create;
+
+  switchTypeToCreate() {
+    operationType = PolygonOperationType.create;
+    _currentPolygonIndex += 1;
+    notifyListeners();
+  }
 
   switchOperationType() {
     if (operationType == PolygonOperationType.create) {

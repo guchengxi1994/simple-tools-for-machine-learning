@@ -11,8 +11,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/annotation_controller.dart';
+import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/menu_controller.dart';
+import 'package:mltools_viewer/controllers/right_menu_controller.dart';
 import 'package:mltools_viewer/utils/common.dart';
 import 'package:mltools_viewer/widgets/future_builder.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +25,28 @@ import 'package:mltools_viewer/screens/image_labeling/components/image_labeling_
     deferred as rightsidemenu;
 import 'package:mltools_viewer/screens/image_labeling/components/image_labeling_workboard.dart'
     deferred as workboard;
+
+import 'components/image_view.dart';
+
+class ImageLabelingPage extends StatelessWidget {
+  const ImageLabelingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MenuController()),
+        ChangeNotifierProvider(create: (_) => ImageController()),
+        ChangeNotifierProvider(
+            create: (_) => BoardController()..addWidget(const ImageView())),
+        ChangeNotifierProvider(create: (_) => RightMenuController()),
+        ChangeNotifierProvider(create: (_) => LabelImgAnnotationController()),
+        ChangeNotifierProvider(create: (_) => LabelmeAnnotationController()),
+      ],
+      child: const ImageLabelingMainScreen(),
+    );
+  }
+}
 
 class ImageLabelingMainScreen extends StatefulWidget {
   const ImageLabelingMainScreen({Key? key}) : super(key: key);
@@ -106,9 +131,18 @@ class _ImageLabelingState extends State<ImageLabelingMainScreen> {
   }
 
   Widget apptitle(BuildContext context) {
-    String imageName =
-        context.watch<ImageController>().currentImageName ?? "Unknow Image";
-    String s = (1 / context.watch<ImageController>().scale).toString();
+    // String imageName =
+    //     context.watch<ImageController>().currentImageName ?? "Unknow Image";
+
+    String imageName = context.select<ImageController, String>(
+      (value) {
+        return value.currentImageName ?? "Unknow Image";
+      },
+    );
+    // String s = (1 / context.watch<ImageController>().scale).toString();
+    String s = context.select<ImageController, double>((value) {
+      return value.scale;
+    }).toString();
     String scale;
     if (s.length <= 3) {
       scale = s;

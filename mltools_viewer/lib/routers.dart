@@ -16,7 +16,7 @@ class Routers {
         builder: (context) => main.MainScreen(),
         loadWidgetFuture: main.loadLibrary()),
     pageImageLabeling: (context) => FutureLoaderWidget(
-        builder: (context) => imagelabeling.ImageLabelingMainScreen(),
+        builder: (context) => imagelabeling.ImageLabelingPage(),
         loadWidgetFuture: imagelabeling.loadLibrary()),
     pageNlpLabeling: (context) => FutureLoaderWidget(
         builder: (context) => nlplabeling.NlpLabelingScreen(),
