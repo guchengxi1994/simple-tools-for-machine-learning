@@ -8,7 +8,7 @@
  * @LastEditTime: 2022-07-17 09:41:02
  */
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
+import 'package:mltools_viewer/screens/image_labeling/components/labelimg/labelimg_widget.dart';
 
 enum AnnotationType { /*labelImg*/ rect, /*labelme*/ polygon }
 

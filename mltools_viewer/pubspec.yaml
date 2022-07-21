@@ -3,7 +3,7 @@ description: 使用flutter编写的数据标注/增广的可视化工具
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.3
+version: 0.1.0
 
 environment:
   sdk: ">=2.17.5 <3.0.0"

@@ -5,14 +5,14 @@ import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/right_menu_controller.dart';
 import 'package:provider/provider.dart';
 
-class RightSidemenu extends StatefulWidget {
-  const RightSidemenu({Key? key}) : super(key: key);
+class ImageLabelingRightSidemenu extends StatefulWidget {
+  const ImageLabelingRightSidemenu({Key? key}) : super(key: key);
 
   @override
-  State<RightSidemenu> createState() => _RightSidemenuState();
+  State<ImageLabelingRightSidemenu> createState() => _RightSidemenuState();
 }
 
-class _RightSidemenuState extends State<RightSidemenu> {
+class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
   final TextEditingController controller = TextEditingController();
   final ScrollController fileListController = ScrollController();
   final ScrollController annotationListController = ScrollController();

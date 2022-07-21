@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:math' as math;
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,13 @@ import 'package:mltools_viewer/model/image_model.dart';
 import 'package:mltools_viewer/model/labelimg_objs.dart';
 import 'package:mltools_viewer/model/mltool_image_save_model.dart';
 import 'package:mltools_viewer/utils/common.dart';
-import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
+
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 import 'package:path/path.dart' as p;
 
-import 'icon_text_widget.dart';
+import '../../../widgets/icon_text_widget.dart';
+import 'labelimg/labelimg_widget.dart';
 
 class SideMenu extends StatelessWidget {
   SideMenu({Key? key}) : super(key: key);
@@ -120,6 +122,16 @@ class SideMenu extends StatelessWidget {
                 icon: const Icon(Icons.refresh),
                 label: const Text("Reset"),
                 onTap: () => reset(context)),
+            const Divider(),
+            IconTextWidget(
+                icon: Transform.rotate(
+                  angle: math.pi,
+                  child: const Icon(Icons.exit_to_app),
+                ),
+                label: const Text("Exit To Main Page"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                }),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/widgets/labelme/polygon_point.dart'
+import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point.dart'
     show PolygonEntity, PolygonPoint, PolygonPointState;
+import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point_v2.dart';
 
 /// [LabelImgAnnotationDetails]
 ///
@@ -220,6 +221,21 @@ class LabelImgAnnotationController extends ChangeNotifier {
     }
     notifyListeners();
   }
+}
+
+class LabelmeAnnotationDetails {
+  String className;
+  String imageName;
+  int polygonId;
+  double scale;
+  List<PolygonPointV2> points;
+
+  LabelmeAnnotationDetails(
+      {required this.imageName,
+      required this.points,
+      required this.polygonId,
+      this.scale = 1.0,
+      this.className = ""});
 }
 
 /// [LabelmeAnnotationController] provider of labelme-like annotations

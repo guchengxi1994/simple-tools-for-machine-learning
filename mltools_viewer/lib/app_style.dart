@@ -87,4 +87,12 @@ class AppStyle {
     letterSpacing: 0.2,
     color: Colors.black, // was lightText
   );
+
+  static const TextStyle cardTextStyle = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.italic,
+    fontSize: 24,
+    letterSpacing: 0.2,
+    color: Colors.black, // was lightText
+  );
 }

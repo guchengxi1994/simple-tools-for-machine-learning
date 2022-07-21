@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/widgets/labelme/polygon_point.dart';
+import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point.dart';
 
 class LinePainter extends CustomPainter {
   List<PolygonEntity> listPolygonEntity;

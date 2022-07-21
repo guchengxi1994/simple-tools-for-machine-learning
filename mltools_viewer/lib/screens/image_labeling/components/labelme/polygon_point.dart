@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 const double pointSize = 20;
 
+@Deprecated("Use `PolygonPointV2` instead")
 class PolygonEntity {
   List<PolygonPoint> pList;
   List<GlobalKey<PolygonPointState>> keyList;

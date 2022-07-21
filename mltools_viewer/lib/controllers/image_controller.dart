@@ -13,9 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/model/image_model.dart';
-import 'package:mltools_viewer/widgets/labelimg/labelimg_widget.dart';
-import 'package:mltools_viewer/widgets/labelme/polygon.dart';
-import 'package:mltools_viewer/widgets/labelme/polygon_point.dart';
+import 'package:mltools_viewer/screens/image_labeling/components/labelimg/labelimg_widget.dart';
+import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon.dart';
+import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart';
 

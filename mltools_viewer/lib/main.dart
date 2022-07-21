@@ -4,7 +4,8 @@ import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/menu_controller.dart';
 import 'package:mltools_viewer/controllers/right_menu_controller.dart';
-import 'package:mltools_viewer/screens/main_screen.dart';
+import 'package:mltools_viewer/routers.dart';
+import 'package:mltools_viewer/screens/image_labeling/image_labeling_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,9 +27,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LabelImgAnnotationController()),
         ChangeNotifierProvider(create: (_) => LabelmeAnnotationController()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MainScreen(),
+        // home: ImageLabelingMainScreen(),
+        routes: Routers.routers,
+        initialRoute: Routers.pageMain,
       ),
     );
   }

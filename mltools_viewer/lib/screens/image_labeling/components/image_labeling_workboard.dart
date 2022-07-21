@@ -12,18 +12,18 @@ import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:provider/provider.dart';
 
-class Workboard extends StatefulWidget {
-  const Workboard(
+class ImageLabelingWorkboard extends StatefulWidget {
+  const ImageLabelingWorkboard(
       {Key? key, required this.boardHeight, required this.boardWidth})
       : super(key: key);
   final double boardWidth;
   final double boardHeight;
 
   @override
-  State<Workboard> createState() => _WorkboardState();
+  State<ImageLabelingWorkboard> createState() => _ImageLabelingWorkboardState();
 }
 
-class _WorkboardState extends State<Workboard> {
+class _ImageLabelingWorkboardState extends State<ImageLabelingWorkboard> {
   final ScrollController controller = ScrollController();
   final ScrollController controller2 = ScrollController();
 
