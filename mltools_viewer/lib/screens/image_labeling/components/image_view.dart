@@ -209,7 +209,6 @@ class ImageViewState extends State<ImageView> {
             }
           }
         },
-        onDoubleTap: () {},
         child: CustomPaint(
           foregroundPainter: LinePainter(
               details: context.watch<LabelmeAnnotationController>().details,

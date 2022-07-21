@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'dart:math' as math;
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
@@ -210,9 +211,104 @@ class SideMenu extends StatelessWidget {
     }
   }
 
-  polygonCreationDone(BuildContext context) {
+  polygonCreationDone(BuildContext context) async {
+    String className = '';
+    final TextEditingController controller = TextEditingController();
     context.read<LabelmeAnnotationController>().switchOperationType();
     context.read<LabelmeAnnotationController>().addOne();
+    if (TaichiDevUtils.isMobile) {
+      var result = await showCupertinoDialog(
+          context: context,
+          builder: (context) {
+            return CupertinoAlertDialog(
+              title: const Text("请输入类名"),
+              content: Material(
+                  child: TextField(
+                maxLength: 30,
+                controller: controller,
+              )),
+              actions: [
+                CupertinoActionSheetAction(
+                  child: const Text("确定"),
+                  onPressed: () {
+                    /// 这里缺少逻辑
+                    Navigator.of(context).pop(controller.text);
+                  },
+                )
+              ],
+            );
+          });
+      className = result.toString();
+    } else {
+      showCupertinoDialog(
+          context: context,
+          builder: (context) {
+            return UnconstrainedBox(
+              child: SizedBox(
+                width: AppStyle.dialogWidth,
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: Dialog(
+                    child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(
+                                Icons.cancel,
+                                color: Colors.red,
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(
+                                Icons.done,
+                                color: Colors.green,
+                              )),
+                        ],
+                      ),
+                      TextField(
+                        maxLength: 35,
+                        maxLines: null,
+                        controller: controller,
+                        decoration: AppStyle.getInputDecotation(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                          child: Container(
+                        color: AppStyle.chipBackground,
+                        child: ListView.builder(
+                            itemCount: context
+                                .watch<LabelImgAnnotationController>()
+                                .savedClassNames
+                                .length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onDoubleTap: () {
+                                  controller.text = context
+                                      .read<LabelImgAnnotationController>()
+                                      .savedClassNames[index];
+                                },
+                                child: Text(
+                                    "${index + 1}. ${context.watch<LabelImgAnnotationController>().savedClassNames[index]}"),
+                              );
+                            }),
+                      ))
+                    ],
+                  ),
+                )),
+              ),
+            );
+          });
+    }
   }
 
   switchMode(BuildContext context) {

@@ -15,6 +15,9 @@ class LinePainter extends CustomPainter {
     ..style = PaintingStyle.stroke
     ..color = Colors.blue
     ..strokeWidth = 1.0;
+  var impaint = Paint()
+    ..style = PaintingStyle.fill
+    ..color = Colors.blue.withOpacity(0.5);
   @override
   void paint(Canvas canvas, Size size) {
     if (details.isNotEmpty) {
@@ -41,9 +44,7 @@ class LinePainter extends CustomPainter {
 
         if (polygonEntity.points.length >= 3) {
           Path path = Path();
-          var paint = Paint()
-            ..style = PaintingStyle.fill
-            ..color = Colors.blue.withOpacity(0.5);
+
           path.moveTo(polygonEntity.points.first.left + 0.5 * pointSize,
               polygonEntity.points.first.top + 0.5 * pointSize);
           for (int i = 1; i < polygonEntity.points.length; i++) {
@@ -56,7 +57,7 @@ class LinePainter extends CustomPainter {
               .read<LabelmeAnnotationController>()
               .updatePath(polygonEntity.polygonId, path);
           canvas.drawShadow(path, Colors.black, 8.0, true);
-          canvas.drawPath(path, paint);
+          canvas.drawPath(path, impaint);
         }
       }
     }
