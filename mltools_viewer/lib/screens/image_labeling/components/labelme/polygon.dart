@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point.dart';
+import 'package:mltools_viewer/controllers/annotation_controller.dart';
+import 'package:provider/provider.dart';
+
+const pointSize = 20;
 
 class LinePainter extends CustomPainter {
-  List<PolygonEntity> listPolygonEntity;
+  // List<PolygonEntity> listPolygonEntity;
+  List<LabelmeAnnotationDetails> details;
+  BuildContext context;
 
-  LinePainter({required this.listPolygonEntity});
+  LinePainter({required this.details, required this.context});
 
   var line = Paint()
     ..style = PaintingStyle.stroke
@@ -12,59 +17,44 @@ class LinePainter extends CustomPainter {
     ..strokeWidth = 1.0;
   @override
   void paint(Canvas canvas, Size size) {
-    if (listPolygonEntity.isNotEmpty) {
-      for (PolygonEntity polygonEntity in listPolygonEntity) {
-        if (polygonEntity.pList.length < 2) return;
+    if (details.isNotEmpty) {
+      for (LabelmeAnnotationDetails polygonEntity in details) {
+        if (polygonEntity.points.length < 2) return;
 
-        if (polygonEntity.pList.length == 2) {
-          for (int i = 1; i < polygonEntity.pList.length; i++) {
+        if (polygonEntity.points.length == 2) {
+          for (int i = 1; i < polygonEntity.points.length; i++) {
             canvas.drawLine(
-                Offset(
-                    polygonEntity.keyList[i - 1].currentState!.defaultLeft +
-                        0.5 * pointSize,
-                    polygonEntity.keyList[i - 1].currentState!.defaultTop +
-                        0.5 * pointSize),
-                Offset(
-                    polygonEntity.keyList[i].currentState!.defaultLeft +
-                        0.5 * pointSize,
-                    polygonEntity.keyList[i].currentState!.defaultTop +
-                        0.5 * pointSize),
+                Offset(polygonEntity.points[i - 1].left + 0.5 * pointSize,
+                    polygonEntity.points[i - 1].top + 0.5 * pointSize),
+                Offset(polygonEntity.points[i].left + 0.5 * pointSize,
+                    polygonEntity.points[i].top + 0.5 * pointSize),
                 line);
 
             canvas.drawLine(
-                Offset(
-                    polygonEntity.keyList.last.currentState!.defaultLeft +
-                        0.5 * pointSize,
-                    polygonEntity.keyList.last.currentState!.defaultTop +
-                        0.5 * pointSize),
-                Offset(
-                    polygonEntity.keyList.first.currentState!.defaultLeft +
-                        0.5 * pointSize,
-                    polygonEntity.keyList.first.currentState!.defaultTop +
-                        0.5 * pointSize),
+                Offset(polygonEntity.points.last.left + 0.5 * pointSize,
+                    polygonEntity.points.last.top + 0.5 * pointSize),
+                Offset(polygonEntity.points.last.left + 0.5 * pointSize,
+                    polygonEntity.points.last.top + 0.5 * pointSize),
                 line);
           }
         }
 
-        if (polygonEntity.pList.length >= 3) {
+        if (polygonEntity.points.length >= 3) {
           Path path = Path();
           var paint = Paint()
             ..style = PaintingStyle.fill
             ..color = Colors.blue.withOpacity(0.5);
-          path.moveTo(
-              polygonEntity.keyList.first.currentState!.defaultLeft +
-                  0.5 * pointSize,
-              polygonEntity.keyList.first.currentState!.defaultTop +
-                  0.5 * pointSize);
-          for (int i = 1; i < polygonEntity.pList.length; i++) {
-            path.lineTo(
-                polygonEntity.keyList[i].currentState!.defaultLeft +
-                    0.5 * pointSize,
-                polygonEntity.keyList[i].currentState!.defaultTop +
-                    0.5 * pointSize);
+          path.moveTo(polygonEntity.points.first.left + 0.5 * pointSize,
+              polygonEntity.points.first.top + 0.5 * pointSize);
+          for (int i = 1; i < polygonEntity.points.length; i++) {
+            path.lineTo(polygonEntity.points[i].left + 0.5 * pointSize,
+                polygonEntity.points[i].top + 0.5 * pointSize);
           }
           path.close();
           // print(path);
+          context
+              .read<LabelmeAnnotationController>()
+              .updatePath(polygonEntity.polygonId, path);
           canvas.drawShadow(path, Colors.black, 8.0, true);
           canvas.drawPath(path, paint);
         }

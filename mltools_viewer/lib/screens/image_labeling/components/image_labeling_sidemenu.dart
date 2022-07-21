@@ -71,7 +71,9 @@ class SideMenu extends StatelessWidget {
                 maxLines: 2,
               ),
             ),
-            const Divider(),
+            const Divider(
+              thickness: 3,
+            ),
             IconTextWidget(
                 enable: context.watch<ImageController>().images.isNotEmpty,
                 icon: const Icon(Icons.create),
@@ -82,13 +84,37 @@ class SideMenu extends StatelessWidget {
                 ),
                 onTap: () => addRect(context)),
             IconTextWidget(
+                enable: context.watch<ImageController>().images.isNotEmpty,
                 icon: const Icon(Icons.style),
                 label: Text(context.watch<BoardController>().annotationType ==
                         AnnotationType.rect
                     ? "Rect"
                     : "Polygon"),
                 onTap: () => switchMode(context)),
-            const Divider(),
+            if (context.watch<BoardController>().annotationType ==
+                AnnotationType.polygon)
+              IconTextWidget(
+                  icon: const Icon(Icons.done_outline),
+                  label: const Text("Creation Done"),
+                  onTap: () => polygonCreationDone(context)),
+            if (context.watch<BoardController>().annotationType ==
+                AnnotationType.polygon)
+              IconTextWidget(
+                  icon: const Icon(Icons.switch_left),
+                  label: Text(context
+                              .watch<LabelmeAnnotationController>()
+                              .operationType ==
+                          PolygonOperationType.create
+                      ? "Create Mode"
+                      : "Edit Mode"),
+                  onTap: () {
+                    context
+                        .read<LabelmeAnnotationController>()
+                        .switchOperationType();
+                  }),
+            const Divider(
+              thickness: 3,
+            ),
             IconTextWidget(
                 icon: const Icon(Icons.save),
                 label: const Text("Save File"),
@@ -101,7 +127,9 @@ class SideMenu extends StatelessWidget {
                   maxLines: 2,
                 ),
                 onTap: () {}),
-            const Divider(),
+            const Divider(
+              thickness: 3,
+            ),
             IconTextWidget(
                 icon: const Icon(Icons.zoom_in),
                 label: const Text("Zoom In"),
@@ -122,7 +150,9 @@ class SideMenu extends StatelessWidget {
                 icon: const Icon(Icons.refresh),
                 label: const Text("Reset"),
                 onTap: () => reset(context)),
-            const Divider(),
+            const Divider(
+              thickness: 3,
+            ),
             IconTextWidget(
                 icon: Transform.rotate(
                   angle: math.pi,
@@ -180,6 +210,11 @@ class SideMenu extends StatelessWidget {
     }
   }
 
+  polygonCreationDone(BuildContext context) {
+    context.read<LabelmeAnnotationController>().switchOperationType();
+    context.read<LabelmeAnnotationController>().addOne();
+  }
+
   switchMode(BuildContext context) {
     if (context.read<BoardController>().annotationType == AnnotationType.rect) {
       context
@@ -214,6 +249,7 @@ class SideMenu extends StatelessWidget {
     context.read<ImageController>().changeScale(s);
     // context.read<BoardController>().whenScaleChanged(1 / s);
     context.read<LabelImgAnnotationController>().whenScaleChanged(1 / s);
+    context.read<LabelmeAnnotationController>().whenScaleChanged(1 / s);
   }
 
   fitHeight(BuildContext context) {
@@ -234,6 +270,7 @@ class SideMenu extends StatelessWidget {
     context.read<ImageController>().changeScale(s);
     // context.read<BoardController>().whenScaleChanged(1 / s);
     context.read<LabelImgAnnotationController>().whenScaleChanged(1 / s);
+    context.read<LabelmeAnnotationController>().whenScaleChanged(1 / s);
   }
 
   Future onOpenButtonClicked(BuildContext context) async {
@@ -273,6 +310,9 @@ class SideMenu extends StatelessWidget {
     context
         .read<LabelImgAnnotationController>()
         .whenScaleChanged(1 / currentScale);
+    context
+        .read<LabelmeAnnotationController>()
+        .whenScaleChanged(1 / currentScale);
   }
 
   zoomOut(BuildContext context) {
@@ -282,6 +322,9 @@ class SideMenu extends StatelessWidget {
     context
         .read<LabelImgAnnotationController>()
         .whenScaleChanged(1 / currentScale);
+    context
+        .read<LabelmeAnnotationController>()
+        .whenScaleChanged(1 / currentScale);
   }
 
   reset(BuildContext context) {
@@ -290,6 +333,9 @@ class SideMenu extends StatelessWidget {
     // context.read<BoardController>().whenScaleChanged(1 / currentScale);
     context
         .read<LabelImgAnnotationController>()
+        .whenScaleChanged(1 / currentScale);
+    context
+        .read<LabelmeAnnotationController>()
         .whenScaleChanged(1 / currentScale);
   }
 

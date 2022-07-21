@@ -1,10 +1,10 @@
+```dart
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 
 const double pointSize = 20;
 
-@Deprecated("Use `PolygonPointV2` instead")
 class PolygonEntity {
   List<PolygonPoint> pList;
   List<GlobalKey<PolygonPointState>> keyList;
@@ -17,6 +17,7 @@ class PolygonEntity {
       required this.index});
 }
 
+@Deprecated("Use `PolygonPointV2` instead")
 class PolygonPoint extends StatefulWidget {
   PolygonPoint(
       {Key? key,
@@ -96,3 +97,4 @@ class PolygonPointState extends State<PolygonPoint> {
         ));
   }
 }
+```

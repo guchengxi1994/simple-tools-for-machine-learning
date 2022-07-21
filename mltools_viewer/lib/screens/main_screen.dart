@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/routers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,6 +13,21 @@ class MainScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: const Text("🔥 Built with passion. 🔥"),
+        actions: [
+          TextButton(
+              onPressed: () async {
+                const url =
+                    'https://github.com/guchengxi1994/simple-tools-for-machine-learning/blob/dev/mltools_viewer/README.md';
+
+                if (await canLaunchUrl(Uri.parse(url))) {
+                  await launchUrl(Uri.parse(url));
+                }
+              },
+              child: const Text(
+                "Changelog",
+                style: TextStyle(color: Colors.black),
+              ))
+        ],
       ),
       body: Center(
         child: Row(

@@ -21,6 +21,7 @@ dependencies:
         path: taichi_core
   tuple: ^2.0.0
   path: ^1.8.1
+  url_launcher: ^6.1.4
 
 dev_dependencies:
   flutter_test:

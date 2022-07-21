@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point.dart'
-    show PolygonEntity, PolygonPoint, PolygonPointState;
-import 'package:mltools_viewer/screens/image_labeling/components/labelme/polygon_point_v2.dart';
 
 /// [LabelImgAnnotationDetails]
 ///
@@ -107,7 +104,7 @@ class LabelImgAnnotationController extends ChangeNotifier {
   }
 
   whenScaleChanged(double scale) {
-    debugPrint("[scale]:$scale");
+    // debugPrint("[scale]:$scale");
     if (details.isEmpty) {
       _lastScale = scale;
       return;
@@ -228,31 +225,110 @@ class LabelmeAnnotationDetails {
   String imageName;
   int polygonId;
   double scale;
-  List<PolygonPointV2> points;
+  List<PointDetails> points;
+  Path? path;
 
   LabelmeAnnotationDetails(
       {required this.imageName,
       required this.points,
       required this.polygonId,
       this.scale = 1.0,
-      this.className = ""});
+      this.className = "",
+      this.path});
 }
+
+class PointDetails {
+  double left;
+  double top;
+  int id;
+  PointDetails({required this.left, required this.top, required this.id});
+}
+
+enum PolygonOperationType { create, edit }
 
 /// [LabelmeAnnotationController] provider of labelme-like annotations
 /// including:
 /// ------
 class LabelmeAnnotationController extends ChangeNotifier {
-  /// polygon annotation details
-  List<PolygonEntity> polygons = [];
-  addPolygon(PolygonEntity p) {
-    polygons.add(p);
+  List<LabelmeAnnotationDetails> details = [];
+  double _lastScale = 1.0;
+  int _currentPolygonIndex = 0;
+
+  int get currentPolygonIndex => _currentPolygonIndex;
+
+  addOne() {
+    _currentPolygonIndex += 1;
     notifyListeners();
   }
 
-  addPoint(PolygonPoint point, GlobalKey<PolygonPointState> key) {
-    polygons.last.pList.add(point);
-    polygons.last.keyList.add(key);
-
+  whenScaleChanged(double scale) {
+    if (details.isEmpty) {
+      return;
+    }
+    for (final i in details) {
+      for (final p in i.points) {
+        p.left = scale / _lastScale * p.left;
+        p.top = scale / _lastScale * p.top;
+      }
+    }
+    _lastScale = scale;
     notifyListeners();
+  }
+
+  bool exists(int polygonId) {
+    return details.map((e) => e.polygonId).toList().contains(polygonId);
+  }
+
+  initAPolygon(
+    int polygonId,
+    String imageName, {
+    double scale = 1.0,
+  }) {
+    details.add(LabelmeAnnotationDetails(
+        polygonId: polygonId, imageName: imageName, points: []));
+  }
+
+  updatePath(int polygonId, Path p) {
+    details[polygonId].path = p;
+  }
+
+  addPolygonPoint(int polygonId, PointDetails point) {
+    details[polygonId].points.add(point);
+    notifyListeners();
+  }
+
+  getCurrentPolygonListLength(int polygonId) {
+    return details[polygonId].points.length;
+  }
+
+  PolygonOperationType operationType = PolygonOperationType.create;
+
+  switchOperationType() {
+    if (operationType == PolygonOperationType.create) {
+      operationType = PolygonOperationType.edit;
+    } else {
+      operationType = PolygonOperationType.create;
+    }
+    notifyListeners();
+  }
+
+  changePolygonPointPosition(DragUpdateDetails d, int polygonId, int pointId) {
+    details[polygonId].points[pointId].left += d.delta.dx;
+    details[polygonId].points[pointId].top += d.delta.dy;
+    notifyListeners();
+  }
+
+  changePolygonPosition(DragUpdateDetails d, int polygonId) {
+    for (int i = 0; i < details[polygonId].points.length; i++) {
+      changePolygonPointPosition(d, polygonId, i);
+    }
+  }
+
+  getPointLeft(int polygonId, int pointId) {
+    return details[polygonId].points[pointId].left;
+  }
+
+  getPointTop(int polygonId, int pointId) {
+    return details[polygonId].points[pointId].top;
   }
 }

@@ -13,13 +13,7 @@ class NlpLabelingScreen extends StatelessWidget {
           children: [
             const Text(
               "Oops, nothing is here.\nPay attention to changelogs.",
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.italic,
-                fontSize: 24,
-                letterSpacing: 0.2,
-                color: Colors.black, // was lightText
-              ),
+              style: AppStyle.cardTextStyle,
               textAlign: TextAlign.center,
             ),
             const Text(
