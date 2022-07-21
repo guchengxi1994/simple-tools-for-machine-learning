@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
-import 'package:mltools_viewer/model/image_model.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
@@ -71,11 +70,7 @@ class ImageViewState extends State<ImageView> {
         AnnotationType.rect) {
       if (TaichiDevUtils.isMobile) {
         return Container(
-          child: context.select<ImageController, List<MltoolImage?>>(
-            (value) {
-              return value.images;
-            },
-          ).isEmpty
+          child: context.watch<ImageController>().images.isNotEmpty
               ? Image.memory(
                   context.select<ImageController, Uint8List>(
                       (value) => value.currentImageData),
@@ -86,11 +81,7 @@ class ImageViewState extends State<ImageView> {
               : null,
         );
       } else {
-        if (context.select<ImageController, List<MltoolImage?>>(
-          (value) {
-            return value.images;
-          },
-        ).isNotEmpty) {
+        if (context.watch<ImageController>().images.isNotEmpty) {
           return GestureDetector(
             onPanDown: (details) {
               debugPrint("[down details]:$details");
@@ -235,8 +226,7 @@ class ImageViewState extends State<ImageView> {
         },
         child: CustomPaint(
           foregroundPainter: LinePainter(
-              details: context.select<LabelmeAnnotationController,
-                  List<LabelmeAnnotationDetails>>((value) => value.details),
+              details: context.watch<LabelmeAnnotationController>().details,
               context: context),
           child: Image.memory(
             context.select<ImageController, Uint8List>(

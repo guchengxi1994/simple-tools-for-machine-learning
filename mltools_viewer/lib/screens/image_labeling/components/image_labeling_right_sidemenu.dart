@@ -4,7 +4,6 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 import 'package:mltools_viewer/controllers/right_menu_controller.dart';
-import 'package:mltools_viewer/model/image_model.dart';
 import 'package:provider/provider.dart';
 
 class ImageLabelingRightSidemenu extends StatefulWidget {
@@ -43,20 +42,16 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
     );
 
     final details = context
-        .select<LabelImgAnnotationController, List<LabelImgAnnotationDetails>>(
-      (value) {
-        return value.details
-            .where(
-                (element) => element.enabled && element.imageName == imageName)
-            .toList();
-      },
-    );
+        .watch<LabelImgAnnotationController>()
+        .details
+        .where((element) => element.enabled && element.imageName == imageName)
+        .toList();
 
     final labelmeDetails = context
-        .select<LabelmeAnnotationController, List<LabelmeAnnotationDetails>>(
-            (value) => value.details
-                .where((element) => element.imageName == imageName)
-                .toList());
+        .watch<LabelmeAnnotationController>()
+        .details
+        .where((element) => element.imageName == imageName)
+        .toList();
 
     // List<String> labelNames = [];
     Map<String, String> labelNameIdMap = {};
@@ -73,11 +68,7 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
       labelNameIdMap.addAll({"p${i.polygonId}": '${i.className}[polygon]'});
     }
 
-    final images = context.select<ImageController, List<MltoolImage?>>(
-      (value) {
-        return value.images;
-      },
-    );
+    final images = context.watch<ImageController>().images;
 
     return Container(
       padding: const EdgeInsets.only(top: AppStyle.appbarHeight),
