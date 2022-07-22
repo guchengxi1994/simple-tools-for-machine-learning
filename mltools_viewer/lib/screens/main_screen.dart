@@ -41,7 +41,7 @@ class MainScreen extends StatelessWidget {
                 elevation: 4,
                 child: SizedBox(
                   width: 0.2 * MediaQuery.of(context).size.width,
-                  height: 200,
+                  height: 0.2 * MediaQuery.of(context).size.height,
                   child: const Center(
                     child: Text(
                       "Image Labeling",
@@ -60,7 +60,7 @@ class MainScreen extends StatelessWidget {
                 elevation: 4,
                 child: SizedBox(
                   width: 0.2 * MediaQuery.of(context).size.width,
-                  height: 200,
+                  height: 0.2 * MediaQuery.of(context).size.height,
                   child: const Center(
                     child: Text(
                       "Nlp Labeling",

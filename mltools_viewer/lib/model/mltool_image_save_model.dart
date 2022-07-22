@@ -12,7 +12,8 @@ extension ToFile on MltoolsSaveModel {
 }
 
 class MltoolsSaveModel {
-  static const String extension = ".ml";
+  /// machine learning label for image
+  static const String extension = ".mli";
   String? imageName;
 
   /// base64 string

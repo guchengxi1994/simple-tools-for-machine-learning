@@ -123,7 +123,7 @@ class SideMenu extends StatelessWidget {
             IconTextWidget(
                 icon: const Icon(Icons.file_present),
                 label: const Text(
-                  'Load Data From ".ml" Files',
+                  'Load Data From ".mli" Files',
                   textAlign: TextAlign.center,
                   maxLines: 2,
                 ),
