@@ -165,7 +165,7 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
 
                             await showCupertinoDialog(
                                 context: context,
-                                builder: (context) {
+                                builder: (ctx) {
                                   return CupertinoAlertDialog(
                                     title: const Text("Operation"),
                                     content: Material(
@@ -177,7 +177,7 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
                                                 if (entry.value
                                                     .contains("[rectangle]")) {
                                                 } else {}
-                                                Navigator.of(context).pop();
+                                                Navigator.of(ctx).pop();
                                               },
                                               child: const Text("Delete"),
                                             ),
@@ -196,8 +196,21 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
                                           onPressed: () {
                                             if (entry.value
                                                 .contains("[rectangle]")) {
-                                            } else {}
-                                            Navigator.of(context).pop();
+                                              context
+                                                  .read<
+                                                      LabelImgAnnotationController>()
+                                                  .changeLabelName(widgetId,
+                                                      controller2.text);
+                                            } else {
+                                              context
+                                                  .read<
+                                                      LabelmeAnnotationController>()
+                                                  .changeLabelName(
+                                                    widgetId,
+                                                    controller2.text,
+                                                  );
+                                            }
+                                            Navigator.of(ctx).pop();
                                           },
                                           child: const Text("确定"))
                                     ],

@@ -19,6 +19,7 @@ import 'package:mltools_viewer/utils/common.dart';
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 import 'package:path/path.dart' as p;
+import 'package:tuple/tuple.dart';
 
 import '../../../widgets/icon_text_widget.dart';
 import 'labelimg/labelimg_widget.dart';
@@ -177,10 +178,17 @@ class SideMenu extends StatelessWidget {
     for (final i in images) {
       if (i != null) {
         String imageName = i.imageName!;
+        // labelImg
         final details = context
             .read<LabelImgAnnotationController>()
             .details
             .where((element) => element.imageName == imageName)
+            .toList();
+        // labelme
+        final labelmeDetais = context
+            .read<LabelmeAnnotationController>()
+            .details
+            .where((e) => e.imageName == imageName)
             .toList();
 
         if (!TaichiDevUtils.isWeb) {
@@ -196,6 +204,18 @@ class SideMenu extends StatelessWidget {
               ymin: d.ymin.toInt());
           annotations.add(Annotation(labelName: d.className, bndbox: bndbox));
         }
+
+        for (final ld in labelmeDetais) {
+          List<Tuple2<double, double>> points = [];
+          for (final p in ld.points) {
+            points.add(Tuple2(p.left, p.top));
+          }
+          annotations.add(Annotation(
+              labelName: ld.className,
+              polygon: points,
+              annotationType: "polygon"));
+        }
+
         String fileName =
             imageName.split(".").first + MltoolsSaveModel.extension;
 

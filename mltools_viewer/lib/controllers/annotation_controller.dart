@@ -220,6 +220,19 @@ class LabelImgAnnotationController extends ChangeNotifier {
   }
 }
 
+/// [LabelmeAnnotationDetails]
+///
+/// [className] string
+///
+/// [imageName] string
+///
+/// [polygonId] polygon id
+///
+/// [scale] image scale
+///
+/// [points] list of [PointDetails]
+///
+/// [path] canvas path
 class LabelmeAnnotationDetails {
   String className;
   String imageName;
@@ -237,6 +250,13 @@ class LabelmeAnnotationDetails {
       this.path});
 }
 
+/// [PointDetails] point position
+///
+/// [left] double
+///
+/// [top] double
+///
+/// [id] index of point
 class PointDetails {
   double left;
   double top;
@@ -244,11 +264,43 @@ class PointDetails {
   PointDetails({required this.left, required this.top, required this.id});
 }
 
+/// [PolygonOperationType] enum, when type is `create`,
+/// no more polygon will be added to [ImageView]
 enum PolygonOperationType { create, edit }
 
 /// [LabelmeAnnotationController] provider of labelme-like annotations
 /// including:
 /// ------
+/// [details] list of [LabelmeAnnotationDetails]
+///
+/// [savedClassNames] list of string
+///
+/// [whenScaleChanged] change points position when scale changed
+///
+/// [changeLabelName] change label name of polygon
+///
+/// [exists] return a boolean value, if polygon id  exists
+///
+/// [initAPolygon] on creation, once tap the imageview,  a new polygon
+/// is inited
+///
+/// [updatePath] change polygon canvas path
+///
+/// [addPolygonPoint] push a polygon point into `points` list
+///
+/// [getCurrentPolygonListLength] get point id
+///
+/// [switchTypeToCreate] switch type to `PolygonOperationType.create`
+///
+/// [switchOperationType] switch the other type
+///
+/// [changePolygonPointPosition] change single point position
+///
+/// [changePolygonPosition] change whole polygon positon
+///
+/// [getPointLeft] get single point positon
+///
+/// [getPointTop] get single point positon
 class LabelmeAnnotationController extends ChangeNotifier {
   List<LabelmeAnnotationDetails> details = [];
   List<String> savedClassNames = [];
@@ -257,6 +309,7 @@ class LabelmeAnnotationController extends ChangeNotifier {
 
   int get currentPolygonIndex => _currentPolygonIndex;
 
+  @Deprecated("use `changeLabelName` instead")
   changePolygonClassName(String s, int polygonId) {
     details[polygonId].className = s;
     if (!savedClassNames.contains(s)) {
@@ -290,6 +343,14 @@ class LabelmeAnnotationController extends ChangeNotifier {
       }
     }
     _lastScale = scale;
+    notifyListeners();
+  }
+
+  changeLabelName(
+    int polygonId,
+    String s,
+  ) {
+    details[polygonId].className = s;
     notifyListeners();
   }
 

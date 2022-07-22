@@ -14,7 +14,6 @@ import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
 // import 'package:mltools_viewer/model/labelimg_objs.dart';
 import 'package:provider/provider.dart';
-import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
 part './rect_v2.dart';
 

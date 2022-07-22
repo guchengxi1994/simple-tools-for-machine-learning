@@ -50,114 +50,86 @@ class RectBoxV2 extends StatelessWidget {
                 opacity: 0.7,
                 child: InkWell(
                   onDoubleTap: () async {
-                    if (TaichiDevUtils.isMobile) {
-                      var result = await showCupertinoDialog(
-                          context: context,
-                          builder: (context) {
-                            return CupertinoAlertDialog(
-                              title: const Text("请输入类名"),
-                              content: Material(
-                                  child: TextField(
-                                maxLength: 30,
-                                controller: controller,
+                    await showCupertinoDialog(
+                        context: context,
+                        builder: (ctx) {
+                          return UnconstrainedBox(
+                            child: SizedBox(
+                              width: AppStyle.dialogWidth,
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child: Dialog(
+                                  child: Container(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.of(ctx).pop();
+                                            },
+                                            icon: const Icon(
+                                              Icons.cancel,
+                                              color: Colors.red,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {
+                                              context
+                                                  .read<
+                                                      LabelImgAnnotationController>()
+                                                  .addClassNames(
+                                                      controller.text);
+                                              context
+                                                  .read<
+                                                      LabelImgAnnotationController>()
+                                                  .changeLabelName(
+                                                      id, controller.text);
+                                              Navigator.of(ctx).pop();
+                                            },
+                                            icon: const Icon(
+                                              Icons.done,
+                                              color: Colors.green,
+                                            )),
+                                      ],
+                                    ),
+                                    TextField(
+                                      maxLength: 35,
+                                      maxLines: null,
+                                      controller: controller,
+                                      decoration: AppStyle.getInputDecotation(),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                      color: AppStyle.chipBackground,
+                                      child: ListView.builder(
+                                          itemCount: context
+                                              .watch<
+                                                  LabelImgAnnotationController>()
+                                              .savedClassNames
+                                              .length,
+                                          itemBuilder: (context, index) {
+                                            return InkWell(
+                                              onDoubleTap: () {
+                                                controller.text = context
+                                                    .read<
+                                                        LabelImgAnnotationController>()
+                                                    .savedClassNames[index];
+                                              },
+                                              child: Text(
+                                                  "${index + 1}. ${context.watch<LabelImgAnnotationController>().savedClassNames[index]}"),
+                                            );
+                                          }),
+                                    ))
+                                  ],
+                                ),
                               )),
-                              actions: [
-                                CupertinoActionSheetAction(
-                                  child: const Text("确定"),
-                                  onPressed: () {
-                                    /// 这里缺少逻辑
-                                    Navigator.of(context).pop(controller.text);
-                                  },
-                                )
-                              ],
-                            );
-                          });
-                      className = result.toString();
-                    } else {
-                      showCupertinoDialog(
-                          context: context,
-                          builder: (context) {
-                            return UnconstrainedBox(
-                              child: SizedBox(
-                                width: AppStyle.dialogWidth,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.6,
-                                child: Dialog(
-                                    child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              icon: const Icon(
-                                                Icons.cancel,
-                                                color: Colors.red,
-                                              )),
-                                          IconButton(
-                                              onPressed: () {
-                                                context
-                                                    .read<
-                                                        LabelImgAnnotationController>()
-                                                    .addClassNames(
-                                                        controller.text);
-                                                context
-                                                    .read<
-                                                        LabelImgAnnotationController>()
-                                                    .changeLabelName(
-                                                        id, controller.text);
-                                                Navigator.of(context).pop();
-                                              },
-                                              icon: const Icon(
-                                                Icons.done,
-                                                color: Colors.green,
-                                              )),
-                                        ],
-                                      ),
-                                      TextField(
-                                        maxLength: 35,
-                                        maxLines: null,
-                                        controller: controller,
-                                        decoration:
-                                            AppStyle.getInputDecotation(),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Expanded(
-                                          child: Container(
-                                        color: AppStyle.chipBackground,
-                                        child: ListView.builder(
-                                            itemCount: context
-                                                .watch<
-                                                    LabelImgAnnotationController>()
-                                                .savedClassNames
-                                                .length,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                onDoubleTap: () {
-                                                  controller.text = context
-                                                      .read<
-                                                          LabelImgAnnotationController>()
-                                                      .savedClassNames[index];
-                                                },
-                                                child: Text(
-                                                    "${index + 1}. ${context.watch<LabelImgAnnotationController>().savedClassNames[index]}"),
-                                              );
-                                            }),
-                                      ))
-                                    ],
-                                  ),
-                                )),
-                              ),
-                            );
-                          });
-                    }
+                            ),
+                          );
+                        });
                   },
                   child: Container(
                     // margin: EdgeInsets.only(top: 100, left: 50),
