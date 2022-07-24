@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_highlight_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +12,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Home2(),
+    );
+  }
+}
+
+class Home2 extends StatelessWidget {
+  const Home2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: NerSelectableHighlightText(
+            text:
+                "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。"),
+      ),
     );
   }
 }

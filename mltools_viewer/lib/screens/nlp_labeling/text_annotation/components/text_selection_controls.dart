@@ -9,6 +9,7 @@ import 'dart:math' as math;
 
 const double _kHandleSize = 22.0;
 
+@Deprecated("only works on mobiles")
 class NlpAnnotationTextSelectionControls extends TextSelectionControls {
   NlpAnnotationTextSelectionControls(
       {required this.toolBarItems,
@@ -51,6 +52,9 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
           debugPrint("${control.getColor()}");
           break;
         case NerToolBarItemControl.money:
+          debugPrint("${control.getColor()}");
+          break;
+        case NerToolBarItemControl.none:
           debugPrint("${control.getColor()}");
           break;
         case NerToolBarItemControl.percent:
@@ -302,7 +306,9 @@ enum NerToolBarItemControl {
   // 货币
   money,
   // 百分比
-  percent
+  percent,
+  // none
+  none
 }
 
 extension NerExtension on NerToolBarItemControl {
@@ -322,6 +328,8 @@ extension NerExtension on NerToolBarItemControl {
         return "货币";
       case NerToolBarItemControl.percent:
         return "百分比";
+      case NerToolBarItemControl.none:
+        return "无";
       default:
         return "未知";
     }
@@ -343,6 +351,8 @@ extension NerExtension on NerToolBarItemControl {
         return const Color.fromARGB(255, 226, 33, 243);
       case NerToolBarItemControl.percent:
         return const Color.fromARGB(255, 27, 193, 198);
+      case NerToolBarItemControl.none:
+        return Colors.black;
     }
   }
 }

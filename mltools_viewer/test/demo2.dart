@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: xiaoshuyui
+ * @email: guchengxi1994@qq.com
+ * @Date: 2022-07-23 19:46:00
+ * @LastEditors: xiaoshuyui
+ * @LastEditTime: 2022-07-23 21:30:25
+ */
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
@@ -46,6 +55,7 @@ class Home extends StatelessWidget {
                 // debugPrint("selection end:${selection.end}");
               },
               toolbarOptions: ToolbarOptions(copy: true),
+              // ignore: deprecated_member_use_from_same_package
               selectionControls: NlpAnnotationTextSelectionControls(
                   toolBarItems: NerToolBarItemControl.values
                       .map((e) => NerToolBarItem(
