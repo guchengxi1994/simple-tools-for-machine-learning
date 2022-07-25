@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/routers.dart';
@@ -11,6 +13,7 @@ class NlpLabelingScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
+        backgroundColor: AppStyle.lightBlue,
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -64,7 +67,9 @@ class NlpLabelingScreen extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(Routers.pageNer);
+                  },
                   child: Card(
                     elevation: 4,
                     child: SizedBox(

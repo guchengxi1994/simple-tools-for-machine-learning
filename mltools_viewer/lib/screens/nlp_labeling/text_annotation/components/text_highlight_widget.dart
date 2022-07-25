@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable
 
 /*
  * @Descripttion: 
@@ -14,19 +14,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_selection_controls.dart';
+import 'package:provider/provider.dart';
 
 /// modified from
-/// https://github.com/vilashraj/selectable_text_highlighter/blob/main/lib/text_highlighter_widget.dart
-
-class HighlightedOffset {
-  int start;
-  int end;
-  String highlightedText;
-  TextStyle highlightStyle;
-  HighlightedOffset(
-      this.start, this.end, this.highlightedText, this.highlightStyle);
-}
+/// https://github.com/vilashraj/selectable_text_highlighter/blob/main/lib/text_highlighter_dart
 
 Map<NerToolBarItemControl, TextStyle> highlightStyles = {
   NerToolBarItemControl.name: TextStyle(
@@ -65,24 +58,13 @@ Map<NerToolBarItemControl, TextStyle> highlightStyles = {
 typedef OnHighlightedCallback = void Function(
     List<HighlightedOffset> updatedHighlightedOffsetsList);
 
-class NerSelectableHighlightText extends StatefulWidget {
+class NerSelectableHighlightText extends StatelessWidget {
   NerSelectableHighlightText(
       {Key? key, this.onHighlightedCallback, required this.text})
       : super(key: key);
 
   final OnHighlightedCallback? onHighlightedCallback;
   final String text;
-
-  @override
-  State<NerSelectableHighlightText> createState() =>
-      _NerSelectableHighlightTextState();
-}
-
-class _NerSelectableHighlightTextState
-    extends State<NerSelectableHighlightText> {
-  int tempBaseOffset = 0;
-  int tempExtentOffset = 0;
-  List<HighlightedOffset> offsets = [];
 
   late Offset clickedPosition = const Offset(0, 0);
 
@@ -91,11 +73,14 @@ class _NerSelectableHighlightTextState
   OverlayEntry? _overlayEntry;
   bool show = false;
 
+  int tempBaseOffset = 0;
+  int tempExtentOffset = 0;
+
   void _toggleOverlay(BuildContext context) {
     // debugPrint("_toggleOverlay");
-    if (!show) {
-      debugPrint("_toggleOverlay");
 
+    if (!show) {
+      // debugPrint("_toggleOverlay");
       _overlayEntry = OverlayEntry(builder: (c) {
         return UnconstrainedBox(
           child: CompositedTransformFollower(
@@ -124,118 +109,78 @@ class _NerSelectableHighlightTextState
                     children: NerToolBarItemControl.values
                         .map((e) => ElevatedButton(
                             onPressed: () {
+                              var lastElement = HighlightedOffset(
+                                  tempBaseOffset,
+                                  tempExtentOffset,
+                                  text.substring(
+                                    tempBaseOffset,
+                                    tempExtentOffset,
+                                  ),
+                                  highlightStyles[NerToolBarItemControl.name]!,
+                                  NerToolBarItemControl.name);
                               switch (e) {
                                 case NerToolBarItemControl.name:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.name]!));
-                                    minimize(offsets);
-                                  });
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.institution:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[NerToolBarItemControl
-                                            .institution]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.institution]!;
+                                  lastElement.control =
+                                      NerToolBarItemControl.institution;
+
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.location:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.location]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.location]!;
+
+                                  lastElement.control =
+                                      NerToolBarItemControl.location;
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.time:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.time]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.time]!;
+                                  lastElement.control =
+                                      NerToolBarItemControl.time;
+
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.date:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.date]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.date]!;
+
+                                  lastElement.control =
+                                      NerToolBarItemControl.date;
+
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.money:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.money]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.money]!;
+
+                                  lastElement.control =
+                                      NerToolBarItemControl.money;
+
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.percent:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.percent]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.percent]!;
+
+                                  lastElement.control =
+                                      NerToolBarItemControl.percent;
+
+                                  minimize(context, lastElement);
                                   break;
                                 case NerToolBarItemControl.none:
-                                  setState(() {
-                                    offsets.add(HighlightedOffset(
-                                        tempBaseOffset,
-                                        tempExtentOffset,
-                                        widget.text.substring(
-                                          tempBaseOffset,
-                                          tempExtentOffset,
-                                        ),
-                                        highlightStyles[
-                                            NerToolBarItemControl.none]!));
-                                    minimize(offsets);
-                                  });
+                                  lastElement.highlightStyle = highlightStyles[
+                                      NerToolBarItemControl.none]!;
+                                  lastElement.control =
+                                      NerToolBarItemControl.none;
+
+                                  minimize(context, lastElement,
+                                      control: NerToolBarItemControl.none);
                                   break;
                               }
 
@@ -272,15 +217,16 @@ class _NerSelectableHighlightTextState
 
   @override
   Widget build(BuildContext context) {
+    // print("-----------------------------rebuild------------------------------");
     return CompositedTransformTarget(
         link: layerLink,
         child: GestureDetector(
           onPanDown: (details) {
-            debugPrint("[details down]:$details");
+            // debugPrint("[details down]:$details");
             clickedPosition = details.localPosition;
           },
           child: SelectableText.rich(
-            TextSpan(children: getTextSpanList()),
+            TextSpan(children: getTextSpanList(context)),
             maxLines: null,
             onSelectionChanged: (selection, cause) {
               if ((selection.end - selection.start) != 0) {
@@ -288,6 +234,7 @@ class _NerSelectableHighlightTextState
                     min(selection.baseOffset, selection.extentOffset);
                 tempExtentOffset =
                     max(selection.baseOffset, selection.extentOffset);
+
                 _toggleOverlay(context);
               }
             },
@@ -295,58 +242,195 @@ class _NerSelectableHighlightTextState
         ));
   }
 
-  void minimize(List<HighlightedOffset> list) {
-    list.sort((a, b) => a.start.compareTo(b.start));
-    List<HighlightedOffset> stack = [];
-    for (var i in list) {
-      if (stack.isEmpty) {
-        stack.add(i);
-      } else {
-        HighlightedOffset top = stack.last;
-        if (top.end < i.start) {
-          stack.add(i);
-        } else if (top.end < i.end) {
-          top.end = i.end;
-          stack.removeLast();
-          stack.add(top);
+  void minimize(BuildContext context, HighlightedOffset lastElement,
+      {NerToolBarItemControl? control}) {
+    List<HighlightedOffset> offsets =
+        context.read<NerLabelingController>().offsets;
+
+    if (control != NerToolBarItemControl.none) {
+      if (offsets.isEmpty) {
+        context.read<NerLabelingController>().addAll([lastElement]);
+        return;
+      }
+
+      for (final i in offsets) {
+        /// situation 1
+        /// ------------
+        ///      -----------
+        if (i.start <= lastElement.start &&
+            i.end <= lastElement.end &&
+            i.end >= lastElement.start) {
+          if (i.highlightStyle == lastElement.highlightStyle) {
+            i.end = lastElement.end;
+            i.highlightedText = text.substring(i.start, i.end);
+          } else {
+            i.end = lastElement.start;
+            i.highlightedText = text.substring(i.start, i.end);
+            offsets.append(lastElement);
+          }
+        }
+
+        /// situation 2
+        ///      ---------
+        /// --------
+        if (i.start <= lastElement.end &&
+            i.start >= lastElement.start &&
+            i.end >= lastElement.end) {
+          if (i.highlightStyle == lastElement.highlightStyle) {
+            i.start = lastElement.start;
+            i.highlightedText = text.substring(i.start, i.end);
+          } else {
+            i.start = lastElement.end;
+            i.highlightedText = text.substring(i.start, i.end);
+            offsets.append(lastElement);
+          }
+        }
+
+        /// situation 3
+        /// -------------
+        ///     -----
+        if (i.start <= lastElement.start &&
+            i.end >= lastElement.end &&
+            i.length > lastElement.length) {
+          if (i.highlightStyle != lastElement.highlightStyle) {
+            offsets.remove(i);
+            HighlightedOffset e1 = HighlightedOffset(
+                i.start,
+                lastElement.start,
+                text.substring(i.start, lastElement.start),
+                i.highlightStyle,
+                i.control);
+
+            HighlightedOffset e2 = HighlightedOffset(
+                lastElement.end,
+                i.end,
+                text.substring(lastElement.end, i.end),
+                i.highlightStyle,
+                i.control);
+
+            offsets.append(e1);
+            offsets.append(lastElement);
+            offsets.append(e2);
+          }
+        }
+
+        /// situation 4
+        ///      ------
+        /// -----------------
+        /// situation 5
+        ///      ------
+        ///      ------
+        if (i.start >= lastElement.start && i.end <= lastElement.end) {
+          offsets.remove(i);
+          // print("=============================");
+          // print(offsets.length);
+          offsets.append(lastElement);
+          // print(offsets.length);
+          // print("=============================");
+          break;
+        }
+
+        /// situation 6
+        ///      ------
+        ///            ------
+        /// situation 7
+        ///            ------
+        ///      ------
+        if (i.end <= lastElement.start || lastElement.end <= i.start) {
+          offsets.append(lastElement);
+          break;
         }
       }
+      offsets.sort((a, b) => a.start.compareTo(b.start));
+
+      context.read<NerLabelingController>().addAll(offsets);
+    } else {
+      if (offsets.isEmpty) {
+        return;
+      }
+      for (final i in offsets) {
+        /// situation 1
+        /// ------------
+        ///      -----------
+        if (i.start <= lastElement.start &&
+            i.end <= lastElement.end &&
+            i.end >= lastElement.start) {
+          i.end = lastElement.start;
+          i.highlightedText = text.substring(i.start, i.end);
+        }
+
+        /// situation 2
+        /// ---------------------
+        ///       --------
+        if (i.start <= lastElement.start && i.end >= lastElement.end) {
+          HighlightedOffset appendElement = HighlightedOffset(
+              lastElement.end,
+              i.end,
+              text.substring(lastElement.end, i.end),
+              i.highlightStyle,
+              i.control);
+          i.end = lastElement.start;
+          i.highlightedText = text.substring(i.start, i.end);
+          offsets.append(appendElement);
+        }
+
+        /// situation 3
+        ///        -----------------
+        ///  -----------
+        if (i.start <= lastElement.end &&
+            i.start >= lastElement.start &&
+            i.end >= lastElement.end) {
+          i.start = lastElement.end;
+          i.highlightedText = text.substring(i.start, i.end);
+        }
+
+        /// situation 4
+        ///       ----------
+        ///  --------------------
+        if (i.start >= lastElement.start && i.end <= lastElement.end) {
+          offsets.remove(i);
+        }
+      }
+
+      offsets.sort((a, b) => a.start.compareTo(b.start));
+
+      context.read<NerLabelingController>().addAll(offsets);
     }
-    offsets = stack;
   }
 
-  List<TextSpan> getTextSpanList() {
+  List<TextSpan> getTextSpanList(BuildContext context) {
+    List<HighlightedOffset> offsets =
+        context.watch<NerLabelingController>().offsets;
+
     List<TextSpan> list = [];
     if (offsets.isEmpty) {
       return [
-        TextSpan(
-            text: widget.text,
-            style: highlightStyles[NerToolBarItemControl.none])
+        TextSpan(text: text, style: highlightStyles[NerToolBarItemControl.none])
       ];
     }
     list.add(TextSpan(
-        text: widget.text.substring(0, offsets.first.start),
+        text: text.substring(0, offsets.first.start),
         style: highlightStyles[NerToolBarItemControl.none]));
 
     for (int i = 0; i < offsets.length; i++) {
       HighlightedOffset element = offsets[i];
       if (i == 0) {
         list.add(TextSpan(
-            text: widget.text.substring(element.start, element.end),
+            text: text.substring(element.start, element.end),
             style: element.highlightStyle));
       } else {
         list.add(TextSpan(
-          text: widget.text.substring(offsets[i - 1].end, element.start),
+          text: text.substring(offsets[i - 1].end, element.start),
           style: highlightStyles[NerToolBarItemControl.none],
         ));
         list.add(TextSpan(
-            text: widget.text.substring(element.start, element.end),
+            text: text.substring(element.start, element.end),
             style: element.highlightStyle));
       }
     }
 
     list.add(TextSpan(
-        text: widget.text.substring(offsets.last.end, widget.text.length),
+        text: text.substring(offsets.last.end, text.length),
         style: highlightStyles[NerToolBarItemControl.none]));
     return list;
   }

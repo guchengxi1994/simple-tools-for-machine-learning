@@ -89,6 +89,10 @@ Simple tools for machine learning. Including computer vision, deep learning,...
   
   * [xml2mask](mltools/src/utils/xml2mask/x2m.py)
   
+  * [mlfiles_standardization](mltools/src/utils/mlfiles_standardization/standardization.py)
+
+    > 将[viewer](./mltools_viewer/README.md)生成的`.ml`格式文件转化为标准的`labelme`以及`labelImg`标注文件(一个`ml`文件同时生成两种格式，如果同时存在`rect`和`polygon`两种形式的标注类型的话)
+  
   * 
   
 * 无标注文件图像增广 (image augmentation without label files)
@@ -278,8 +282,9 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 >
 >   > `inpaint` is slow with `skimage` . Using `opencv-python` is faster.
 
-## 重构进度
-* 2022-07-15 已完成重构工作，准备着手UI工具开发
+## 进度
+* 2022-07-25 添加一个方法，用于转化`viewer`生成的文件到`labelme`和`labelImg`标注文件(v0.1.1)
+* 2022-07-15 已完成重构工作，准备着手UI工具开发(v0.1.0)
 * 2022-07-14 添加`labelme`部分增广，添加部分工具
 * 2022-07-13 添加`labelImg` 部分增广
 * 2022-07-12 添加`labelImg` 部分增广

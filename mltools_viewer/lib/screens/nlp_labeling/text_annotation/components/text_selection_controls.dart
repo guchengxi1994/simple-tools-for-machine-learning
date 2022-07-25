@@ -338,7 +338,7 @@ extension NerExtension on NerToolBarItemControl {
   Color getColor() {
     switch (this) {
       case NerToolBarItemControl.name:
-        return Colors.blue;
+        return const Color.fromARGB(255, 228, 96, 40);
       case NerToolBarItemControl.institution:
         return const Color.fromARGB(255, 23, 193, 43);
       case NerToolBarItemControl.location:
@@ -350,7 +350,7 @@ extension NerExtension on NerToolBarItemControl {
       case NerToolBarItemControl.money:
         return const Color.fromARGB(255, 226, 33, 243);
       case NerToolBarItemControl.percent:
-        return const Color.fromARGB(255, 27, 193, 198);
+        return const Color.fromARGB(255, 77, 126, 69);
       case NerToolBarItemControl.none:
         return Colors.black;
     }

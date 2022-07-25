@@ -232,4 +232,4 @@ def img2xml_multiobj(
         root = domTree.getroot()
         root = pretty_xml(root, " ", "\n")
         tree = ET.ElementTree(root)
-        tree.write(tmpPath)
+        tree.write(tmpPath, encoding="utf-8")

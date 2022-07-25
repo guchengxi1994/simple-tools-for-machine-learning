@@ -1,0 +1,1 @@
+enum MltoolType { forNlp, forImage }

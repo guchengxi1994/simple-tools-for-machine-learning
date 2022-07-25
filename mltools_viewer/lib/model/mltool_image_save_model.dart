@@ -5,6 +5,8 @@ import 'package:mltools_viewer/utils/save_file.dart'
     if (dart.library.html) 'package:mltools_viewer/utils/save_file_on_web.dart';
 import 'package:tuple/tuple.dart';
 
+import 'enums.dart';
+
 extension ToFile on MltoolsSaveModel {
   Future toFile(String filename) async {
     await saveFile(filename: filename, data: jsonEncode(toJson()));
@@ -13,7 +15,7 @@ extension ToFile on MltoolsSaveModel {
 
 class MltoolsSaveModel {
   /// machine learning label for image
-  static const String extension = ".mli";
+  static const String extension = ".ml";
   String? imageName;
 
   /// base64 string
@@ -28,12 +30,15 @@ class MltoolsSaveModel {
   /// annotations
   List<Annotation>? annotations;
 
+  MltoolType? mltoolType;
+
   MltoolsSaveModel(
       {required this.imageData,
       required this.imageName,
       this.scale = 1.0,
       this.savedClassNames = const [],
-      this.annotations = const []});
+      this.annotations = const [],
+      required MltoolType mltoolType});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -41,6 +46,7 @@ class MltoolsSaveModel {
     data["imageData"] = imageData;
     data["scale"] = scale;
     data["savedClassNames"] = savedClassNames;
+    data["mltoolType"] = mltoolType == MltoolType.forImage ? "image" : "nlp";
     if (annotations != null) {
       data["annotations"] = annotations!.map((e) => e.toJson()).toList();
     }
@@ -49,6 +55,8 @@ class MltoolsSaveModel {
   }
 
   MltoolsSaveModel.fromJson(Map<String, dynamic> json) {
+    mltoolType =
+        json['mltoolType'] == "image" ? MltoolType.forImage : MltoolType.forNlp;
     imageData = json['imageData'];
     imageName = json['imageName'];
     scale = json['scale'];

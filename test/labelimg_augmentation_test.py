@@ -27,4 +27,4 @@ class TestLabelimgAugmentation:
 
         assert os.path.exists("results")
         files = os.listdir("results")
-        assert len(files) > 0 and exists("xml",files)
+        assert len(files) > 0 and exists("xml", files)

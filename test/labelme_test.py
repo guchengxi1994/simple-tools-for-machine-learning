@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.append("..")
 
 
@@ -28,7 +29,7 @@ class TestLabelme:
         l.onlyFlip()
         assert os.path.exists("results")
         files = os.listdir("results")
-        assert len(files) > 0 and exists("json",files)
+        assert len(files) > 0 and exists("json", files)
 
     def test_labelme_4(self):
         try:
@@ -39,7 +40,7 @@ class TestLabelme:
         l.onlyNoise()
         assert os.path.exists("results")
         files = os.listdir("results")
-        assert len(files) > 0 and exists("json",files)
+        assert len(files) > 0 and exists("json", files)
 
     def test_labelme_3(self):
         try:
@@ -50,7 +51,7 @@ class TestLabelme:
         l.onlyRotate()
         assert os.path.exists("results")
         files = os.listdir("results")
-        assert len(files) > 0 and exists("json",files)
+        assert len(files) > 0 and exists("json", files)
 
     def test_labelme_4(self):
         try:
@@ -61,7 +62,7 @@ class TestLabelme:
         l.onlyTrans()
         assert os.path.exists("results")
         files = os.listdir("results")
-        assert len(files) > 0 and exists("json",files)
+        assert len(files) > 0 and exists("json", files)
 
     def test_labelme_5(self):
         try:
@@ -72,7 +73,7 @@ class TestLabelme:
         l.onlyZoom()
         assert os.path.exists("results")
         files = os.listdir("results")
-        assert len(files) > 0 and exists("json",files)
+        assert len(files) > 0 and exists("json", files)
 
 
 # l = LabelmeAugementation(["3.png"], ["3.json"], "3.yaml")

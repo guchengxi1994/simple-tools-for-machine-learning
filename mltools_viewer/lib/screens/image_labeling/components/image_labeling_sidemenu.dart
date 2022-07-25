@@ -11,6 +11,7 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
+import 'package:mltools_viewer/model/enums.dart';
 import 'package:mltools_viewer/model/image_model.dart';
 import 'package:mltools_viewer/model/labelimg_objs.dart';
 import 'package:mltools_viewer/model/mltool_image_save_model.dart';
@@ -123,7 +124,7 @@ class SideMenu extends StatelessWidget {
             IconTextWidget(
                 icon: const Icon(Icons.file_present),
                 label: const Text(
-                  'Load Data From ".mli" Files',
+                  'Load Data From ".ml" Files',
                   textAlign: TextAlign.center,
                   maxLines: 2,
                 ),
@@ -220,6 +221,7 @@ class SideMenu extends StatelessWidget {
             imageName.split(".").first + MltoolsSaveModel.extension;
 
         MltoolsSaveModel model = MltoolsSaveModel(
+            mltoolType: MltoolType.forImage,
             imageData: imageData,
             imageName: imageName,
             annotations: annotations,

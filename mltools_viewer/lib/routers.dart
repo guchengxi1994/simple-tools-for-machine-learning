@@ -6,12 +6,15 @@ import 'package:mltools_viewer/screens/nlp_labeling/nlp_labeling_screen.dart'
     deferred as nlplabeling;
 import 'package:mltools_viewer/widgets/future_builder.dart';
 import 'package:mltools_viewer/screens/blank_page.dart' deferred as p404;
+import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/text_annotation_screen.dart'
+    deferred as ner;
 
 class Routers {
   static const pageMain = "/pageMain";
   static const pageImageLabeling = "/pageImageLabeling";
   static const pageNlpLabeling = "/pageNlpLabeling";
   static const pageError = "/pageError";
+  static const pageNer = "/pageNer";
 
   static Map<String, WidgetBuilder> routers = {
     pageMain: (context) => FutureLoaderWidget(
@@ -25,6 +28,9 @@ class Routers {
         loadWidgetFuture: nlplabeling.loadLibrary()),
     pageError: (context) => FutureLoaderWidget(
         builder: (context) => p404.BlankScreen(),
-        loadWidgetFuture: p404.loadLibrary())
+        loadWidgetFuture: p404.loadLibrary()),
+    pageNer: (context) => FutureLoaderWidget(
+        builder: (context) => ner.TextAnnotationScreen(),
+        loadWidgetFuture: ner.loadLibrary())
   };
 }
