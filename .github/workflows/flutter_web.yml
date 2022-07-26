@@ -9,7 +9,6 @@ jobs:
         with:
           flutter-version: '3.0.5'
           channel: 'stable'
-      - run: flutter --version
       - name: "Web Build 🔧"
         run: |
           cd mltools_viewer/
