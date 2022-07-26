@@ -141,7 +141,7 @@ class _ImageLabelingState extends State<ImageLabelingMainScreen> {
     );
     // String s = (1 / context.watch<ImageController>().scale).toString();
     String s = context.select<ImageController, double>((value) {
-      return value.scale;
+      return 1 / value.scale;
     }).toString();
     String scale;
     if (s.length <= 3) {

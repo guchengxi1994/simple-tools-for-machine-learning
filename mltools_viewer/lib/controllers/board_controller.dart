@@ -31,6 +31,8 @@ enum AnnotationType { /*labelImg*/ rect, /*labelme*/ polygon }
 /// [getRectBoxesByImageName] : when switch images, get image,bndboxes by image name
 ///
 /// [removeWidget] : remove a widget from workboard
+///
+/// [addPolygon] : add a polygon from `.ml` files
 class BoardController extends ChangeNotifier {
   List<Widget> boardWidgets = [];
   List<RectBoxV2> boxes = [];
@@ -48,6 +50,11 @@ class BoardController extends ChangeNotifier {
     if (w is RectBoxV2) {
       boxes.add(w);
     }
+    notifyListeners();
+  }
+
+  addPolygon(List<Widget> widgets) {
+    boardWidgets.addAll(widgets);
     notifyListeners();
   }
 

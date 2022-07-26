@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
+import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:provider/provider.dart';
 
 const double pointSize = 20;
@@ -12,27 +13,30 @@ class PolygonPointV2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-        left: context
-            .watch<LabelmeAnnotationController>()
-            .getPointLeft(polygonId, id),
-        top: context
-            .watch<LabelmeAnnotationController>()
-            .getPointTop(polygonId, id),
-        child: GestureDetector(
-          onPanUpdate: (details) {
-            context
-                .read<LabelmeAnnotationController>()
-                .changePolygonPointPosition(details, polygonId, id);
-          },
-          child: Container(
-              width: pointSize,
-              height: pointSize,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(150),
-                border: Border.all(color: Colors.red, width: 0.5),
-              )),
-        ));
+    return Visibility(
+        visible: context.select<BoardController, bool>(
+            (value) => value.annotationType == AnnotationType.polygon),
+        child: Positioned(
+            left: context
+                .watch<LabelmeAnnotationController>()
+                .getPointLeft(polygonId, id),
+            top: context
+                .watch<LabelmeAnnotationController>()
+                .getPointTop(polygonId, id),
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                context
+                    .read<LabelmeAnnotationController>()
+                    .changePolygonPointPosition(details, polygonId, id);
+              },
+              child: Container(
+                  width: pointSize,
+                  height: pointSize,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(150),
+                    border: Border.all(color: Colors.red, width: 0.5),
+                  )),
+            )));
   }
 }

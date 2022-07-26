@@ -16,6 +16,7 @@ import 'package:mltools_viewer/model/image_model.dart';
 import 'package:mltools_viewer/model/labelimg_objs.dart';
 import 'package:mltools_viewer/model/mltool_image_save_model.dart';
 import 'package:mltools_viewer/utils/common.dart';
+import 'package:mltools_viewer/utils/toast_utils.dart';
 
 import 'package:provider/provider.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
@@ -24,6 +25,9 @@ import 'package:tuple/tuple.dart';
 
 import '../../../widgets/icon_text_widget.dart';
 import 'labelimg/labelimg_widget.dart';
+import 'labelme/polygon_point_v2.dart';
+
+const double pointSize = 20;
 
 class SideMenu extends StatelessWidget {
   SideMenu({Key? key}) : super(key: key);
@@ -128,7 +132,7 @@ class SideMenu extends StatelessWidget {
                   textAlign: TextAlign.center,
                   maxLines: 2,
                 ),
-                onTap: () {}),
+                onTap: () => loadMLFile(context)),
             const Divider(
               thickness: 3,
             ),
@@ -168,6 +172,112 @@ class SideMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  loadMLFile(BuildContext context) async {
+    final ToastUtils toastUtils = ToastUtils(context);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['ml'],
+    );
+
+    if (result != null) {
+      Uint8List? fileBytes;
+
+      if (TaichiDevUtils.isWeb) {
+        fileBytes = result.files.first.bytes;
+      } else {
+        File file = File(result.files.single.path!);
+        fileBytes = file.readAsBytesSync();
+      }
+
+      if (fileBytes != null) {
+        String fileDataString = utf8.decode(fileBytes);
+        // print(fileDataString);
+        var jsonData = jsonDecode(fileDataString);
+        // print(jsonData['imageName']);
+        try {
+          if (jsonData['mltoolType'] != "image") {
+            toastUtils.showToast("读取文件非图片格式标注",
+                decorateColor: Colors.redAccent);
+            return;
+          }
+          String imageName = jsonData['imageName'];
+          double scale = jsonData['scale'];
+          String base64Data = jsonData['imageData'];
+          Uint8List imageData = base64.decode(base64Data);
+          context.read<ImageController>().changeImage(
+              MltoolImage(imageData: imageData, imageName: imageName));
+          context.read<ImageController>().changeScale(scale);
+
+          List annotations = jsonData["annotations"];
+          int labelImgId = 0;
+          int labelmeId = 0;
+          for (final i in annotations) {
+            Annotation a = Annotation.fromJson(i);
+            // print(a);
+            if (a.annotationType == "rect") {
+              context.read<LabelImgAnnotationController>().addDetail(
+                  LabelImgAnnotationDetails(
+                      id: labelImgId,
+                      imageName: imageName,
+                      className: a.labelName ?? "",
+                      xmax: (a.bndbox!.xmax ?? 100).toDouble(),
+                      xmin: (a.bndbox!.xmin ?? 0).toDouble(),
+                      ymax: (a.bndbox!.ymax ?? 100).toDouble(),
+                      ymin: (a.bndbox!.ymin ?? 0).toDouble(),
+                      scale: scale));
+              context
+                  .read<BoardController>()
+                  .addWidget(RectBoxV2(id: labelmeId, imageName: imageName));
+              labelImgId += 1;
+            }
+
+            if (a.annotationType == "polygon") {
+              List<PointDetails> points = [];
+              int pointId = 0;
+              for (final p in a.polygon!) {
+                points.add(
+                    PointDetails(left: p.item1, top: p.item2, id: pointId));
+                // if (pointId == 0) {
+                //   path.moveTo(
+                //       p.item1 + 0.5 * pointSize, p.item2 + 0.5 * pointSize);
+                // } else {
+                //   path.lineTo(
+                //       p.item1 + 0.5 * pointSize, p.item2 + 0.5 * pointSize);
+                // }
+
+                pointId += 1;
+              }
+
+              context
+                  .read<LabelmeAnnotationController>()
+                  .addDetails(LabelmeAnnotationDetails(
+                    imageName: imageName,
+                    points: points,
+                    polygonId: labelmeId,
+                  ));
+              context.read<BoardController>().addPolygon(points
+                  .map((e) => PolygonPointV2(
+                        id: e.id,
+                        polygonId: labelmeId,
+                      ))
+                  .toList());
+              labelmeId += 1;
+            }
+          }
+
+          if (labelImgId > 0) {
+            context
+                .read<BoardController>()
+                .changeAnnotationType(AnnotationType.polygon);
+          }
+        } catch (e) {
+          debugPrint("[load ml file error]:${e.toString()}");
+          toastUtils.showToast("读取文件数据有误", decorateColor: Colors.redAccent);
+        }
+      }
+    }
   }
 
   saveFile(BuildContext context) async {

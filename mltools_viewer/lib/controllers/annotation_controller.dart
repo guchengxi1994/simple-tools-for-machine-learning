@@ -275,6 +275,8 @@ enum PolygonOperationType { create, edit }
 ///
 /// [savedClassNames] list of string
 ///
+/// [LabelmeAnnotationDetails] add a polygon detail
+///
 /// [whenScaleChanged] change points position when scale changed
 ///
 /// [changeLabelName] change label name of polygon
@@ -308,6 +310,11 @@ class LabelmeAnnotationController extends ChangeNotifier {
   int _currentPolygonIndex = 0;
 
   int get currentPolygonIndex => _currentPolygonIndex;
+
+  addDetails(LabelmeAnnotationDetails d) {
+    details.add(d);
+    notifyListeners();
+  }
 
   @Deprecated("use `changeLabelName` instead")
   changePolygonClassName(String s, int polygonId) {
