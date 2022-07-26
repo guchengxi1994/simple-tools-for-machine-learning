@@ -7,6 +7,7 @@ import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/t
 import 'package:provider/provider.dart';
 
 import 'components/deletable_card.dart';
+import 'components/ner_settings_dropdown_button.dart';
 import 'components/text_selection_controls.dart';
 
 class TextAnnotationScreen extends StatelessWidget {
@@ -14,6 +15,13 @@ class TextAnnotationScreen extends StatelessWidget {
   // String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
   final ScrollController mainController = ScrollController();
   final ScrollController childController = ScrollController();
+
+  Widget buildTitle(BuildContext ctx) {
+    NerLabelingController controller = ctx.watch<NerLabelingController>();
+
+    return Text(
+        "${controller.nerFileInfo?.fileName ?? ""}   ${controller.rowId + 1}/${controller.nerFileInfo?.rowIndexs.length ?? 0 + 1}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +33,8 @@ class TextAnnotationScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
+            title: buildTitle(context),
+            centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: AppStyle.lightBlue,
             leading: InkWell(
@@ -33,6 +43,7 @@ class TextAnnotationScreen extends StatelessWidget {
               },
               child: const Icon(Icons.chevron_left),
             ),
+            actions: [NerSettingsDropdownButton()],
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(50),
@@ -50,12 +61,31 @@ class TextAnnotationScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: NerSelectableHighlightText(
-                      text: context.select<NerLabelingController, String>(
-                          (value) => value.text),
+                      text: context
+                          .watch<NerLabelingController>()
+                          .getCurrentRow(),
                     ),
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        context.read<NerLabelingController>().previousRow();
+                      },
+                      child: const Icon(Icons.skip_previous)),
+                  ElevatedButton(
+                      onPressed: () {
+                        context.read<NerLabelingController>().nextRow();
+                      },
+                      child: const Icon(Icons.skip_next)),
+                ],
+              )
             ]),
           ),
         );

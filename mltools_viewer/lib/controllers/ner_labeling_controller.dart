@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_selection_controls.dart';
+import 'package:tuple/tuple.dart';
 
 class HighlightedOffset {
   int start;
@@ -26,7 +27,67 @@ class HighlightedOffset {
   int get hashCode => start.hashCode + end.hashCode;
 }
 
+class NerFileInfo {
+  Map<int, Tuple2<int, int>> rowIndexs;
+  String fileName;
+  String fileData;
+  int dataLength;
+
+  NerFileInfo(
+      {required this.dataLength,
+      required this.fileData,
+      required this.fileName,
+      required this.rowIndexs});
+}
+
 class NerLabelingController extends ChangeNotifier {
+  bool isLoadingFile = false;
+
+  // ignore: avoid_init_to_null
+  late NerFileInfo? nerFileInfo = null;
+
+  int get rowId => _currentRowId;
+
+  int _currentRowId = 0;
+  String getCurrentRow() {
+    if (nerFileInfo == null) {
+      return "";
+    } else {
+      if (nerFileInfo!.rowIndexs == {}) {
+        return "";
+      }
+      if (nerFileInfo!.rowIndexs.keys.contains(_currentRowId)) {
+        return nerFileInfo!.fileData
+            .substring(nerFileInfo!.rowIndexs[_currentRowId]!.item1,
+                nerFileInfo!.rowIndexs[_currentRowId]!.item2)
+            .replaceAll("\n", "");
+      } else {
+        return "";
+      }
+    }
+  }
+
+  nextRow() {
+    _currentRowId += 1;
+    notifyListeners();
+  }
+
+  previousRow() {
+    _currentRowId -= 1;
+    notifyListeners();
+  }
+
+  setNerFileInfo(NerFileInfo info) {
+    nerFileInfo = info;
+    notifyListeners();
+  }
+
+  setLoadingFileStatus(bool b) {
+    isLoadingFile = b;
+    _currentRowId = 0;
+    notifyListeners();
+  }
+
   List<String> labeledStrings = [];
   List<HighlightedOffset> offsets = [];
   String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
