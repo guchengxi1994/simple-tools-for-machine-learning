@@ -82,6 +82,7 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                               }
                             }
                             info = NerFileInfo(
+                                fileUint8Data: customFilePickerResult.fileData!,
                                 dataLength: fileData.length,
                                 fileData: fileData,
                                 fileName: controller.text,

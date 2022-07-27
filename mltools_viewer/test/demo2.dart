@@ -10,6 +10,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_selection_controls.dart';
 
 void main() {
@@ -57,7 +58,7 @@ class Home extends StatelessWidget {
               toolbarOptions: ToolbarOptions(copy: true),
               // ignore: deprecated_member_use_from_same_package
               selectionControls: NlpAnnotationTextSelectionControls(
-                  toolBarItems: NerToolBarItemControl.values
+                  toolBarItems: NerItems.values
                       .map((e) => NerToolBarItem(
                             item: Text(e.toStr()),
                             itemControl: e,

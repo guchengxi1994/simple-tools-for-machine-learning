@@ -15,42 +15,42 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
-import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_selection_controls.dart';
+import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:provider/provider.dart';
 
 /// modified from
 /// https://github.com/vilashraj/selectable_text_highlighter/blob/main/lib/text_highlighter_dart
 
-Map<NerToolBarItemControl, TextStyle> highlightStyles = {
-  NerToolBarItemControl.name: TextStyle(
-    backgroundColor: NerToolBarItemControl.name.getColor(),
+Map<NerItems, TextStyle> highlightStyles = {
+  NerItems.name: TextStyle(
+    backgroundColor: NerItems.name.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.institution: TextStyle(
-    backgroundColor: NerToolBarItemControl.institution.getColor(),
+  NerItems.institution: TextStyle(
+    backgroundColor: NerItems.institution.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.location: TextStyle(
-    backgroundColor: NerToolBarItemControl.location.getColor(),
+  NerItems.location: TextStyle(
+    backgroundColor: NerItems.location.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.time: TextStyle(
-    backgroundColor: NerToolBarItemControl.time.getColor(),
+  NerItems.time: TextStyle(
+    backgroundColor: NerItems.time.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.date: TextStyle(
-    backgroundColor: NerToolBarItemControl.date.getColor(),
+  NerItems.date: TextStyle(
+    backgroundColor: NerItems.date.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.money: TextStyle(
-    backgroundColor: NerToolBarItemControl.money.getColor(),
+  NerItems.money: TextStyle(
+    backgroundColor: NerItems.money.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.percent: TextStyle(
-    backgroundColor: NerToolBarItemControl.percent.getColor(),
+  NerItems.percent: TextStyle(
+    backgroundColor: NerItems.percent.getColor(),
     fontSize: 16,
   ),
-  NerToolBarItemControl.none: const TextStyle(
+  NerItems.none: const TextStyle(
     fontSize: 16,
   ),
 };
@@ -106,7 +106,7 @@ class NerSelectableHighlightText extends StatelessWidget {
                     runSpacing: 4,
                     //布局方向
                     direction: Axis.horizontal,
-                    children: NerToolBarItemControl.values
+                    children: NerItems.values
                         .map((e) => ElevatedButton(
                             onPressed: () {
                               var lastElement = HighlightedOffset(
@@ -116,71 +116,64 @@ class NerSelectableHighlightText extends StatelessWidget {
                                     tempBaseOffset,
                                     tempExtentOffset,
                                   ),
-                                  highlightStyles[NerToolBarItemControl.name]!,
-                                  NerToolBarItemControl.name);
+                                  highlightStyles[NerItems.name]!,
+                                  NerItems.name);
                               switch (e) {
-                                case NerToolBarItemControl.name:
+                                case NerItems.name:
                                   minimize(context, lastElement);
                                   break;
-                                case NerToolBarItemControl.institution:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.institution]!;
-                                  lastElement.control =
-                                      NerToolBarItemControl.institution;
-
-                                  minimize(context, lastElement);
-                                  break;
-                                case NerToolBarItemControl.location:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.location]!;
-
-                                  lastElement.control =
-                                      NerToolBarItemControl.location;
-                                  minimize(context, lastElement);
-                                  break;
-                                case NerToolBarItemControl.time:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.time]!;
-                                  lastElement.control =
-                                      NerToolBarItemControl.time;
+                                case NerItems.institution:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.institution]!;
+                                  lastElement.control = NerItems.institution;
 
                                   minimize(context, lastElement);
                                   break;
-                                case NerToolBarItemControl.date:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.date]!;
+                                case NerItems.location:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.location]!;
 
-                                  lastElement.control =
-                                      NerToolBarItemControl.date;
+                                  lastElement.control = NerItems.location;
+                                  minimize(context, lastElement);
+                                  break;
+                                case NerItems.time:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.time]!;
+                                  lastElement.control = NerItems.time;
 
                                   minimize(context, lastElement);
                                   break;
-                                case NerToolBarItemControl.money:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.money]!;
+                                case NerItems.date:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.date]!;
 
-                                  lastElement.control =
-                                      NerToolBarItemControl.money;
-
-                                  minimize(context, lastElement);
-                                  break;
-                                case NerToolBarItemControl.percent:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.percent]!;
-
-                                  lastElement.control =
-                                      NerToolBarItemControl.percent;
+                                  lastElement.control = NerItems.date;
 
                                   minimize(context, lastElement);
                                   break;
-                                case NerToolBarItemControl.none:
-                                  lastElement.highlightStyle = highlightStyles[
-                                      NerToolBarItemControl.none]!;
-                                  lastElement.control =
-                                      NerToolBarItemControl.none;
+                                case NerItems.money:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.money]!;
+
+                                  lastElement.control = NerItems.money;
+
+                                  minimize(context, lastElement);
+                                  break;
+                                case NerItems.percent:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.percent]!;
+
+                                  lastElement.control = NerItems.percent;
+
+                                  minimize(context, lastElement);
+                                  break;
+                                case NerItems.none:
+                                  lastElement.highlightStyle =
+                                      highlightStyles[NerItems.none]!;
+                                  lastElement.control = NerItems.none;
 
                                   minimize(context, lastElement,
-                                      control: NerToolBarItemControl.none);
+                                      control: NerItems.none);
                                   break;
                               }
 
@@ -243,11 +236,11 @@ class NerSelectableHighlightText extends StatelessWidget {
   }
 
   void minimize(BuildContext context, HighlightedOffset lastElement,
-      {NerToolBarItemControl? control}) {
+      {NerItems? control}) {
     List<HighlightedOffset> offsets =
         context.read<NerLabelingController>().offsets;
 
-    if (control != NerToolBarItemControl.none) {
+    if (control != NerItems.none) {
       if (offsets.isEmpty) {
         context.read<NerLabelingController>().addAll([lastElement]);
         return;
@@ -404,13 +397,11 @@ class NerSelectableHighlightText extends StatelessWidget {
 
     List<TextSpan> list = [];
     if (offsets.isEmpty) {
-      return [
-        TextSpan(text: text, style: highlightStyles[NerToolBarItemControl.none])
-      ];
+      return [TextSpan(text: text, style: highlightStyles[NerItems.none])];
     }
     list.add(TextSpan(
         text: text.substring(0, offsets.first.start),
-        style: highlightStyles[NerToolBarItemControl.none]));
+        style: highlightStyles[NerItems.none]));
 
     for (int i = 0; i < offsets.length; i++) {
       HighlightedOffset element = offsets[i];
@@ -421,7 +412,7 @@ class NerSelectableHighlightText extends StatelessWidget {
       } else {
         list.add(TextSpan(
           text: text.substring(offsets[i - 1].end, element.start),
-          style: highlightStyles[NerToolBarItemControl.none],
+          style: highlightStyles[NerItems.none],
         ));
         list.add(TextSpan(
             text: text.substring(element.start, element.end),
@@ -431,7 +422,7 @@ class NerSelectableHighlightText extends StatelessWidget {
 
     list.add(TextSpan(
         text: text.substring(offsets.last.end, text.length),
-        style: highlightStyles[NerToolBarItemControl.none]));
+        style: highlightStyles[NerItems.none]));
     return list;
   }
 }

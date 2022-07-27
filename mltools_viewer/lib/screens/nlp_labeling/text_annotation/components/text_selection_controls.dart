@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 
+import 'package:mltools_viewer/model/ner_models.dart';
+
 /// modified from
 /// https://github.com/moneyeSir/flutter_text_selection_controls/blob/master/text_selection_controls/lib/text_selection_controls.dart
 
@@ -34,30 +36,30 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
       required TextSelectionDelegate delegate,
       required ClipboardStatusNotifier clipboardStatus}) {
     if (item.itemControl != null) {
-      final NerToolBarItemControl control = item.itemControl!;
+      final NerItems control = item.itemControl!;
       switch (control) {
-        case NerToolBarItemControl.name:
+        case NerItems.name:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.institution:
+        case NerItems.institution:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.location:
+        case NerItems.location:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.time:
+        case NerItems.time:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.date:
+        case NerItems.date:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.money:
+        case NerItems.money:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.none:
+        case NerItems.none:
           debugPrint("${control.getColor()}");
           break;
-        case NerToolBarItemControl.percent:
+        case NerItems.percent:
           debugPrint("${control.getColor()}");
           break;
       }
@@ -289,72 +291,7 @@ class NerToolBarItem extends BaseToolBarItem {
   /// The widget which will be shown on the text selection tool bar when a text is highlighted
   final Widget item;
 
-  final NerToolBarItemControl? itemControl;
-}
-
-enum NerToolBarItemControl {
-  // 人名
-  name,
-  // 机构名
-  institution,
-  // 地名
-  location,
-  // 时间
-  time,
-  // 日期
-  date,
-  // 货币
-  money,
-  // 百分比
-  percent,
-  // none
-  none
-}
-
-extension NerExtension on NerToolBarItemControl {
-  String toStr() {
-    switch (this) {
-      case NerToolBarItemControl.name:
-        return "人名";
-      case NerToolBarItemControl.institution:
-        return "机构名";
-      case NerToolBarItemControl.location:
-        return "地名";
-      case NerToolBarItemControl.time:
-        return "时间";
-      case NerToolBarItemControl.date:
-        return "日期";
-      case NerToolBarItemControl.money:
-        return "货币";
-      case NerToolBarItemControl.percent:
-        return "百分比";
-      case NerToolBarItemControl.none:
-        return "无";
-      default:
-        return "未知";
-    }
-  }
-
-  Color getColor() {
-    switch (this) {
-      case NerToolBarItemControl.name:
-        return const Color.fromARGB(255, 228, 96, 40);
-      case NerToolBarItemControl.institution:
-        return const Color.fromARGB(255, 23, 193, 43);
-      case NerToolBarItemControl.location:
-        return const Color.fromARGB(255, 104, 20, 176);
-      case NerToolBarItemControl.time:
-        return const Color.fromARGB(255, 220, 141, 24);
-      case NerToolBarItemControl.date:
-        return const Color.fromARGB(255, 222, 229, 20);
-      case NerToolBarItemControl.money:
-        return const Color.fromARGB(255, 226, 33, 243);
-      case NerToolBarItemControl.percent:
-        return const Color.fromARGB(255, 77, 126, 69);
-      case NerToolBarItemControl.none:
-        return Colors.black;
-    }
-  }
+  final NerItems? itemControl;
 }
 
 class _TextSelectionHandlePainter extends CustomPainter {

@@ -1,5 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_selection_controls.dart';
+import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:tuple/tuple.dart';
 
 class HighlightedOffset {
@@ -7,7 +9,7 @@ class HighlightedOffset {
   int end;
   String highlightedText;
   TextStyle highlightStyle;
-  NerToolBarItemControl control;
+  NerItems control;
   HighlightedOffset(this.start, this.end, this.highlightedText,
       this.highlightStyle, this.control);
 
@@ -32,12 +34,14 @@ class NerFileInfo {
   String fileName;
   String fileData;
   int dataLength;
+  Uint8List fileUint8Data;
 
   NerFileInfo(
       {required this.dataLength,
       required this.fileData,
       required this.fileName,
-      required this.rowIndexs});
+      required this.rowIndexs,
+      required this.fileUint8Data});
 }
 
 class NerLabelingController extends ChangeNotifier {
@@ -47,6 +51,9 @@ class NerLabelingController extends ChangeNotifier {
   late NerFileInfo? nerFileInfo = null;
 
   int get rowId => _currentRowId;
+
+  bool get isLast => (nerFileInfo != null &&
+      nerFileInfo!.rowIndexs.keys.last == _currentRowId);
 
   int _currentRowId = 0;
   String getCurrentRow() {
@@ -68,13 +75,18 @@ class NerLabelingController extends ChangeNotifier {
   }
 
   nextRow() {
-    _currentRowId += 1;
-    notifyListeners();
+    if (nerFileInfo != null &&
+        nerFileInfo!.rowIndexs.keys.last > _currentRowId) {
+      _currentRowId += 1;
+      notifyListeners();
+    }
   }
 
   previousRow() {
-    _currentRowId -= 1;
-    notifyListeners();
+    if (_currentRowId > 0) {
+      _currentRowId -= 1;
+      notifyListeners();
+    }
   }
 
   setNerFileInfo(NerFileInfo info) {

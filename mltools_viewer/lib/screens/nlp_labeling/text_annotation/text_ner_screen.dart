@@ -1,14 +1,19 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
+import 'package:mltools_viewer/model/enums.dart';
+import 'package:mltools_viewer/model/mltool_ner_save_model.dart';
+import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_highlight_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'components/deletable_card.dart';
 import 'components/ner_settings_dropdown_button.dart';
-import 'components/text_selection_controls.dart';
+import 'package:crypto/crypto.dart';
 
 class TextAnnotationScreen extends StatelessWidget {
   TextAnnotationScreen({Key? key}) : super(key: key);
@@ -75,6 +80,8 @@ class TextAnnotationScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
+                      onPressed: () {}, child: const Icon(Icons.first_page)),
+                  ElevatedButton(
                       onPressed: () {
                         context.read<NerLabelingController>().previousRow();
                       },
@@ -84,6 +91,25 @@ class TextAnnotationScreen extends StatelessWidget {
                         context.read<NerLabelingController>().nextRow();
                       },
                       child: const Icon(Icons.skip_next)),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Icon(Icons.last_page)),
+                  if (context.watch<NerLabelingController>().isLast)
+                    ElevatedButton(
+                        onPressed: () async {
+                          final data = context.read<NerLabelingController>();
+                          if (data.nerFileInfo == null) {
+                            return;
+                          }
+                          NerSaveModel model = NerSaveModel();
+
+                          model.fileName = data.nerFileInfo!.fileName;
+                          model.fileHash = base64Encode(md5
+                              .convert(data.nerFileInfo!.fileUint8Data)
+                              .bytes);
+                          debugPrint(model.fileHash);
+                          model.mltoolType = MltoolType.forNlp;
+                        },
+                        child: const Icon(Icons.file_download)),
                 ],
               )
             ]),
@@ -102,12 +128,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.name.getColor(),
+        color: NerItems.name.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.name.toStr()),
+      Text(NerItems.name.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -117,12 +143,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.institution.getColor(),
+        color: NerItems.institution.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.institution.toStr()),
+      Text(NerItems.institution.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -132,12 +158,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.location.getColor(),
+        color: NerItems.location.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.location.toStr()),
+      Text(NerItems.location.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -147,12 +173,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.time.getColor(),
+        color: NerItems.time.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.time.toStr()),
+      Text(NerItems.time.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -162,12 +188,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.date.getColor(),
+        color: NerItems.date.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.date.toStr()),
+      Text(NerItems.date.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -177,12 +203,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.money.getColor(),
+        color: NerItems.money.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.money.toStr()),
+      Text(NerItems.money.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -192,12 +218,12 @@ class TextAnnotationScreen extends StatelessWidget {
       Container(
         width: 10,
         height: 10,
-        color: NerToolBarItemControl.percent.getColor(),
+        color: NerItems.percent.getColor(),
       ),
       const SizedBox(
         width: 5,
       ),
-      Text(NerToolBarItemControl.percent.toStr()),
+      Text(NerItems.percent.toStr()),
       const SizedBox(
         width: 5,
       ),
@@ -205,7 +231,7 @@ class TextAnnotationScreen extends StatelessWidget {
 
     for (final i in offsets) {
       switch (i.control) {
-        case NerToolBarItemControl.name:
+        case NerItems.name:
           rowName.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -215,7 +241,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.institution:
+        case NerItems.institution:
           rowInstitution.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -225,7 +251,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.location:
+        case NerItems.location:
           rowLocation.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -235,7 +261,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.time:
+        case NerItems.time:
           rowTime.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -245,7 +271,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.date:
+        case NerItems.date:
           rowDate.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -255,7 +281,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.money:
+        case NerItems.money:
           rowMoney.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -265,7 +291,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.percent:
+        case NerItems.percent:
           rowPercent.add(DeletableCard(
             text: i.highlightedText,
             onTap: () {
@@ -275,7 +301,7 @@ class TextAnnotationScreen extends StatelessWidget {
             },
           ));
           break;
-        case NerToolBarItemControl.none:
+        case NerItems.none:
           break;
       }
     }
