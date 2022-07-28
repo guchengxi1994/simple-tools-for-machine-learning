@@ -1,48 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/model/ner_models.dart';
-import 'package:tuple/tuple.dart';
-
-class HighlightedOffset {
-  int start;
-  int end;
-  String highlightedText;
-  TextStyle highlightStyle;
-  NerItems control;
-  HighlightedOffset(this.start, this.end, this.highlightedText,
-      this.highlightStyle, this.control);
-
-  int get length => (end - start).abs();
-
-  @override
-  bool operator ==(Object other) {
-    if (other is! HighlightedOffset) {
-      return false;
-    }
-    return other.end == end &&
-        other.start == start &&
-        other.highlightStyle == highlightStyle;
-  }
-
-  @override
-  int get hashCode => start.hashCode + end.hashCode;
-}
-
-class NerFileInfo {
-  Map<int, Tuple2<int, int>> rowIndexs;
-  String fileName;
-  String fileData;
-  int dataLength;
-  Uint8List fileUint8Data;
-
-  NerFileInfo(
-      {required this.dataLength,
-      required this.fileData,
-      required this.fileName,
-      required this.rowIndexs,
-      required this.fileUint8Data});
-}
+import 'package:mltools_viewer/model/ner_file_info.dart';
+import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 
 class NerLabelingController extends ChangeNotifier {
   bool isLoadingFile = false;
@@ -101,21 +59,29 @@ class NerLabelingController extends ChangeNotifier {
   }
 
   List<String> labeledStrings = [];
-  List<HighlightedOffset> offsets = [];
+  // ignore: prefer_final_fields
+  List<HighlightedOffset> _offsets = [];
   String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
 
+  @Deprecated("use `addAll` instead")
   addOffset(HighlightedOffset offset) {
-    offsets.add(offset);
+    _offsets.add(offset);
     notifyListeners();
   }
 
+  List<HighlightedOffset> getOffsetsByCurrentRowId() {
+    return _offsets.where((element) => element.rowId == _currentRowId).toList();
+  }
+
+  List<HighlightedOffset> get allOffsets => _offsets;
+
   removeOffsetByContent(String s) {
-    offsets.removeWhere((element) => element.highlightedText == s);
+    _offsets.removeWhere((element) => element.highlightedText == s);
     notifyListeners();
   }
 
   removeOffset(HighlightedOffset offset) {
-    offsets.remove(offset);
+    _offsets.remove(offset);
     notifyListeners();
   }
 
@@ -125,8 +91,12 @@ class NerLabelingController extends ChangeNotifier {
   }
 
   addAll(List<HighlightedOffset> s) {
-    offsets = s;
-    labeledStrings = offsets.map((e) => e.highlightedText).toList();
+    // _offsets = s;
+    for (final i in s) {
+      i.rowId = _currentRowId;
+      _offsets.append(i);
+    }
+    labeledStrings = _offsets.map((e) => e.highlightedText).toList();
     notifyListeners();
   }
 

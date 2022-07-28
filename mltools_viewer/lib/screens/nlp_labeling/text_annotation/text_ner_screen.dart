@@ -7,6 +7,7 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
 import 'package:mltools_viewer/model/enums.dart';
 import 'package:mltools_viewer/model/mltool_ner_save_model.dart';
+import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_highlight_widget.dart';
 import 'package:provider/provider.dart';
@@ -77,25 +78,44 @@ class TextAnnotationScreen extends StatelessWidget {
                 height: 20,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                      onPressed: () {}, child: const Icon(Icons.first_page)),
-                  ElevatedButton(
-                      onPressed: () {
+                  elevatedButtonWrapper(
+                      child: const Icon(Icons.first_page),
+                      onTap: () {},
+                      toolTip: "第一行数据"),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  elevatedButtonWrapper(
+                      child: const Icon(Icons.skip_previous),
+                      onTap: () {
                         context.read<NerLabelingController>().previousRow();
                       },
-                      child: const Icon(Icons.skip_previous)),
-                  ElevatedButton(
-                      onPressed: () {
+                      toolTip: "前一行数据"),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  elevatedButtonWrapper(
+                      child: const Icon(Icons.skip_next),
+                      onTap: () {
                         context.read<NerLabelingController>().nextRow();
                       },
-                      child: const Icon(Icons.skip_next)),
-                  ElevatedButton(
-                      onPressed: () {}, child: const Icon(Icons.last_page)),
+                      toolTip: "后一行数据"),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  elevatedButtonWrapper(
+                      child: const Icon(Icons.last_page),
+                      onTap: () {},
+                      toolTip: "最后一行数据"),
+                  const SizedBox(
+                    width: 5,
+                  ),
                   if (context.watch<NerLabelingController>().isLast)
-                    ElevatedButton(
-                        onPressed: () async {
+                    elevatedButtonWrapper(
+                        child: const Icon(Icons.file_download),
+                        onTap: () async {
                           final data = context.read<NerLabelingController>();
                           if (data.nerFileInfo == null) {
                             return;
@@ -108,8 +128,14 @@ class TextAnnotationScreen extends StatelessWidget {
                               .bytes);
                           debugPrint(model.fileHash);
                           model.mltoolType = MltoolType.forNlp;
+                          List<HighlightedOffset> offsets = data.allOffsets;
+                          model.annotations =
+                              offsets.map((e) => e.toAnnotation()).toList();
+                          String annotationFileName = data.nerFileInfo!.fileName
+                              .replaceAll(".txt", NerSaveModel.extension);
+                          await model.toFile(annotationFileName);
                         },
-                        child: const Icon(Icons.file_download)),
+                        toolTip: "保存标注"),
                 ],
               )
             ]),
@@ -119,10 +145,23 @@ class TextAnnotationScreen extends StatelessWidget {
     );
   }
 
+  Widget elevatedButtonWrapper(
+      {required String toolTip,
+      required Widget child,
+      required VoidCallback onTap}) {
+    return Tooltip(
+      message: toolTip,
+      child: ElevatedButton(
+        onPressed: onTap,
+        child: child,
+      ),
+    );
+  }
+
   Widget buildRow(BuildContext context) {
     List<Widget> rows = [];
     List<HighlightedOffset> offsets =
-        context.watch<NerLabelingController>().offsets;
+        context.watch<NerLabelingController>().getOffsetsByCurrentRowId();
 
     List<Widget> rowName = [
       Container(
@@ -230,7 +269,7 @@ class TextAnnotationScreen extends StatelessWidget {
     ];
 
     for (final i in offsets) {
-      switch (i.control) {
+      switch (i.itemType) {
         case NerItems.name:
           rowName.add(DeletableCard(
             text: i.highlightedText,

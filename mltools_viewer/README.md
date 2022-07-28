@@ -3,8 +3,9 @@
 用于`mltools`的可视化工具 在线[demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/)
 
 ## Changelog
-* v0.2.1 添加读取`.ml`并展示标注的功能
-* v0.2.0 支持 Named Entity Recognition  [demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/#/pageNer)
+* v0.2.2 通用`NER`支持生成`.ml`格式文件
+* v0.2.1 添加读取图片类型的`.ml`并展示标注的功能
+* v0.2.0 支持通用 Named Entity Recognition  [demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/#/pageNer)
 * v0.1.1 完成`labelme`polygon标注，放大/移动
   - [ ] 将在之后的版本完成删除标注的功能(labelImg的标注使用的是 `enable` 属性)
   - [ ] 将在之后的版本完成类名模糊搜索的功能

@@ -77,8 +77,9 @@ class NlpLabelingScreen extends StatelessWidget {
                       height: 0.2 * MediaQuery.of(context).size.height,
                       child: const Center(
                         child: Text(
-                          "命名实体识别",
-                          maxLines: 2,
+                          "通用命名实体识别",
+                          maxLines: null,
+                          textAlign: TextAlign.center,
                           style: AppStyle.cardTextStyle,
                         ),
                       ),

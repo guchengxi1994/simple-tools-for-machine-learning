@@ -15,6 +15,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
+import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:provider/provider.dart';
 
@@ -125,7 +126,7 @@ class NerSelectableHighlightText extends StatelessWidget {
                                 case NerItems.institution:
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.institution]!;
-                                  lastElement.control = NerItems.institution;
+                                  lastElement.itemType = NerItems.institution;
 
                                   minimize(context, lastElement);
                                   break;
@@ -133,13 +134,13 @@ class NerSelectableHighlightText extends StatelessWidget {
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.location]!;
 
-                                  lastElement.control = NerItems.location;
+                                  lastElement.itemType = NerItems.location;
                                   minimize(context, lastElement);
                                   break;
                                 case NerItems.time:
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.time]!;
-                                  lastElement.control = NerItems.time;
+                                  lastElement.itemType = NerItems.time;
 
                                   minimize(context, lastElement);
                                   break;
@@ -147,7 +148,7 @@ class NerSelectableHighlightText extends StatelessWidget {
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.date]!;
 
-                                  lastElement.control = NerItems.date;
+                                  lastElement.itemType = NerItems.date;
 
                                   minimize(context, lastElement);
                                   break;
@@ -155,7 +156,7 @@ class NerSelectableHighlightText extends StatelessWidget {
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.money]!;
 
-                                  lastElement.control = NerItems.money;
+                                  lastElement.itemType = NerItems.money;
 
                                   minimize(context, lastElement);
                                   break;
@@ -163,17 +164,17 @@ class NerSelectableHighlightText extends StatelessWidget {
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.percent]!;
 
-                                  lastElement.control = NerItems.percent;
+                                  lastElement.itemType = NerItems.percent;
 
                                   minimize(context, lastElement);
                                   break;
                                 case NerItems.none:
                                   lastElement.highlightStyle =
                                       highlightStyles[NerItems.none]!;
-                                  lastElement.control = NerItems.none;
+                                  lastElement.itemType = NerItems.none;
 
                                   minimize(context, lastElement,
-                                      control: NerItems.none);
+                                      itemType: NerItems.none);
                                   break;
                               }
 
@@ -236,11 +237,11 @@ class NerSelectableHighlightText extends StatelessWidget {
   }
 
   void minimize(BuildContext context, HighlightedOffset lastElement,
-      {NerItems? control}) {
+      {NerItems? itemType}) {
     List<HighlightedOffset> offsets =
-        context.read<NerLabelingController>().offsets;
+        context.read<NerLabelingController>().getOffsetsByCurrentRowId();
 
-    if (control != NerItems.none) {
+    if (itemType != NerItems.none) {
       if (offsets.isEmpty) {
         context.read<NerLabelingController>().addAll([lastElement]);
         return;
@@ -292,14 +293,14 @@ class NerSelectableHighlightText extends StatelessWidget {
                 lastElement.start,
                 text.substring(i.start, lastElement.start),
                 i.highlightStyle,
-                i.control);
+                i.itemType);
 
             HighlightedOffset e2 = HighlightedOffset(
                 lastElement.end,
                 i.end,
                 text.substring(lastElement.end, i.end),
                 i.highlightStyle,
-                i.control);
+                i.itemType);
 
             offsets.append(e1);
             offsets.append(lastElement);
@@ -361,7 +362,7 @@ class NerSelectableHighlightText extends StatelessWidget {
               i.end,
               text.substring(lastElement.end, i.end),
               i.highlightStyle,
-              i.control);
+              i.itemType);
           i.end = lastElement.start;
           i.highlightedText = text.substring(i.start, i.end);
           offsets.append(appendElement);
@@ -393,7 +394,7 @@ class NerSelectableHighlightText extends StatelessWidget {
 
   List<TextSpan> getTextSpanList(BuildContext context) {
     List<HighlightedOffset> offsets =
-        context.watch<NerLabelingController>().offsets;
+        context.watch<NerLabelingController>().getOffsetsByCurrentRowId();
 
     List<TextSpan> list = [];
     if (offsets.isEmpty) {

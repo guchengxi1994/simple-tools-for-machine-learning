@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'enums.dart';
 import 'ner_models.dart';
+import 'package:mltools_viewer/utils/save_file.dart'
+    if (dart.library.html) 'package:mltools_viewer/utils/save_file_on_web.dart';
 
 // ignore: constant_identifier_names
 const Labels = NerItems.values;
@@ -9,14 +13,16 @@ class NerAnnotation {
   int? end;
   int? labelId;
   String? content;
+  int? rowId;
 
-  NerAnnotation({this.start, this.end, this.labelId, this.content});
+  NerAnnotation({this.start, this.end, this.labelId, this.content, this.rowId});
 
   NerAnnotation.fromJson(Map<String, dynamic> json) {
     start = json['start'];
     end = json['end'];
     labelId = json['labelId'];
     content = json['content'];
+    rowId = json['rowId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +31,7 @@ class NerAnnotation {
     data['end'] = end;
     data['labelId'] = labelId;
     data['content'] = content;
+    data['rowId'] = rowId;
     return data;
   }
 }
@@ -60,6 +67,7 @@ class NerSaveModel {
     if (annotations != null) {
       data["annotations"] = annotations!.map((e) => e.toJson()).toList();
     }
+    data["labels"] = labels;
 
     return data;
   }
@@ -77,4 +85,10 @@ class NerSaveModel {
 
   @override
   int get hashCode => fileHash.hashCode;
+}
+
+extension ToFile on NerSaveModel {
+  Future toFile(String filename) async {
+    await saveFile(filename: filename, data: jsonEncode(toJson()));
+  }
 }

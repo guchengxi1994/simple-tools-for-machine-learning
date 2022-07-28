@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
+import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
