@@ -1,12 +1,3 @@
----
-name: Suggestion or bug?
-about: About [mltools] , [mltools_viewer] or [mltools_server]?
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ### I find a bug about `mltools`
 #### Your os:
 #### Your python version:
