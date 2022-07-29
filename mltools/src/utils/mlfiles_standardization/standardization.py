@@ -38,9 +38,9 @@ def standardization(mlPath: str, saveFolder: str = "./"):
         a = Annotation()
         a.from_json(i)
         if a.annotationType == "rect":
-            labelImgAnnotationList.append(a.standardize())
+            labelImgAnnotationList.append(a.standardize(height, width))
         else:
-            labelmeAnnotationList.append(a.standardize())
+            labelmeAnnotationList.append(a.standardize(height, width))
 
     if len(labelImgAnnotationList) > 0:
         tmpPath = path.replace(imgExt, ".xml")
