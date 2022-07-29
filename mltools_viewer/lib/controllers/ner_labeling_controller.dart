@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/model/extensions.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 
@@ -103,13 +104,5 @@ class NerLabelingController extends ChangeNotifier {
   removeLabeledString(String s) {
     labeledStrings.remove(s);
     notifyListeners();
-  }
-}
-
-extension Append on List<HighlightedOffset> {
-  void append(HighlightedOffset h) {
-    if (!contains(h)) {
-      add(h);
-    }
   }
 }

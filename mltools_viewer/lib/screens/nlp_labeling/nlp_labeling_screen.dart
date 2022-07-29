@@ -27,68 +27,63 @@ class NlpLabelingScreen extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(Routers.pageError);
-                  },
-                  child: Card(
-                    elevation: 4,
-                    child: SizedBox(
-                      width: 0.2 * MediaQuery.of(context).size.width,
-                      height: 0.2 * MediaQuery.of(context).size.height,
-                      child: const Center(
-                        child: Text(
-                          "文本分类",
-                          maxLines: 2,
-                          style: AppStyle.cardTextStyle,
-                        ),
-                      ),
-                    ),
-                  ),
+              children: const [
+                ClickableCard(
+                  cardName: "文本分类",
+                  route: Routers.pageError,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(Routers.pageError);
-                  },
-                  child: Card(
-                    elevation: 4,
-                    child: SizedBox(
-                      width: 0.2 * MediaQuery.of(context).size.width,
-                      height: 0.2 * MediaQuery.of(context).size.height,
-                      child: const Center(
-                        child: Text(
-                          "情感分类",
-                          maxLines: 2,
-                          style: AppStyle.cardTextStyle,
-                        ),
-                      ),
-                    ),
-                  ),
+                ClickableCard(
+                  cardName: "情感分类",
+                  route: Routers.pageError,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(Routers.pageNer);
-                  },
-                  child: Card(
-                    elevation: 4,
-                    child: SizedBox(
-                      width: 0.2 * MediaQuery.of(context).size.width,
-                      height: 0.2 * MediaQuery.of(context).size.height,
-                      child: const Center(
-                        child: Text(
-                          "通用命名实体识别",
-                          maxLines: null,
-                          textAlign: TextAlign.center,
-                          style: AppStyle.cardTextStyle,
-                        ),
-                      ),
-                    ),
-                  ),
+                ClickableCard(
+                  cardName: "通用命名实体识别",
+                  route: Routers.pageNer,
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                ClickableCard(
+                  cardName: "自定义命名实体识别",
+                  route: Routers.pageCustomNer,
+                ),
+              ],
+            )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ClickableCard extends StatelessWidget {
+  const ClickableCard({Key? key, required this.cardName, required this.route})
+      : super(key: key);
+  final String cardName;
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed(route);
+      },
+      child: Card(
+        elevation: 4,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          width: 0.2 * MediaQuery.of(context).size.width,
+          height: 0.2 * MediaQuery.of(context).size.height,
+          child: Center(
+            child: Text(
+              cardName,
+              maxLines: null,
+              textAlign: TextAlign.center,
+              style: AppStyle.cardTextStyle,
+            ),
+          ),
         ),
       ),
     );

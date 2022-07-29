@@ -8,6 +8,8 @@ import 'package:mltools_viewer/widgets/future_builder.dart';
 import 'package:mltools_viewer/screens/blank_page.dart' deferred as p404;
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/text_ner_screen.dart'
     deferred as ner;
+import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/custom_text_ner_screen.dart'
+    deferred as customner;
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -15,6 +17,7 @@ class Routers {
   static const pageNlpLabeling = "/pageNlpLabeling";
   static const pageError = "/pageError";
   static const pageNer = "/pageNer";
+  static const pageCustomNer = '/pageCustomNer';
 
   static Map<String, WidgetBuilder> routers = {
     pageMain: (context) => FutureLoaderWidget(
@@ -31,6 +34,9 @@ class Routers {
         loadWidgetFuture: p404.loadLibrary()),
     pageNer: (context) => FutureLoaderWidget(
         builder: (context) => ner.TextAnnotationScreen(),
-        loadWidgetFuture: ner.loadLibrary())
+        loadWidgetFuture: ner.loadLibrary()),
+    pageCustomNer: (context) => FutureLoaderWidget(
+        builder: (context) => customner.CustomTextAnnotationScreen(),
+        loadWidgetFuture: customner.loadLibrary())
   };
 }

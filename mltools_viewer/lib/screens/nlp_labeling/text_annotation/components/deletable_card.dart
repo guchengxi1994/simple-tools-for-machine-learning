@@ -10,11 +10,17 @@ class DeletableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2,
       child: Padding(
         padding: EdgeInsets.all(paddingSize),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(text),
+            Expanded(
+                child: Text(
+              text,
+              maxLines: null,
+            )),
             SizedBox(
               width: paddingSize * 3,
             ),

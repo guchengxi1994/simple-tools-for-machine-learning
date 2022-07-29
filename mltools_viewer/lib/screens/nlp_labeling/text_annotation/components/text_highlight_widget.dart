@@ -15,6 +15,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
+import 'package:mltools_viewer/model/extensions.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 import 'package:mltools_viewer/model/ner_models.dart';
 import 'package:provider/provider.dart';
