@@ -1,3 +1,8 @@
+---
+name: trouble with running or find  bugs
+about: If you find anything wrong, feel free to start an issue
+---
+
 ### I find a bug about `mltools`
 #### Your os:
 #### Your python version:
@@ -10,4 +15,4 @@
 
 ### I find a bug about `mltools_server`
 
-## I have some suggestions.
+## I cannot run this code.
