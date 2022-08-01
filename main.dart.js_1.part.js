@@ -1,139 +1,139 @@
 self.$__dart_deferred_initializers__=self.$__dart_deferred_initializers__||Object.create(null)
-$__dart_deferred_initializers__.current=function(a,b,c,$){var B={o2:function o2(d,e){var _=this
+$__dart_deferred_initializers__.current=function(a,b,c,$){var B={ob:function ob(d,e){var _=this
 _.a=d
 _.to$=0
 _.x1$=e
 _.xr$=_.x2$=0
 _.y1$=!1},
-auL(){return new B.nR(null)},
-nR:function nR(d){this.a=d},
-Ze:function Ze(){},
-Zd:function Zd(){},
-Za:function Za(){},
-Zb:function Zb(d){this.a=d},
-Zc:function Zc(d){this.a=d},
-a_Q(){var w=0,v=A.X(x.h),u,t,s,r
-var $async$a_Q=A.Y(function(d,e){if(d===1)return A.U(e,v)
-while(true)switch(w){case 0:t=$.alM
+avI(){return new B.nZ(null)},
+nZ:function nZ(d){this.a=d},
+ZI:function ZI(){},
+ZH:function ZH(){},
+ZE:function ZE(){},
+ZF:function ZF(d){this.a=d},
+ZG:function ZG(d){this.a=d},
+a0k(){var w=0,v=A.V(x.h),u,t,s,r
+var $async$a0k=A.W(function(d,e){if(d===1)return A.S(e,v)
+while(true)switch(w){case 0:t=$.amM
 if(t!=null){u=t
 w=1
 break}s=$
 r=B
 w=3
-return A.a1($.aq6().jy(0),$async$a_Q)
-case 3:u=s.alM=new r.xk(e.c)
+return A.Z($.ar6().ej(0),$async$a0k)
+case 3:u=s.amM=new r.xu(e.c)
 w=1
 break
-case 1:return A.V(u,v)}})
-return A.W($async$a_Q,v)},
-xk:function xk(d){this.c=d},
-FP:function FP(d,e){this.a=d
+case 1:return A.T(u,v)}})
+return A.U($async$a0k,v)},
+xu:function xu(d){this.c=d},
+G8:function G8(d,e){this.a=d
 this.b=e},
-a7W:function a7W(){},
-aAc(d){switch(d.a){case 0:return D.uN
-case 1:return D.uO
-case 2:return C.Gf
-case 3:return D.uP}},
-afQ(d){var w=0,v=A.X(x.e),u,t,s,r,q,p
-var $async$afQ=A.Y(function(e,f){if(e===1)return A.U(f,v)
-while(true)switch(w){case 0:s=$.ajo()
+a8C:function a8C(){},
+aBc(d){switch(d.a){case 0:return D.uQ
+case 1:return D.uR
+case 2:return C.Gn
+case 3:return D.uS}},
+agJ(d){var w=0,v=A.V(x.e),u,t,s,r,q,p
+var $async$agJ=A.W(function(e,f){if(e===1)return A.S(f,v)
+while(true)switch(w){case 0:s=$.akm()
 r=d.j(0)
-q=B.aAc(C.BJ)
-p=D.b.bs(r,"http:")||D.b.bs(r,"https:")
-if(q!==D.uO)t=p&&q===D.uN
+q=B.aBc(C.BQ)
+p=D.b.bp(r,"http:")||D.b.bp(r,"https:")
+if(q!==D.uR)t=p&&q===D.uQ
 else t=!0
 w=3
-return A.a1(s.LV(r,!0,!0,D.Fm,q===D.uP,t,t,null),$async$afQ)
+return A.Z(s.Mh(r,!0,!0,D.Ft,q===D.uS,t,t,null),$async$agJ)
 case 3:u=f
 w=1
 break
-case 1:return A.V(u,v)}})
-return A.W($async$afQ,v)},
-afn(d){var w=0,v=A.X(x.e),u
-var $async$afn=A.Y(function(e,f){if(e===1)return A.U(f,v)
+case 1:return A.T(u,v)}})
+return A.U($async$agJ,v)},
+agg(d){var w=0,v=A.V(x.e),u
+var $async$agg=A.W(function(e,f){if(e===1)return A.S(f,v)
 while(true)switch(w){case 0:w=3
-return A.a1($.ajo().JH(d.j(0)),$async$afn)
+return A.Z($.akm().K5(d.j(0)),$async$agg)
 case 3:u=f
 w=1
 break
-case 1:return A.V(u,v)}})
-return A.W($async$afn,v)}},A,G,H,I,K,C,L,M,E,N,D,F
+case 1:return A.T(u,v)}})
+return A.U($async$agg,v)}},A,G,H,I,K,C,L,M,E,N,D,F
 B=a.updateHolder(c[3],B)
 A=c[0]
-G=c[19]
-H=c[22]
-I=c[29]
-K=c[30]
-C=c[49]
-L=c[50]
-M=c[31]
-E=c[21]
-N=c[25]
+G=c[20]
+H=c[23]
+I=c[30]
+K=c[31]
+C=c[50]
+L=c[51]
+M=c[32]
+E=c[22]
+N=c[26]
 D=c[2]
-F=c[34]
-B.o2.prototype={
-uq(){var w=0,v=A.X(x.b),u=this
-var $async$uq=A.Y(function(d,e){if(d===1)return A.U(e,v)
+F=c[35]
+B.ob.prototype={
+uF(){var w=0,v=A.V(x.b),u=this
+var $async$uF=A.W(function(d,e){if(d===1)return A.S(e,v)
 while(true)switch(w){case 0:w=2
-return A.a1(B.a_Q(),$async$uq)
+return A.Z(B.a0k(),$async$uF)
 case 2:u.a=e
 u.P()
-return A.V(null,v)}})
-return A.W($async$uq,v)}}
-B.nR.prototype={
-H(d,e){return G.l9(new B.Zd(),new B.Ze(),x.p)}}
-B.xk.prototype={}
-B.FP.prototype={
+return A.T(null,v)}})
+return A.U($async$uF,v)}}
+B.nZ.prototype={
+H(d,e){return G.lj(new B.ZH(),new B.ZI(),x.p)}}
+B.xu.prototype={}
+B.G8.prototype={
 j(d){return"LaunchMode."+this.b}}
-B.a7W.prototype={}
-var z=a.updateTypes(["o2(J)","hj(J,h?)"])
-B.Ze.prototype={
-$1(d){var w=new B.o2(new B.xk("Unknown"),$.aN())
-w.uq()
+B.a8C.prototype={}
+var z=a.updateTypes(["ob(G)","hn(G,h?)"])
+B.ZI.prototype={
+$1(d){var w=new B.ob(new B.xu("Unknown"),$.aP())
+w.uF()
 return w},
 $S:z+0}
-B.Zd.prototype={
-$2(d,e){var w,v=null,u=x.u,t=H.Dj(A.b([A.es(A.ix(I.cu("v"+K.H(d,!0,x.p).a.c,v,v,v,C.Me,v,v),v,v),50,v),L.S,M.k_(v,C.B6,v,new B.Za(),"Changelog")],u),!0,v,!0,0,v,C.MT),s=x.x,r=d.K(s).f
-r=A.dN(!1,!0,E.jL(A.es(C.xY,0.2*d.K(s).f.a.b,0.2*r.a.a),4),v,!0,v,v,v,v,v,v,v,v,v,v,new B.Zb(d),v,v,v)
-w=d.K(s).f
-return N.ym(t,A.ix(A.cY(A.b([r,A.dN(!1,!0,E.jL(A.es(C.xX,0.2*d.K(s).f.a.b,0.2*w.a.a),4),v,!0,v,v,v,v,v,v,v,v,v,v,new B.Zc(d),v,v,v)],u),D.C,D.by,D.w),v,v),v,v)},
+B.ZH.prototype={
+$2(d,e){var w,v=null,u=x.u,t=H.DD(A.b([A.dT(A.hL(I.ck("v"+K.H(d,!0,x.p).a.c,v,v,v,C.Mm,v,v),v,v),50,v),L.U,M.k5(v,C.Bd,v,new B.ZE(),"Changelog")],u),!0,v,!0,0,v,C.N1),s=x.x,r=d.I(s).f
+r=A.dP(!1,!0,E.iF(A.dT(C.y2,0.2*d.I(s).f.a.b,0.2*r.a.a),4),v,!0,v,v,v,v,v,v,v,v,v,v,new B.ZF(d),v,v,v)
+w=d.I(s).f
+return N.yx(t,A.hL(A.d2(A.b([r,A.dP(!1,!0,E.iF(A.dT(C.y0,0.2*d.I(s).f.a.b,0.2*w.a.a),4),v,!0,v,v,v,v,v,v,v,v,v,v,new B.ZG(d),v,v,v)],u),D.z,D.bC,D.v),v,v),v,v)},
 $S:z+1}
-B.Za.prototype={
-$0(){var w=0,v=A.X(x.v)
-var $async$$0=A.Y(function(d,e){if(d===1)return A.U(e,v)
+B.ZE.prototype={
+$0(){var w=0,v=A.V(x.v)
+var $async$$0=A.W(function(d,e){if(d===1)return A.S(e,v)
 while(true)switch(w){case 0:w=4
-return A.a1(B.afn(A.kH(y.a,0,null)),$async$$0)
+return A.Z(B.agg(A.kQ(y.a,0,null)),$async$$0)
 case 4:w=e?2:3
 break
 case 2:w=5
-return A.a1(B.afQ(A.kH(y.a,0,null)),$async$$0)
-case 5:case 3:return A.V(null,v)}})
-return A.W($async$$0,v)},
-$S:24}
-B.Zb.prototype={
-$0(){A.d8(this.a,!1).uX("/pageImageLabeling",x.q)},
+return A.Z(B.agJ(A.kQ(y.a,0,null)),$async$$0)
+case 5:case 3:return A.T(null,v)}})
+return A.U($async$$0,v)},
+$S:21}
+B.ZF.prototype={
+$0(){A.dd(this.a,!1).vb("/pageImageLabeling",x.q)},
 $S:0}
-B.Zc.prototype={
-$0(){A.d8(this.a,!1).uX("/pageNlpLabeling",x.q)},
+B.ZG.prototype={
+$0(){A.dd(this.a,!1).vb("/pageNlpLabeling",x.q)},
 $S:0};(function inheritance(){var w=a.inherit,v=a.inheritMany
-w(B.o2,A.aE)
-w(B.nR,A.a_)
-w(B.Ze,A.be)
-w(B.Zd,A.ek)
-v(A.cR,[B.Za,B.Zb,B.Zc])
-v(A.z,[B.xk,B.a7W])
-w(B.FP,A.ex)})()
-A.bW(b.typeUniverse,JSON.parse('{"o2":{"aE":[],"aj":[]},"nR":{"a_":[],"h":[]},"FP":{"N":[]}}'))
+w(B.ob,A.aF)
+w(B.nZ,A.a1)
+w(B.ZI,A.be)
+w(B.ZH,A.dZ)
+v(A.cT,[B.ZE,B.ZF,B.ZG])
+v(A.y,[B.xu,B.a8C])
+w(B.G8,A.eB)})()
+A.bU(b.typeUniverse,JSON.parse('{"ob":{"aF":[],"af":[]},"nZ":{"a1":[],"h":[]},"G8":{"O":[]}}'))
 var y={a:"https://github.com/guchengxi1994/simple-tools-for-machine-learning/blob/dev/mltools_viewer/README.md"}
-var x={u:A.E("n<h>"),x:A.E("cg"),h:A.E("xk"),p:A.E("o2"),e:A.E("B"),b:A.E("@"),q:A.E("z?"),v:A.E("~")};(function constants(){C.PA=new B.a7W()
-C.MA=new A.bv("Nlp Labeling",null,F.f6,null,null,null,2,null,null)
-C.xX=new A.jM(D.P,null,null,C.MA,null)
-C.MU=new A.bv("Image Labeling",null,F.f6,null,null,null,2,null,null)
-C.xY=new A.jM(D.P,null,null,C.MU,null)
-C.AQ=new A.bt(63305,!1)
-C.B6=new A.bu(C.AQ,null,D.k,null)
-C.BJ=new B.FP(0,"platformDefault")
-C.Gf=new A.od(2,"externalApplication")
-C.Me=new A.q(!0,null,null,null,null,null,20,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-C.MT=new A.bv("\ud83d\udd25 Built with passion. \ud83d\udd25",null,null,null,null,null,null,null,null)})();(function staticFields(){$.alM=null})()}
-$__dart_deferred_initializers__["zsh6MPRxJtq2hX1/pAA7LgbZH1k="] = $__dart_deferred_initializers__.current
+var x={u:A.I("n<h>"),x:A.I("ch"),h:A.I("xu"),p:A.I("ob"),e:A.I("B"),b:A.I("@"),q:A.I("y?"),v:A.I("~")};(function constants(){C.PJ=new B.a8C()
+C.MJ=new A.bu("Nlp Labeling",null,F.f7,null,null,null,2,null,null)
+C.y0=new A.jS(D.P,null,null,C.MJ,null)
+C.N2=new A.bu("Image Labeling",null,F.f7,null,null,null,2,null,null)
+C.y2=new A.jS(D.P,null,null,C.N2,null)
+C.AX=new A.bt(63305,!1)
+C.Bd=new A.bw(C.AX,null,D.k,null)
+C.BQ=new B.G8(0,"platformDefault")
+C.Gn=new A.om(2,"externalApplication")
+C.Mm=new A.q(!0,null,null,null,null,null,20,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
+C.N1=new A.bu("\ud83d\udd25 Built with passion. \ud83d\udd25",null,null,null,null,null,null,null,null)})();(function staticFields(){$.amM=null})()}
+$__dart_deferred_initializers__["1Wz3IoOOiIF3bRkofE2pgp31VCY="] = $__dart_deferred_initializers__.current
