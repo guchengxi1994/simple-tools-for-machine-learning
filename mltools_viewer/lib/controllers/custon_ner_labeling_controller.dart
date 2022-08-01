@@ -8,7 +8,7 @@ import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 
 class CustomNerLabelingController extends ChangeNotifier
     with NerLabelingControllerMixin {
-  List<String> classNames = ["测试用className"];
+  List<String> classNames = [];
 
   addClassName(String s) {
     classNames.append(s);

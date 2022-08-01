@@ -9,8 +9,11 @@ import 'package:mltools_viewer/model/enums.dart';
 import 'package:mltools_viewer/model/mltool_ner_save_model.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 import 'package:mltools_viewer/model/ner_models.dart';
+import 'package:mltools_viewer/routers.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_highlight_widget.dart';
+import 'package:mltools_viewer/utils/shared_preference_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'components/deletable_card.dart';
 import 'components/ner_settings_dropdown_button.dart';
@@ -21,6 +24,11 @@ class TextAnnotationScreen extends StatelessWidget {
   // String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
   final ScrollController mainController = ScrollController();
   final ScrollController childController = ScrollController();
+  final GlobalKey actionKey = GlobalKey();
+  final GlobalKey itemKey = GlobalKey();
+  final GlobalKey titleKey = GlobalKey();
+  final GlobalKey annotationKey = GlobalKey();
+  PersistenceStorage ps = PersistenceStorage();
 
   Widget buildTitle(BuildContext ctx) {
     NerLabelingController controller = ctx.watch<NerLabelingController>();
@@ -31,6 +39,16 @@ class TextAnnotationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        if (await ps.isScreenFirstTime(Routers.pageNer)) {
+          ShowCaseWidget.of(context)
+              .startShowCase([actionKey, titleKey, itemKey, annotationKey]);
+          ps.setScreenFirstTime(Routers.pageNer, false);
+        }
+      },
+    );
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => NerLabelingController()),
@@ -39,7 +57,11 @@ class TextAnnotationScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
-            title: buildTitle(context),
+            title: Showcase(
+              key: titleKey,
+              description: "这里文件标题和行信息",
+              child: buildTitle(context),
+            ),
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: AppStyle.lightBlue,
@@ -49,29 +71,41 @@ class TextAnnotationScreen extends StatelessWidget {
               },
               child: const Icon(Icons.chevron_left),
             ),
-            actions: [NerSettingsDropdownButton()],
+            actions: [
+              Showcase(
+                  key: actionKey,
+                  description: "这里导入数据",
+                  child: NerSettingsDropdownButton())
+            ],
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(50),
             controller: mainController,
             child: Column(children: [
-              buildRow(context),
+              Showcase(
+                  key: itemKey,
+                  description: "这里是标注的具体信息，可手动删除",
+                  child: buildRow(context)),
               const SizedBox(
                 height: 30,
               ),
-              Card(
-                elevation: 4,
-                child: Container(
-                  color: const Color.fromARGB(255, 244, 227, 221),
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(20),
-                  child: NerSelectableHighlightText(
-                    text:
-                        context.watch<NerLabelingController>().getCurrentRow(),
-                  ),
-                ),
-              ),
+              Showcase(
+                  key: annotationKey,
+                  description: "这里是进行标注的区域",
+                  child: Card(
+                    elevation: 4,
+                    child: Container(
+                      color: const Color.fromARGB(255, 244, 227, 221),
+                      height: 200,
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.all(20),
+                      child: NerSelectableHighlightText(
+                        text: context
+                            .watch<NerLabelingController>()
+                            .getCurrentRow(),
+                      ),
+                    ),
+                  )),
               const SizedBox(
                 height: 20,
               ),

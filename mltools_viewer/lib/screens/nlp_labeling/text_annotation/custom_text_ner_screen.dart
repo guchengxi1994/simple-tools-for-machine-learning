@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
@@ -8,18 +10,45 @@ import 'package:mltools_viewer/controllers/custon_ner_labeling_controller.dart';
 import 'package:mltools_viewer/model/enums.dart';
 import 'package:mltools_viewer/model/mltool_ner_save_model.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
+import 'package:mltools_viewer/routers.dart';
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/deletable_card.dart';
+import 'package:mltools_viewer/utils/shared_preference_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'components/ner_settings_dropdown_button.dart';
 import 'components/text_highlight_widget.dart';
 
 class CustomTextAnnotationScreen extends StatelessWidget {
   CustomTextAnnotationScreen({Key? key}) : super(key: key);
+  PersistenceStorage ps = PersistenceStorage();
   final TextEditingController controller = TextEditingController();
+
+  final GlobalKey actionKey = GlobalKey();
+  final GlobalKey itemKey = GlobalKey();
+  final GlobalKey titleKey = GlobalKey();
+  final GlobalKey annotationKey = GlobalKey();
+  final GlobalKey addOneKey = GlobalKey();
+  final GlobalKey annotatedItemsKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        if (await ps.isScreenFirstTime(Routers.pageCustomNer)) {
+          ShowCaseWidget.of(context).startShowCase([
+            actionKey,
+            titleKey,
+            addOneKey,
+            itemKey,
+            annotationKey,
+            annotatedItemsKey
+          ]);
+          ps.setScreenFirstTime(Routers.pageCustomNer, false);
+        }
+      },
+    );
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => CustomNerLabelingController())
@@ -27,7 +56,11 @@ class CustomTextAnnotationScreen extends StatelessWidget {
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
-            title: buildTitle(context),
+            title: Showcase(
+              key: titleKey,
+              description: "这里文件标题和行信息",
+              child: buildTitle(context),
+            ),
             elevation: 0,
             centerTitle: true,
             automaticallyImplyLeading: false,
@@ -39,9 +72,12 @@ class CustomTextAnnotationScreen extends StatelessWidget {
               child: const Icon(Icons.chevron_left),
             ),
             actions: [
-              NerSettingsDropdownButton(
-                nerType: 1,
-              )
+              Showcase(
+                  key: actionKey,
+                  description: "这里导入数据",
+                  child: NerSettingsDropdownButton(
+                    nerType: 1,
+                  ))
             ],
           ),
           body: SingleChildScrollView(
@@ -56,105 +92,152 @@ class CustomTextAnnotationScreen extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    InkWell(
-                      onTap: () async {
-                        String? result = await showCupertinoDialog(
-                            context: context,
-                            builder: ((context) {
-                              return CupertinoAlertDialog(
-                                title: const Text("输入类名"),
-                                content: Material(
-                                  child: TextField(
-                                    controller: controller,
-                                    decoration: AppStyle.getInputDecotation(),
-                                  ),
-                                ),
-                                actions: [
-                                  CupertinoActionSheetAction(
-                                      onPressed: () {
-                                        controller.text = "";
-                                        Navigator.of(context).pop(null);
-                                      },
-                                      child: const Text("取消")),
-                                  CupertinoActionSheetAction(
-                                      onPressed: () {
-                                        String s = controller.text;
-                                        controller.text = "";
-                                        Navigator.of(context).pop(s);
-                                      },
-                                      child: const Text("确定")),
-                                ],
-                              );
-                            }));
-                        if (result != null) {
-                          // ignore: use_build_context_synchronously
-                          context
-                              .read<CustomNerLabelingController>()
-                              .addClassName(result);
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            border: Border.all(color: Colors.grey)),
-                        child: const Icon(
-                          Icons.plus_one_sharp,
-                          color: Colors.red,
-                        ),
-                      ),
-                    )
+                    Showcase(
+                        key: addOneKey,
+                        description: "点击这里添加一个自定义类名",
+                        child: InkWell(
+                          onTap: () async {
+                            String? result = await showCupertinoDialog(
+                                context: context,
+                                builder: ((context) {
+                                  return CupertinoAlertDialog(
+                                    title: const Text("输入类名"),
+                                    content: Material(
+                                      child: TextField(
+                                        controller: controller,
+                                        decoration:
+                                            AppStyle.getInputDecotation(),
+                                      ),
+                                    ),
+                                    actions: [
+                                      CupertinoActionSheetAction(
+                                          onPressed: () {
+                                            controller.text = "";
+                                            Navigator.of(context).pop(null);
+                                          },
+                                          child: const Text("取消")),
+                                      CupertinoActionSheetAction(
+                                          onPressed: () {
+                                            String s = controller.text;
+                                            controller.text = "";
+                                            Navigator.of(context).pop(s);
+                                          },
+                                          child: const Text("确定")),
+                                    ],
+                                  );
+                                }));
+                            if (result != null) {
+                              // ignore: use_build_context_synchronously
+                              context
+                                  .read<CustomNerLabelingController>()
+                                  .addClassName(result);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                border: Border.all(color: Colors.grey)),
+                            child: const Icon(
+                              Icons.plus_one_sharp,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ))
                   ],
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Card(
-                  elevation: 4,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    constraints: BoxConstraints(
-                        minHeight: 100,
-                        minWidth: MediaQuery.of(context).size.width),
-                    child: Wrap(
-                      children: context
-                          .watch<CustomNerLabelingController>()
-                          .classNames
-                          .map((e) => Container(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 150),
-                                child: DeletableCard(
-                                    text: e,
-                                    onTap: () {
-                                      context
-                                          .read<CustomNerLabelingController>()
-                                          .removeClassName(e);
-                                    }),
-                              ))
-                          .toList(),
-                    ),
-                  ),
+                Showcase(
+                    key: itemKey,
+                    description: "这里是定义的类目，可以手动删除",
+                    child: Card(
+                      elevation: 4,
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        constraints: BoxConstraints(
+                            minHeight: 100,
+                            minWidth: MediaQuery.of(context).size.width),
+                        child: Wrap(
+                          children: context
+                              .watch<CustomNerLabelingController>()
+                              .classNames
+                              .map((e) => Container(
+                                    constraints:
+                                        const BoxConstraints(maxWidth: 150),
+                                    child: DeletableCard(
+                                        text: e,
+                                        onTap: () {
+                                          context
+                                              .read<
+                                                  CustomNerLabelingController>()
+                                              .removeClassName(e);
+                                        }),
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+                    )),
+                const SizedBox(
+                  height: 20,
                 ),
+                const Text("已标注的数据："),
+                const SizedBox(
+                  height: 20,
+                ),
+                Showcase(
+                    key: annotatedItemsKey,
+                    description: "这里是已标注的部分",
+                    child: Card(
+                      elevation: 4,
+                      child: Container(
+                        color: const Color.fromARGB(255, 242, 236, 234),
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(20),
+                        child: Wrap(
+                            children: context
+                                .watch<CustomNerLabelingController>()
+                                .getOffsetsByCurrentRowId()
+                                .map((e) => Container(
+                                    constraints:
+                                        const BoxConstraints(maxWidth: 150),
+                                    child: DeletableCard(
+                                        text:
+                                            "${e.className}: '${e.highlightedText}'",
+                                        onTap: () {
+                                          context
+                                              .read<
+                                                  CustomNerLabelingController>()
+                                              .removeOffset(e);
+                                        })))
+                                .toList()),
+                      ),
+                    )),
                 const SizedBox(
                   height: 30,
                 ),
-                const Text("数据"),
+                const Text("文本"),
                 const SizedBox(
                   height: 30,
                 ),
-                Card(
-                  elevation: 4,
-                  child: Container(
-                    color: const Color.fromARGB(255, 244, 227, 221),
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.all(20),
-                    child: CustomNerSelectableHighlightText(
-                      text: context
-                          .watch<CustomNerLabelingController>()
-                          .getCurrentRow(),
-                    ),
-                  ),
-                ),
+                Showcase(
+                    key: annotationKey,
+                    description: "这里是进行标注的区域",
+                    child: Card(
+                      elevation: 4,
+                      child: Container(
+                        color: const Color.fromARGB(255, 244, 227, 221),
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(20),
+                        child: CustomNerSelectableHighlightText(
+                          text: context
+                              .watch<CustomNerLabelingController>()
+                              .getCurrentRow(),
+                        ),
+                      ),
+                    )),
                 const SizedBox(
                   height: 20,
                 ),

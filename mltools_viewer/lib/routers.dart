@@ -10,6 +10,7 @@ import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/text_ner_scr
     deferred as ner;
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/custom_text_ner_screen.dart'
     deferred as customner;
+import 'package:showcaseview/showcaseview.dart';
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -33,10 +34,16 @@ class Routers {
         builder: (context) => p404.BlankScreen(),
         loadWidgetFuture: p404.loadLibrary()),
     pageNer: (context) => FutureLoaderWidget(
-        builder: (context) => ner.TextAnnotationScreen(),
+        builder: (context) => ShowCaseWidget(
+                builder: Builder(
+              builder: (ctx) => ner.TextAnnotationScreen(),
+            )),
         loadWidgetFuture: ner.loadLibrary()),
     pageCustomNer: (context) => FutureLoaderWidget(
-        builder: (context) => customner.CustomTextAnnotationScreen(),
+        builder: (context) => ShowCaseWidget(
+                builder: Builder(
+              builder: (ctx) => customner.CustomTextAnnotationScreen(),
+            )),
         loadWidgetFuture: customner.loadLibrary())
   };
 }
