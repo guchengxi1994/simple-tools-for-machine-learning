@@ -337,7 +337,7 @@ class SideMenu extends StatelessWidget {
             annotations: annotations,
             scale: scale,
             savedClassNames: savedClassNames);
-        await model.toFile(fileName);
+        await model.toFile(fileName, context);
       }
     }
   }

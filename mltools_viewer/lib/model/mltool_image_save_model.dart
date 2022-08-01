@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:mltools_viewer/model/labelimg_objs.dart';
 import 'package:mltools_viewer/utils/save_file.dart'
     if (dart.library.html) 'package:mltools_viewer/utils/save_file_on_web.dart';
@@ -8,8 +9,9 @@ import 'package:tuple/tuple.dart';
 import 'enums.dart';
 
 extension ToFile on MltoolsSaveModel {
-  Future toFile(String filename) async {
-    await saveFile(filename: filename, data: jsonEncode(toJson()));
+  Future toFile(String filename, BuildContext? context) async {
+    await saveFile(
+        filename: filename, data: jsonEncode(toJson()), context: context);
   }
 }
 
@@ -38,7 +40,7 @@ class MltoolsSaveModel {
       this.scale = 1.0,
       this.savedClassNames = const [],
       this.annotations = const [],
-      required MltoolType mltoolType});
+      required this.mltoolType});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

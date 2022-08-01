@@ -169,7 +169,7 @@ class TextAnnotationScreen extends StatelessWidget {
                               offsets.map((e) => e.toAnnotation()).toList();
                           String annotationFileName = data.nerFileInfo!.fileName
                               .replaceAll(".txt", NerSaveModel.extension);
-                          await model.toFile(annotationFileName);
+                          await model.toFile(annotationFileName, context);
                         },
                         toolTip: "保存标注"),
                 ],

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import 'enums.dart';
 import 'ner_models.dart';
 import 'package:mltools_viewer/utils/save_file.dart'
@@ -43,9 +45,14 @@ class NerSaveModel {
   List<NerAnnotation>? annotations;
   MltoolType? mltoolType;
   List<String> labels = Labels.map((e) => e.toStr()).toList();
+  String? nerType;
 
   NerSaveModel(
-      {this.fileHash, this.fileName, this.annotations, this.mltoolType});
+      {this.fileHash,
+      this.fileName,
+      this.annotations,
+      this.mltoolType,
+      this.nerType = "common"});
 
   NerSaveModel.fromJson(Map<String, dynamic> json) {
     mltoolType =
@@ -57,6 +64,7 @@ class NerSaveModel {
         annotations!.add(NerAnnotation.fromJson(v));
       });
     }
+    nerType = json['nerType'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,7 +76,7 @@ class NerSaveModel {
       data["annotations"] = annotations!.map((e) => e.toJson()).toList();
     }
     data["labels"] = labels;
-
+    data["nerType"] = nerType;
     return data;
   }
 
@@ -88,7 +96,8 @@ class NerSaveModel {
 }
 
 extension ToFile on NerSaveModel {
-  Future toFile(String filename) async {
-    await saveFile(filename: filename, data: jsonEncode(toJson()));
+  Future toFile(String filename, BuildContext? context) async {
+    await saveFile(
+        filename: filename, data: jsonEncode(toJson()), context: context);
   }
 }

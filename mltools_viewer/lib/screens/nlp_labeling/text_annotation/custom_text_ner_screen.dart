@@ -296,6 +296,7 @@ class CustomTextAnnotationScreen extends StatelessWidget {
                             model.fileHash = base64Encode(md5
                                 .convert(data.nerFileInfo!.fileUint8Data)
                                 .bytes);
+                            model.nerType = "custom";
                             debugPrint(model.fileHash);
                             model.mltoolType = MltoolType.forNlp;
                             List<CustomNerHighlightedOffset> offsets =
@@ -307,7 +308,7 @@ class CustomTextAnnotationScreen extends StatelessWidget {
                                 .nerFileInfo!.fileName
                                 .replaceAll(".txt", NerSaveModel.extension);
                             model.labels = data.classNames;
-                            await model.toFile(annotationFileName);
+                            await model.toFile(annotationFileName, context);
                           },
                           toolTip: "保存标注"),
                   ],
