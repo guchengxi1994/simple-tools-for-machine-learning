@@ -43,7 +43,7 @@ class MainScreen extends StatelessWidget {
                     }
                   },
                   icon: const Icon(
-                    Icons.change_history,
+                    Icons.file_present_rounded,
                     color: Colors.white,
                   ))
             ],

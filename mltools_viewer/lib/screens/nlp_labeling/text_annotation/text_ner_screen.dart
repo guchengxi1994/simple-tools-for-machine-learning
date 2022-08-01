@@ -26,7 +26,7 @@ class TextAnnotationScreen extends StatelessWidget {
     NerLabelingController controller = ctx.watch<NerLabelingController>();
 
     return Text(
-        "${controller.nerFileInfo?.fileName ?? ""}   ${controller.rowId + 1}/${controller.nerFileInfo?.rowIndexs.length ?? 0 + 1}");
+        "${controller.nerFileInfo?.fileName ?? ""}   ${controller.currentRowId + 1}/${controller.nerFileInfo?.rowIndexs.length ?? 0 + 1}");
   }
 
   @override
@@ -61,16 +61,14 @@ class TextAnnotationScreen extends StatelessWidget {
               ),
               Card(
                 elevation: 4,
-                child: SizedBox(
+                child: Container(
+                  color: const Color.fromARGB(255, 244, 227, 221),
                   height: 200,
                   width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: NerSelectableHighlightText(
-                      text: context
-                          .watch<NerLabelingController>()
-                          .getCurrentRow(),
-                    ),
+                  padding: const EdgeInsets.all(20),
+                  child: NerSelectableHighlightText(
+                    text:
+                        context.watch<NerLabelingController>().getCurrentRow(),
                   ),
                 ),
               ),
@@ -82,7 +80,9 @@ class TextAnnotationScreen extends StatelessWidget {
                 children: [
                   elevatedButtonWrapper(
                       child: const Icon(Icons.first_page),
-                      onTap: () {},
+                      onTap: () {
+                        context.read<NerLabelingController>().firstRow();
+                      },
                       toolTip: "第一行数据"),
                   const SizedBox(
                     width: 5,
@@ -107,7 +107,9 @@ class TextAnnotationScreen extends StatelessWidget {
                   ),
                   elevatedButtonWrapper(
                       child: const Icon(Icons.last_page),
-                      onTap: () {},
+                      onTap: () {
+                        context.read<NerLabelingController>().lastRow();
+                      },
                       toolTip: "最后一行数据"),
                   const SizedBox(
                     width: 5,
@@ -272,6 +274,7 @@ class TextAnnotationScreen extends StatelessWidget {
       switch (i.itemType) {
         case NerItems.name:
           rowName.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context
@@ -282,6 +285,7 @@ class TextAnnotationScreen extends StatelessWidget {
           break;
         case NerItems.institution:
           rowInstitution.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context
@@ -292,6 +296,7 @@ class TextAnnotationScreen extends StatelessWidget {
           break;
         case NerItems.location:
           rowLocation.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context
@@ -302,6 +307,7 @@ class TextAnnotationScreen extends StatelessWidget {
           break;
         case NerItems.time:
           rowTime.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context
@@ -312,6 +318,7 @@ class TextAnnotationScreen extends StatelessWidget {
           break;
         case NerItems.date:
           rowDate.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context
@@ -322,6 +329,7 @@ class TextAnnotationScreen extends StatelessWidget {
           break;
         case NerItems.money:
           rowMoney.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context
@@ -332,6 +340,7 @@ class TextAnnotationScreen extends StatelessWidget {
           break;
         case NerItems.percent:
           rowPercent.add(DeletableCard(
+            style: 0,
             text: i.highlightedText,
             onTap: () {
               context

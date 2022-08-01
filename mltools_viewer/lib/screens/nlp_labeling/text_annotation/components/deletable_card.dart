@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 
 class DeletableCard extends StatelessWidget {
   const DeletableCard(
-      {Key? key, this.paddingSize = 3, required this.text, required this.onTap})
+      {Key? key,
+      this.paddingSize = 3,
+      required this.text,
+      required this.onTap,
+      this.style = 1})
       : super(key: key);
   final double paddingSize;
   final String text;
   final VoidCallback onTap;
+  final int style;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,11 +21,13 @@ class DeletableCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-                child: Text(
-              text,
-              maxLines: null,
-            )),
+            style == 1
+                ? Expanded(
+                    child: Text(
+                    text,
+                    maxLines: null,
+                  ))
+                : Text(text),
             SizedBox(
               width: paddingSize * 3,
             ),

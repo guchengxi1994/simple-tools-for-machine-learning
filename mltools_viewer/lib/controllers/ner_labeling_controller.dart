@@ -3,49 +3,42 @@ import 'package:mltools_viewer/model/extensions.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 
-class NerLabelingController extends ChangeNotifier {
+import '_ner_labeling_controller_mixin.dart';
+
+class NerLabelingController extends ChangeNotifier
+    with NerLabelingControllerMixin {
   bool isLoadingFile = false;
 
-  // ignore: avoid_init_to_null
-  late NerFileInfo? nerFileInfo = null;
-
-  int get rowId => _currentRowId;
-
-  bool get isLast => (nerFileInfo != null &&
-      nerFileInfo!.rowIndexs.keys.last == _currentRowId);
-
-  int _currentRowId = 0;
-  String getCurrentRow() {
-    if (nerFileInfo == null) {
-      return "";
-    } else {
-      if (nerFileInfo!.rowIndexs == {}) {
-        return "";
-      }
-      if (nerFileInfo!.rowIndexs.keys.contains(_currentRowId)) {
-        return nerFileInfo!.fileData
-            .substring(nerFileInfo!.rowIndexs[_currentRowId]!.item1,
-                nerFileInfo!.rowIndexs[_currentRowId]!.item2)
-            .replaceAll("\n", "");
-      } else {
-        return "";
-      }
-    }
-  }
-
+  @override
   nextRow() {
     if (nerFileInfo != null &&
-        nerFileInfo!.rowIndexs.keys.last > _currentRowId) {
-      _currentRowId += 1;
+        nerFileInfo!.rowIndexs.keys.last > currentRowId) {
+      currentRowId += 1;
       notifyListeners();
     }
   }
 
+  @override
   previousRow() {
-    if (_currentRowId > 0) {
-      _currentRowId -= 1;
+    if (currentRowId > 0) {
+      currentRowId -= 1;
       notifyListeners();
     }
+  }
+
+  @override
+  lastRow() {
+    if (nerFileInfo == null) {
+      return;
+    }
+    currentRowId = nerFileInfo!.rowIndexs.keys.length - 1;
+    notifyListeners();
+  }
+
+  @override
+  firstRow() {
+    currentRowId = 0;
+    notifyListeners();
   }
 
   setNerFileInfo(NerFileInfo info) {
@@ -55,11 +48,10 @@ class NerLabelingController extends ChangeNotifier {
 
   setLoadingFileStatus(bool b) {
     isLoadingFile = b;
-    _currentRowId = 0;
+    currentRowId = 0;
     notifyListeners();
   }
 
-  List<String> labeledStrings = [];
   // ignore: prefer_final_fields
   List<HighlightedOffset> _offsets = [];
   String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
@@ -71,7 +63,7 @@ class NerLabelingController extends ChangeNotifier {
   }
 
   List<HighlightedOffset> getOffsetsByCurrentRowId() {
-    return _offsets.where((element) => element.rowId == _currentRowId).toList();
+    return _offsets.where((element) => element.rowId == currentRowId).toList();
   }
 
   List<HighlightedOffset> get allOffsets => _offsets;
@@ -86,6 +78,7 @@ class NerLabelingController extends ChangeNotifier {
     notifyListeners();
   }
 
+  @Deprecated("unused feature")
   addLabeledString(String s) {
     labeledStrings.add(s);
     notifyListeners();
@@ -94,13 +87,15 @@ class NerLabelingController extends ChangeNotifier {
   addAll(List<HighlightedOffset> s) {
     // _offsets = s;
     for (final i in s) {
-      i.rowId = _currentRowId;
+      i.rowId = currentRowId;
       _offsets.append(i);
     }
+    // ignore: deprecated_member_use_from_same_package
     labeledStrings = _offsets.map((e) => e.highlightedText).toList();
     notifyListeners();
   }
 
+  @Deprecated("unused feature")
   removeLabeledString(String s) {
     labeledStrings.remove(s);
     notifyListeners();

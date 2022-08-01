@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/custon_ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/utils/file_picker_utils.dart';
@@ -10,8 +11,10 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class FilePickerDialog extends StatefulWidget {
-  const FilePickerDialog({Key? key, required this.ctx}) : super(key: key);
+  const FilePickerDialog({Key? key, required this.ctx, required this.nerType})
+      : super(key: key);
   final BuildContext ctx;
+  final int nerType;
 
   @override
   State<FilePickerDialog> createState() => _FilePickerDialogState();
@@ -92,9 +95,15 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                           return info;
                         }).then((value) {
                           if (value != null) {
-                            widget.ctx
-                                .read<NerLabelingController>()
-                                .setNerFileInfo(value);
+                            if (widget.nerType == 0) {
+                              widget.ctx
+                                  .read<NerLabelingController>()
+                                  .setNerFileInfo(value);
+                            } else {
+                              widget.ctx
+                                  .read<CustomNerLabelingController>()
+                                  .setNerFileInfo(value);
+                            }
                             setState(() {
                               fileLength = value.dataLength;
                               fileRows = value.rowIndexs.entries.last.key + 1;
@@ -134,7 +143,8 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
 
 // ignore: must_be_immutable
 class NerSettingsDropdownButton extends StatelessWidget {
-  NerSettingsDropdownButton({Key? key}) : super(key: key);
+  NerSettingsDropdownButton({Key? key, this.nerType = 0}) : super(key: key);
+  final int nerType;
 
   OverlayEntry? _overlayEntry;
   bool show = false;
@@ -179,6 +189,7 @@ class NerSettingsDropdownButton extends StatelessWidget {
                               context: context,
                               builder: (_) => FilePickerDialog(
                                     ctx: context,
+                                    nerType: nerType,
                                   ));
                         },
                         child: const Text("从文档获取数据"),

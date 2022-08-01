@@ -14,6 +14,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/controllers/custon_ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
 import 'package:mltools_viewer/model/extensions.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
@@ -407,6 +408,268 @@ class NerSelectableHighlightText extends StatelessWidget {
 
     for (int i = 0; i < offsets.length; i++) {
       HighlightedOffset element = offsets[i];
+      if (i == 0) {
+        list.add(TextSpan(
+            text: text.substring(element.start, element.end),
+            style: element.highlightStyle));
+      } else {
+        list.add(TextSpan(
+          text: text.substring(offsets[i - 1].end, element.start),
+          style: highlightStyles[NerItems.none],
+        ));
+        list.add(TextSpan(
+            text: text.substring(element.start, element.end),
+            style: element.highlightStyle));
+      }
+    }
+
+    list.add(TextSpan(
+        text: text.substring(offsets.last.end, text.length),
+        style: highlightStyles[NerItems.none]));
+    return list;
+  }
+}
+
+class CustomNerSelectableHighlightText extends StatelessWidget {
+  CustomNerSelectableHighlightText(
+      {Key? key, this.onHighlightedCallback, required this.text})
+      : super(key: key);
+
+  final OnHighlightedCallback? onHighlightedCallback;
+  final String text;
+  final LayerLink layerLink = LayerLink();
+  late Offset clickedPosition = const Offset(0, 0);
+  OverlayEntry? _overlayEntry;
+  bool show = false;
+
+  int tempBaseOffset = 0;
+  int tempExtentOffset = 0;
+
+  void _toggleOverlay(BuildContext context) {
+    if (!show) {
+      _overlayEntry = OverlayEntry(builder: (c) {
+        return UnconstrainedBox(
+          child: CompositedTransformFollower(
+            link: layerLink,
+            followerAnchor: Alignment.bottomCenter,
+            targetAnchor: Alignment.topLeft,
+            offset: Offset(clickedPosition.dx + 0.5 * AppStyle.sidemenuWidth,
+                clickedPosition.dy + 20 + 150),
+            child: Card(
+              elevation: 4,
+              child: SizedBox(
+                width: 300,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          _hideOverlay();
+                          show = !show;
+                        },
+                        child: const Icon(Icons.close),
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 4,
+                        direction: Axis.horizontal,
+                        children: context
+                            .watch<CustomNerLabelingController>()
+                            .classNames
+                            .map((e) => ElevatedButton(
+                                onPressed: () {
+                                  var lastElement = CustomNerHighlightedOffset(
+                                      tempBaseOffset,
+                                      tempExtentOffset,
+                                      text.substring(
+                                        tempBaseOffset,
+                                        tempExtentOffset,
+                                      ),
+                                      const TextStyle(
+                                        backgroundColor: Colors.blue,
+                                        fontSize: 16,
+                                      ),
+                                      e);
+                                  minimize(context, lastElement);
+                                  _hideOverlay();
+                                  show = !show;
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3),
+                                  child: Text(e),
+                                )))
+                            .toList(),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      });
+
+      OverlayState? overlayState = Navigator.of(context).overlay;
+      // debugPrint("overlayState $overlayState");
+      overlayState?.insert(_overlayEntry!);
+      show = !show;
+    }
+  }
+
+  void minimize(BuildContext context, CustomNerHighlightedOffset lastElement) {
+    List<CustomNerHighlightedOffset> offsets =
+        context.read<CustomNerLabelingController>().getOffsetsByCurrentRowId();
+
+    if (offsets.isEmpty) {
+      context.read<CustomNerLabelingController>().addAll([lastElement]);
+      return;
+    }
+
+    for (final i in offsets) {
+      /// situation 1
+      /// ------------
+      ///      -----------
+      if (i.start <= lastElement.start &&
+          i.end <= lastElement.end &&
+          i.end >= lastElement.start) {
+        if (i.className == lastElement.className) {
+          i.end = lastElement.end;
+          i.highlightedText = text.substring(i.start, i.end);
+        } else {
+          i.end = lastElement.start;
+          i.highlightedText = text.substring(i.start, i.end);
+          offsets.append(lastElement);
+        }
+      }
+
+      /// situation 2
+      ///      ---------
+      /// --------
+      if (i.start <= lastElement.end &&
+          i.start >= lastElement.start &&
+          i.end >= lastElement.end) {
+        if (i.className == lastElement.className) {
+          i.start = lastElement.start;
+          i.highlightedText = text.substring(i.start, i.end);
+        } else {
+          i.start = lastElement.end;
+          i.highlightedText = text.substring(i.start, i.end);
+          offsets.append(lastElement);
+        }
+      }
+
+      /// situation 3
+      /// -------------
+      ///     -----
+      if (i.start <= lastElement.start &&
+          i.end >= lastElement.end &&
+          i.length > lastElement.length) {
+        if (i.className != lastElement.className) {
+          offsets.remove(i);
+          CustomNerHighlightedOffset e1 = CustomNerHighlightedOffset(
+              i.start,
+              lastElement.start,
+              text.substring(i.start, lastElement.start),
+              i.highlightStyle,
+              i.className);
+
+          CustomNerHighlightedOffset e2 = CustomNerHighlightedOffset(
+              lastElement.end,
+              i.end,
+              text.substring(lastElement.end, i.end),
+              i.highlightStyle,
+              i.className);
+
+          offsets.append(e1);
+          offsets.append(lastElement);
+          offsets.append(e2);
+        }
+      }
+
+      /// situation 4
+      ///      ------
+      /// -----------------
+      /// situation 5
+      ///      ------
+      ///      ------
+      if (i.start >= lastElement.start && i.end <= lastElement.end) {
+        offsets.remove(i);
+        // print("=============================");
+        // print(offsets.length);
+        offsets.append(lastElement);
+        // print(offsets.length);
+        // print("=============================");
+        break;
+      }
+
+      /// situation 6
+      ///      ------
+      ///            ------
+      /// situation 7
+      ///            ------
+      ///      ------
+      if (i.end <= lastElement.start || lastElement.end <= i.start) {
+        offsets.append(lastElement);
+        break;
+      }
+    }
+
+    offsets.sort((a, b) => a.start.compareTo(b.start));
+    context.read<CustomNerLabelingController>().addAll(offsets);
+  }
+
+  void _hideOverlay() {
+    try {
+      _overlayEntry?.remove();
+    } catch (e, s) {
+      debugPrint(s.toString());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CompositedTransformTarget(
+      link: layerLink,
+      child: GestureDetector(
+        onPanDown: (details) {
+          // debugPrint("[details down]:$details");
+          clickedPosition = details.localPosition;
+        },
+        child: SelectableText.rich(
+          TextSpan(children: getTextSpanList(context)),
+          maxLines: null,
+          onSelectionChanged: (selection, cause) {
+            if ((selection.end - selection.start) != 0) {
+              tempBaseOffset =
+                  min(selection.baseOffset, selection.extentOffset);
+              tempExtentOffset =
+                  max(selection.baseOffset, selection.extentOffset);
+
+              _toggleOverlay(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  List<TextSpan> getTextSpanList(BuildContext context) {
+    List<CustomNerHighlightedOffset> offsets =
+        context.watch<CustomNerLabelingController>().getOffsetsByCurrentRowId();
+
+    List<TextSpan> list = [];
+    if (offsets.isEmpty) {
+      return [TextSpan(text: text, style: highlightStyles[NerItems.none])];
+    }
+    list.add(TextSpan(
+        text: text.substring(0, offsets.first.start),
+        style: highlightStyles[NerItems.none]));
+
+    for (int i = 0; i < offsets.length; i++) {
+      CustomNerHighlightedOffset element = offsets[i];
       if (i == 0) {
         list.add(TextSpan(
             text: text.substring(element.start, element.end),
