@@ -1,12 +1,10 @@
 import sys
 
-from mltools_server.lib.exceptions import ImageError
-
-
 sys.path.append("..")
 from mltools.src.utils.sift import sift
 from mltools.src.utils.json2mask.third_party import img_b64_to_arr
 from pydantic import BaseModel
+from mltools_server.lib.exceptions import ImageError
 
 
 class SiftResult:

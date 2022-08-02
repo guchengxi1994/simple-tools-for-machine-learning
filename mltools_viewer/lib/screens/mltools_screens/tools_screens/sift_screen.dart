@@ -148,7 +148,7 @@ class _SiftScreenState extends State<SiftScreen> {
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(3),
-                          child: Text("上传"),
+                          child: Text("计算相似度"),
                         )),
                     Text("相似度：$similarity")
                   ],
@@ -256,8 +256,8 @@ class SiftPainter extends CustomPainter {
         ..strokeWidth = 1.0;
       List left = i[0];
       List right = i[1];
-      canvas.drawLine(Offset(left[0] * 1.0, left[1] * 1.0),
-          Offset(right[0] * 1.0 + image1Width, right[1] * 1.0), line);
+      canvas.drawLine(Offset(left[1] * 1.0 + image1Width, right[1] * 1.0),
+          Offset(left[0] * 1.0, right[0] * 1.0), line);
       count += 1;
     }
   }
