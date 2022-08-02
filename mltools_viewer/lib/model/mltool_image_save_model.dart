@@ -81,11 +81,12 @@ class Annotation {
 
   List<Tuple2<double, double>>? polygon;
 
-  Annotation(
-      {this.annotationType = "rect",
-      this.bndbox,
-      required this.labelName,
-      this.polygon});
+  Annotation({
+    this.annotationType = "rect",
+    this.bndbox,
+    required this.labelName,
+    this.polygon,
+  });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -108,6 +109,7 @@ class Annotation {
 
   Annotation.fromJson(Map<String, dynamic> json) {
     annotationType = json['annotationType'];
+
     labelName = json['labelName'];
     bndbox = json['bndbox'] != null ? Bndbox.fromJson(json['bndbox']) : null;
     polygon = json['polygon'] != null

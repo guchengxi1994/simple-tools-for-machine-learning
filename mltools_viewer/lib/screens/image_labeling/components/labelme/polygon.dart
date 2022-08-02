@@ -22,6 +22,8 @@ class LinePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (details.isNotEmpty) {
       for (LabelmeAnnotationDetails polygonEntity in details) {
+        if (polygonEntity.enabled != true) return;
+
         if (polygonEntity.points.length < 2) return;
 
         if (polygonEntity.points.length == 2) {

@@ -4,7 +4,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 ------
 
 <h1 align="center">
-  <img src="mltools_viewer/assets/icon/icon.png"><br/>mltools
+  <img src="mltools_viewer/assets/icon/icon.png" height="192" width="192"><br/>mltools
 </h1>
 
 用于机器学习/深度学习/机器视觉用的小工具

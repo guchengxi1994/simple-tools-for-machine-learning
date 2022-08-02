@@ -240,6 +240,7 @@ class LabelmeAnnotationDetails {
   double scale;
   List<PointDetails> points;
   Path? path;
+  bool? enabled;
 
   LabelmeAnnotationDetails(
       {required this.imageName,
@@ -247,7 +248,8 @@ class LabelmeAnnotationDetails {
       required this.polygonId,
       this.scale = 1.0,
       this.className = "未定义",
-      this.path});
+      this.path,
+      this.enabled = true});
 }
 
 /// [PointDetails] point position
@@ -258,10 +260,15 @@ class LabelmeAnnotationDetails {
 ///
 /// [id] index of point
 class PointDetails {
+  bool? enabled;
   double left;
   double top;
   int id;
-  PointDetails({required this.left, required this.top, required this.id});
+  PointDetails(
+      {required this.left,
+      required this.top,
+      required this.id,
+      this.enabled = true});
 }
 
 /// [PolygonOperationType] enum, when type is `create`,
@@ -358,6 +365,15 @@ class LabelmeAnnotationController extends ChangeNotifier {
     String s,
   ) {
     details[polygonId].className = s;
+    notifyListeners();
+  }
+
+  bool isEnabled(int polygonId) {
+    return details[polygonId].enabled ?? false;
+  }
+
+  removeDetail(int index) {
+    details[index].enabled = false;
     notifyListeners();
   }
 

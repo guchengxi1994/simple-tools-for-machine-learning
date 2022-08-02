@@ -308,23 +308,27 @@ class SideMenu extends StatelessWidget {
         String imageData = base64Encode(i.imageData!);
 
         for (final d in details) {
-          Bndbox bndbox = Bndbox(
-              xmax: d.xmax.toInt(),
-              xmin: d.xmin.toInt(),
-              ymax: d.ymax.toInt(),
-              ymin: d.ymin.toInt());
-          annotations.add(Annotation(labelName: d.className, bndbox: bndbox));
+          if (d.enabled) {
+            Bndbox bndbox = Bndbox(
+                xmax: d.xmax.toInt(),
+                xmin: d.xmin.toInt(),
+                ymax: d.ymax.toInt(),
+                ymin: d.ymin.toInt());
+            annotations.add(Annotation(labelName: d.className, bndbox: bndbox));
+          }
         }
 
         for (final ld in labelmeDetais) {
-          List<Tuple2<double, double>> points = [];
-          for (final p in ld.points) {
-            points.add(Tuple2(p.left, p.top));
+          if (ld.enabled!) {
+            List<Tuple2<double, double>> points = [];
+            for (final p in ld.points) {
+              points.add(Tuple2(p.left, p.top));
+            }
+            annotations.add(Annotation(
+                labelName: ld.className,
+                polygon: points,
+                annotationType: "polygon"));
           }
-          annotations.add(Annotation(
-              labelName: ld.className,
-              polygon: points,
-              annotationType: "polygon"));
         }
 
         String fileName =

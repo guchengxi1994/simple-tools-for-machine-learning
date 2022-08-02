@@ -174,9 +174,19 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
                                           children: [
                                             TextButton(
                                               onPressed: () {
+                                                // print(widgetId);
                                                 if (entry.value
                                                     .contains("[rectangle]")) {
-                                                } else {}
+                                                  context
+                                                      .read<
+                                                          LabelImgAnnotationController>()
+                                                      .removeDetail(widgetId);
+                                                } else {
+                                                  context
+                                                      .read<
+                                                          LabelmeAnnotationController>()
+                                                      .removeDetail(widgetId);
+                                                }
                                                 Navigator.of(ctx).pop();
                                               },
                                               child: const Text("Delete"),

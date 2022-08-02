@@ -14,8 +14,10 @@ class PolygonPointV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-        visible: context.select<BoardController, bool>(
-            (value) => value.annotationType == AnnotationType.polygon),
+        visible:
+            context.watch<LabelmeAnnotationController>().isEnabled(polygonId) &&
+                context.select<BoardController, bool>(
+                    (value) => value.annotationType == AnnotationType.polygon),
         child: Positioned(
             left: context
                 .watch<LabelmeAnnotationController>()

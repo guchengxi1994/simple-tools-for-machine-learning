@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/icon/icon.png"><br/>mltools_viewer
+  <img src="assets/icon/icon.png" height="192" width="192"><br/>mltools_viewer
 </h1>
 
 用于`mltools`的可视化工具 在线[demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/)
@@ -10,7 +10,7 @@
 * v0.2.1 添加读取图片类型的`.ml`并展示标注的功能
 * v0.2.0 支持通用 Named Entity Recognition  [demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/#/pageNer)
 * v0.1.1 完成`labelme`polygon标注，放大/移动
-  - [ ] 将在之后的版本完成删除标注的功能(labelImg的标注使用的是 `enable` 属性)
+  - [x] 将在之后的版本完成删除标注的功能(labelImg的标注使用的是 `enable` 属性)
   - [ ] 将在之后的版本完成类名模糊搜索的功能
   - [ ] 可能在之后的版本完成隐藏显示polygon的功能
   - [x] 将在之后的版本完成`.ml`文件与标准labelImg以及labelme文件相互转化
