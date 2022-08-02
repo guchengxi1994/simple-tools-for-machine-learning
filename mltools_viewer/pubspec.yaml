@@ -27,6 +27,7 @@ dependencies:
   package_info_plus: ^1.4.3
   showcaseview: ^1.1.7
   shared_preferences: ^2.0.15
+  dio: ^4.0.6
 
 
 dev_dependencies:

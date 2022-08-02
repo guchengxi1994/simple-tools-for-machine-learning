@@ -19,6 +19,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 | demo3                                              | ...                                                |
 | ![20220719_1](./markdown_resources/20220723.gif)   |                                                    |
 
+### [server](./mltools_server/readme.md)
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  [![Build Status](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning.svg?branch=dev)](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning)  [![Coverage Status](https://coveralls.io/repos/github/guchengxi1994/simple-tools-for-machine-learning/badge.svg?branch=dev)](https://coveralls.io/github/guchengxi1994/simple-tools-for-machine-learning?branch=dev)
 

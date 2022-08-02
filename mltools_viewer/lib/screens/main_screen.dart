@@ -89,6 +89,25 @@ class MainScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(Routers.pageToolsMain);
+                  },
+                  child: Card(
+                    elevation: 4,
+                    child: SizedBox(
+                      width: 0.2 * MediaQuery.of(context).size.width,
+                      height: 0.2 * MediaQuery.of(context).size.height,
+                      child: const Center(
+                        child: Text(
+                          "Tools",
+                          maxLines: 2,
+                          style: AppStyle.cardTextStyle,
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
