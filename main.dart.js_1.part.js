@@ -134,8 +134,8 @@ var y={a:"https://github.com/guchengxi1994/simple-tools-for-machine-learning/blo
 var x={u:A.C("n<h>"),x:A.C("c9"),h:A.C("y4"),p:A.C("or"),e:A.C("B"),b:A.C("@"),q:A.C("z?"),v:A.C("~")};(function constants(){C.QH=new B.aaY()
 C.NX=new A.bh("Tools",null,F.e1,null,null,null,2,null,null)
 C.yn=new A.j1(D.M,null,null,C.NX,null)
-C.ND=new A.bh("Nlp Labeling",null,F.e1,null,null,null,2,null,null)
-C.yp=new A.j1(D.M,null,null,C.ND,null)
+C.NC=new A.bh("Nlp Labeling",null,F.e1,null,null,null,2,null,null)
+C.yp=new A.j1(D.M,null,null,C.NC,null)
 C.NZ=new A.bh("Image Labeling",null,F.e1,null,null,null,2,null,null)
 C.yr=new A.j1(D.M,null,null,C.NZ,null)
 C.BE=new A.bu(63305,!1)
@@ -144,4 +144,4 @@ C.CA=new B.H9(0,"platformDefault")
 C.Hh=new A.oC(2,"externalApplication")
 C.Nf=new A.q(!0,null,null,null,null,null,20,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 C.NY=new A.bh("\ud83d\udd25 Built with passion. \ud83d\udd25",null,null,null,null,null,null,null,null)})();(function staticFields(){$.apE=null})()}
-$__dart_deferred_initializers__["IJSscMoFmb1BB6DcMFBKhYnKltQ="] = $__dart_deferred_initializers__.current
+$__dart_deferred_initializers__["QGwxVBA8Ehs9vyLxxbnSpgT/ZLw="] = $__dart_deferred_initializers__.current
