@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/icon/icon.png" height="192" width="192"><br/>mltools_viewer
+  <img src="assets/icon/icon2.png" height="192" width="192"><br/>mltools_viewer
 </h1>
 
 用于`mltools`的可视化工具 在线[demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/)
