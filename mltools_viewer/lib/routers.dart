@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:mltools_viewer/screens/image_labeling/image_labeling_screen.dart'
     deferred as imagelabeling;
 import 'package:mltools_viewer/screens/main_screen.dart' deferred as main;
@@ -10,7 +11,10 @@ import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/text_ner_scr
     deferred as ner;
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/custom_text_ner_screen.dart'
     deferred as customner;
-import 'package:showcaseview/showcaseview.dart';
+import 'package:mltools_viewer/screens/mltools_screens/mltools_main_screen.dart'
+    deferred as toolsmain;
+import 'package:mltools_viewer/screens/mltools_screens/tools_screens/sift_screen.dart'
+    deferred as sift;
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -19,6 +23,8 @@ class Routers {
   static const pageError = "/pageError";
   static const pageNer = "/pageNer";
   static const pageCustomNer = '/pageCustomNer';
+  static const pageToolsMain = '/pageToolsMain';
+  static const pageSift = '/pageSift';
 
   static Map<String, WidgetBuilder> routers = {
     pageMain: (context) => FutureLoaderWidget(
@@ -44,6 +50,12 @@ class Routers {
                 builder: Builder(
               builder: (ctx) => customner.CustomTextAnnotationScreen(),
             )),
-        loadWidgetFuture: customner.loadLibrary())
+        loadWidgetFuture: customner.loadLibrary()),
+    pageToolsMain: (context) => FutureLoaderWidget(
+        builder: (context) => toolsmain.MltoolsMainScreen(),
+        loadWidgetFuture: toolsmain.loadLibrary()),
+    pageSift: (context) => FutureLoaderWidget(
+        builder: (context) => sift.SiftScreen(),
+        loadWidgetFuture: sift.loadLibrary()),
   };
 }

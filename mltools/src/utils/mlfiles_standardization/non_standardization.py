@@ -71,7 +71,7 @@ def labelme_to_ml_file(jsonPath: str):
                 "polygon",
                 s["label"],
                 None,
-                s["points"],              
+                s["points"],
             ).to_json(),
         )
     d["annotations"] = entities
