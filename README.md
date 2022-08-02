@@ -3,6 +3,10 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 ------
 
+<h1 align="center">
+  <img src="mltools_viewer/assets/icon/icon.png"><br/>mltools
+</h1>
+
 用于机器学习/深度学习/机器视觉用的小工具
 
 ### [UI-tools](./mltools_viewer/README.md) 
