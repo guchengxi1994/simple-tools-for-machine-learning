@@ -19,15 +19,15 @@ def sift(img1: np.ndarray, img2: np.ndarray):
     keypoints2 = descriptor_extractor.keypoints
     descriptors2 = descriptor_extractor.descriptors
 
-    matches: np.ndarray = match_descriptors(descriptors1,
-                                            descriptors2,
-                                            max_ratio=0.6,
-                                            cross_check=True)
+    matches: np.ndarray = match_descriptors(
+        descriptors1, descriptors2, max_ratio=0.6, cross_check=True
+    )
 
     points = []
     for i in matches:
         p1 = keypoints1[i[0]]
         p2 = keypoints2[i[1]]
-        points.append([p1.tolist(),p2.tolist()])
-    
+        points.append([p1.tolist(), p2.tolist()])
+    # print(points)
+
     return len(descriptors1), len(descriptors2), points

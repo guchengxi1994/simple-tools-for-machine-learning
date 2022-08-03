@@ -3,7 +3,7 @@ description: 使用flutter编写的数据标注/增广的可视化工具
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.2.4
+version: 0.3.0+1
 
 environment:
   sdk: ">=2.17.5 <3.0.0"
@@ -28,6 +28,7 @@ dependencies:
   showcaseview: ^1.1.7
   shared_preferences: ^2.0.15
   dio: ^4.0.6
+  code_text_field: ^1.0.2
 
 
 dev_dependencies:
@@ -63,6 +64,8 @@ deferred-components:
       - package:mltools_viewer/screens/blank_page.dart
       - package:mltools_viewer/screens/nlp_labeling/text_annotation/text_annotation_screen.dart
       - package:mltools_viewer/screens/nlp_labeling/text_annotation/custom_text_ner_screen.dart
+      - package:mltools_viewer/screens/mltools_screens/mltools_main_screen.dart
+      - package:mltools_viewer/screens/mltools_screens/tools_screens/sift_screen.dart
 
 flutter:
   uses-material-design: true

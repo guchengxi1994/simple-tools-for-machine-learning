@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/controllers/no_label_aug_controller.dart';
+import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:mltools_viewer/screens/image_labeling/image_labeling_screen.dart'
     deferred as imagelabeling;
@@ -15,6 +17,8 @@ import 'package:mltools_viewer/screens/mltools_screens/mltools_main_screen.dart'
     deferred as toolsmain;
 import 'package:mltools_viewer/screens/mltools_screens/tools_screens/sift_screen.dart'
     deferred as sift;
+import 'package:mltools_viewer/screens/mltools_screens/tools_screens/no_label_augmentation_screen.dart'
+    deferred as nolabelaug;
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -25,6 +29,7 @@ class Routers {
   static const pageCustomNer = '/pageCustomNer';
   static const pageToolsMain = '/pageToolsMain';
   static const pageSift = '/pageSift';
+  static const pageNolabelaug = '/pageNolabelaug';
 
   static Map<String, WidgetBuilder> routers = {
     pageMain: (context) => FutureLoaderWidget(
@@ -57,5 +62,13 @@ class Routers {
     pageSift: (context) => FutureLoaderWidget(
         builder: (context) => sift.SiftScreen(),
         loadWidgetFuture: sift.loadLibrary()),
+    pageNolabelaug: (context) => FutureLoaderWidget(
+        builder: (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => NolabelAugController())
+              ],
+              child: nolabelaug.NoLabelAugmentationScreen(),
+            ),
+        loadWidgetFuture: nolabelaug.loadLibrary()),
   };
 }

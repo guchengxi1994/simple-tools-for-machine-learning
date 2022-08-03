@@ -5,6 +5,7 @@
 用于`mltools`的可视化工具 在线[demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/)
 
 ## Changelog
+* v0.3.0 开始支持服务器交互，已实现无标注文件增广，以及SIFT
 * v0.2.4 支持标注删除功能
 * v0.2.3 支持自定义实体类名的NER
 * v0.2.2 通用`NER`支持生成`.ml`格式文件

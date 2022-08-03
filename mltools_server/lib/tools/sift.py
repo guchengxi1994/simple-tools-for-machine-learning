@@ -14,9 +14,9 @@ class SiftResult:
         self.kp2 = kp2
         self.matches = matches
         self.similarity = 0
-        print(len(matches))
+        # print(len(matches))
         if self.kp1 + self.kp2 > 0:
-            self.similarity = round(2*len(matches) / (self.kp1 + self.kp2), 2)
+            self.similarity = round(2 * len(matches) / (self.kp1 + self.kp2), 2)
 
 
 class SiftReq(BaseModel):
@@ -27,11 +27,11 @@ class SiftReq(BaseModel):
 def process_sift(req: SiftReq) -> SiftResult:
     imgArray1 = img_b64_to_arr(req.img1)
     shape1 = imgArray1.shape
- 
+
     imgArray2 = img_b64_to_arr(req.img2)
     shape2 = imgArray2.shape
 
-    if (len(shape1)!= 3 or shape1[2]!=3) or (len(shape2)!= 3 or shape2[2]!=3):
+    if (len(shape1) != 3 or shape1[2] != 3) or (len(shape2) != 3 or shape2[2] != 3):
         print(shape1)
         print(shape2)
         raise ImageError()

@@ -25,7 +25,10 @@ class MltoolsMainScreen extends StatelessWidget {
             children: [
               _wrapper(() {
                 Navigator.of(context).pushNamed(Routers.pageSift);
-              }, "图像相似度对比(基于SIFT)")
+              }, "图像相似度对比(基于SIFT)"),
+              _wrapper(() {
+                Navigator.of(context).pushNamed(Routers.pageNolabelaug);
+              }, "图像增广(无标注)")
             ],
           )),
     );
