@@ -11,4 +11,6 @@ const Map<String, String> mltoolsApis = {
   "augNoLabelrotation": "$serverIp/aug/nolabel/rotation",
   "augNoLabeltrans": "$serverIp/aug/nolabel/trans",
   "augNoLabelzoom": "$serverIp/aug/nolabel/zoom",
+  "augNoLabelcode": "$serverIp/aug/nolabel/code",
+  "siftCode": "$serverIp/sift/code",
 };

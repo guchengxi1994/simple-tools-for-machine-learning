@@ -15,8 +15,11 @@ import '../components/image_download_widget.dart';
 import '_base_tools_screen.dart';
 
 class NoLabelAugmentationScreen extends BaseToolsScreen {
-  NoLabelAugmentationScreen({Key? key})
-      : super(key: key, barTitle: "图像增广(无标注)", onShowCodeClicked: () {});
+  const NoLabelAugmentationScreen({Key? key})
+      : super(
+          key: key,
+          barTitle: "图像增广(无标注)",
+        );
 
   @override
   BasePageState<NoLabelAugmentationScreen> getState() =>
