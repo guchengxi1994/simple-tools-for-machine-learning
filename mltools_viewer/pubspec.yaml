@@ -70,10 +70,10 @@ deferred-components:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: NotoSerifSC
-      fonts:
-        - asset: assets/font/NotoSerifSC-Regular.otf
+  # fonts:
+  #   - family: NotoSerifSC
+  #     fonts:
+  #       - asset: assets/font/NotoSerifSC-Regular.otf
 
   # assets:
   #   - images/a_dot_burr.jpeg
