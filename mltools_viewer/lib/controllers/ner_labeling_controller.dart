@@ -3,10 +3,11 @@ import 'package:mltools_viewer/model/extensions.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 
-import '_ner_labeling_controller_mixin.dart';
+import '_nlp_labeling_controller_mixin.dart';
 
 class NerLabelingController extends ChangeNotifier
-    with NerLabelingControllerMixin {
+    with NlpLabelingControllerMixin {
+  @Deprecated("unused variable")
   bool isLoadingFile = false;
 
   @override
@@ -46,6 +47,7 @@ class NerLabelingController extends ChangeNotifier
     notifyListeners();
   }
 
+  @Deprecated("unused function")
   setLoadingFileStatus(bool b) {
     isLoadingFile = b;
     currentRowId = 0;
@@ -54,6 +56,8 @@ class NerLabelingController extends ChangeNotifier
 
   // ignore: prefer_final_fields
   List<HighlightedOffset> _offsets = [];
+
+  @Deprecated("unused variable")
   String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
 
   @Deprecated("use `addAll` instead")

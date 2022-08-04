@@ -2,7 +2,7 @@
 
 import 'package:mltools_viewer/model/ner_file_info.dart';
 
-mixin NerLabelingControllerMixin {
+mixin NlpLabelingControllerMixin {
   // ignore: avoid_init_to_null
   late NerFileInfo? nerFileInfo = null;
   int currentRowId = 0;

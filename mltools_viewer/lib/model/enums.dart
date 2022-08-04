@@ -1,1 +1,1 @@
-enum MltoolType { forNlp, forImage }
+enum MltoolType { forNlp, forImage, nlpClassification }

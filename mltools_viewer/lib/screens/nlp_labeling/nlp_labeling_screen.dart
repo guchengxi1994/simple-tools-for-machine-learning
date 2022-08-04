@@ -30,7 +30,7 @@ class NlpLabelingScreen extends StatelessWidget {
               children: const [
                 ClickableCard(
                   cardName: "文本分类",
-                  route: Routers.pageError,
+                  route: Routers.pageClassification,
                 ),
                 ClickableCard(
                   cardName: "情感分类",

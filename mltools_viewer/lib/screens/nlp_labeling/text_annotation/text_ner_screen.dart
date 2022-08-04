@@ -75,7 +75,9 @@ class TextAnnotationScreen extends StatelessWidget {
               Showcase(
                   key: actionKey,
                   description: "这里导入数据",
-                  child: NerSettingsDropdownButton())
+                  child: NerSettingsDropdownButton(
+                    nerType: 0,
+                  ))
             ],
           ),
           body: SingleChildScrollView(

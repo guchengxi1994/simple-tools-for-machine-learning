@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_final_fields
 
 import 'package:flutter/material.dart';
-import 'package:mltools_viewer/controllers/_ner_labeling_controller_mixin.dart';
+import 'package:mltools_viewer/controllers/_nlp_labeling_controller_mixin.dart';
 import 'package:mltools_viewer/model/extensions.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 
 class CustomNerLabelingController extends ChangeNotifier
-    with NerLabelingControllerMixin {
+    with NlpLabelingControllerMixin {
   List<String> classNames = [];
 
   addClassName(String s) {

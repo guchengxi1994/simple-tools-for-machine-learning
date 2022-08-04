@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/custon_ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
+import 'package:mltools_viewer/controllers/nlp_classification_controller.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import 'package:provider/provider.dart';
@@ -99,10 +100,14 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                               widget.ctx
                                   .read<NerLabelingController>()
                                   .setNerFileInfo(value);
-                            } else {
+                            } else if (widget.nerType == 1) {
                               widget.ctx
                                   .read<CustomNerLabelingController>()
                                   .setNerFileInfo(value);
+                            } else if (widget.nerType == 2) {
+                              widget.ctx
+                                  .read<NlpClassificationController>()
+                                  .setFileInfo(value);
                             }
                             setState(() {
                               fileLength = value.dataLength;
