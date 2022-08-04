@@ -41,7 +41,10 @@ class _NoLabelAugmentationScreenState
   void dispose() {
     bodyController.dispose();
     processController.dispose();
-    stopTimer();
+    try {
+      stopTimer();
+    } catch (_) {}
+
     super.dispose();
   }
 
