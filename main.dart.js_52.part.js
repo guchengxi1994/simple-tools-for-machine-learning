@@ -24,5 +24,5 @@ return A.R($async$kO,w)}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(B.qR,A.z)})()
 A.bo(b.typeUniverse,JSON.parse("{}"))
-var y={b:A.A("@")}}
-$__dart_deferred_initializers__["hYgLGoJOGz0RFq2RqmTs6AT9tzU="] = $__dart_deferred_initializers__.current
+var y={b:A.B("@")}}
+$__dart_deferred_initializers__["eayI3CZyVD33ZKMhxuEt7NrZ6Kc="] = $__dart_deferred_initializers__.current
