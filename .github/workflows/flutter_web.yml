@@ -15,7 +15,7 @@ jobs:
         run: |
           cd mltools_viewer/
           flutter pub get
-          flutter build web --release --base-href="/simple-tools-for-machine-learning/"  --web-renderer html
+          flutter build web lib/main_web.dart --release --base-href="/simple-tools-for-machine-learning/"  --web-renderer html
       - name: "Web Deploy 🚀"
         # https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@v4.3.3
