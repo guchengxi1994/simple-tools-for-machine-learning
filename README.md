@@ -6,8 +6,13 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 <h1 align="center">
   <img src="mltools_viewer/assets/icon/icon.png" height="192" width="192"><br/>mltools
 </h1>
-
 用于机器学习/深度学习/机器视觉用的小工具
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  [![Build Status](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning.svg?branch=dev)](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning)  [![Coverage Status](https://coveralls.io/repos/github/guchengxi1994/simple-tools-for-machine-learning/badge.svg?branch=dev)](https://coveralls.io/github/guchengxi1994/simple-tools-for-machine-learning?branch=dev)
+
+
+
+
 
 ### [UI-tools](./mltools_viewer/README.md) 
 
@@ -21,7 +26,9 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 
 ### [server](./mltools_server/readme.md)
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  [![Build Status](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning.svg?branch=dev)](https://app.travis-ci.com/guchengxi1994/simple-tools-for-machine-learning)  [![Coverage Status](https://coveralls.io/repos/github/guchengxi1994/simple-tools-for-machine-learning/badge.svg?branch=dev)](https://coveralls.io/github/guchengxi1994/simple-tools-for-machine-learning?branch=dev)
+
+
+
 
 ## requirements
 > * numpy

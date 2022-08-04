@@ -1,11 +1,21 @@
+// ignore: depend_on_referenced_packages
+import 'package:collection/collection.dart';
+
+import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/routers.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:mltools_viewer/screens/viewer_helper.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-  runApp(const MyApp());
+void main(List<String> args) {
+  if (args.firstOrNull == 'multi_window') {
+    final windowId = int.parse(args[1]);
+    debugPrint("[windowId]:$windowId");
+    runApp(MltoolsViewerHelper(
+      windowController: WindowController.fromWindowId(windowId),
+    ));
+  } else {
+    runApp(const MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {

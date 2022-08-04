@@ -92,6 +92,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.1"
+  desktop_multi_window:
+    dependency: "direct main"
+    description:
+      name: desktop_multi_window
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
   dio:
     dependency: "direct main"
     description:
@@ -373,13 +380,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.0"
-  screen_retriever:
-    dependency: transitive
-    description:
-      name: screen_retriever
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -590,13 +590,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.7.0"
-  window_manager:
-    dependency: "direct main"
-    description:
-      name: window_manager
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.5"
   xdg_directories:
     dependency: transitive
     description:
