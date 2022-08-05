@@ -339,7 +339,7 @@ class SideMenu extends StatelessWidget {
             imageData: imageData,
             imageName: imageName,
             annotations: annotations,
-            scale: scale,
+            scale: 1 / scale,
             savedClassNames: savedClassNames);
         await model.toFile(fileName, context);
       }

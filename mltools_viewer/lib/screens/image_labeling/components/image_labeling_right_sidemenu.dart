@@ -50,7 +50,8 @@ class _RightSidemenuState extends State<ImageLabelingRightSidemenu> {
     final labelmeDetails = context
         .watch<LabelmeAnnotationController>()
         .details
-        .where((element) => element.imageName == imageName)
+        .where((element) =>
+            element.imageName == imageName && (element.enabled ?? true))
         .toList();
 
     // List<String> labelNames = [];
