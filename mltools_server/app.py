@@ -7,6 +7,9 @@ from mltools_server.lib import CommonResponse
 from mltools_server.lib.exceptions import ImageError
 from mltools_server.lib.tools.aug import NoLabelGetReq, NoLabelReq, nolabel_aug_process
 import glob
+from starlette.responses import FileResponse
+
+from mltools_server.lib.tools.zip_folder import zip_dir
 
 app = FastAPI(version="0.0.1")
 
@@ -119,6 +122,14 @@ plt.show()
 async def aug_nolabel(req: NoLabelReq):
     r = nolabel_aug_process(req.imgData)
     return CommonResponse(200, "", {"savedPath": r})
+
+@app.get("/zipdownload/{folderName}")
+async def download_movie(folderName:str):
+    if not folderName.startswith("cache"):
+        folderName = "cache/" + folderName
+    p = zip_dir(folderName)
+    print(p)
+    return FileResponse(p)
 
 
 @app.get("/aug/nolabel/code")

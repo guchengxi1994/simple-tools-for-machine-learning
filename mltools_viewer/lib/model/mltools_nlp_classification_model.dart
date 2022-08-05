@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/model/enums.dart';
-import 'package:mltools_viewer/utils/save_file_on_web.dart';
+import 'package:mltools_viewer/utils/save_file.dart'
+    if (dart.library.html) 'package:mltools_viewer/utils/save_file_on_web.dart';
 
 extension ToFile on NlpClassificationSaveModel {
   Future toFile(String filename, BuildContext? context) async {

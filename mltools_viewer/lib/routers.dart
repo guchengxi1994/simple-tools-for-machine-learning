@@ -1,3 +1,4 @@
+import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/no_label_aug_controller.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ import 'package:mltools_viewer/screens/mltools_screens/tools_screens/no_label_au
     deferred as nolabelaug;
 import 'package:mltools_viewer/screens/nlp_labeling/classification/nlp_classification_screen.dart'
     deferred as classfication;
+import 'package:taichi/taichi.dart';
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -37,7 +39,17 @@ class Routers {
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
     pageMain: (context) => FutureLoaderWidget(
-        builder: (context) => main.MainScreen(),
+        builder: (context) {
+          if (TaichiDevUtils.isWindows ||
+              TaichiDevUtils.isLinux ||
+              TaichiDevUtils.isMacOS) {
+            return main.MainScreenDesktop(
+              controller: WindowController.fromWindowId(0),
+            );
+          } else {
+            return main.MainScreen();
+          }
+        },
         loadWidgetFuture: main.loadLibrary()),
 
     /// 图像标注
@@ -98,4 +110,7 @@ class Routers {
                 builder: (ctx) => classfication.NlpClassificationScreen())),
         loadWidgetFuture: classfication.loadLibrary())
   };
+
+  /// 无context跳转
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 }

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:taichi/taichi.dart' show TaichiDevUtils;
 
@@ -9,7 +9,8 @@ Future<void> saveFile(
     {required String filename,
     required String data,
     required BuildContext? context,
-    Object? path}) async {
+    Object? path,
+    Uint8List? byteData}) async {
   if (TaichiDevUtils.isWindows) {
     var dir = Directory.current;
 
