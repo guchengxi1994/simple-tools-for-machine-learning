@@ -160,16 +160,33 @@ class _MainScreenDesktopState extends State<MainScreenDesktop> {
 
   Future<dynamic> _handleMethodCallback(
       MethodCall call, int fromWindowId) async {
-    // debugPrint("[call]:${call.arguments}");
-    switch (call.arguments) {
-      case "sift":
-        Navigator.of(context).pushNamed(Routers.pageSift);
-        return "sift";
-      case "aug_nolabel":
-        Navigator.of(context).pushNamed(Routers.pageNolabelaug);
-        return "aug_nolabel";
-      default:
-        break;
+    // debugPrint("[augs]:${call.arguments}");
+    String? last = call.arguments['last'];
+    String next = call.arguments['next'];
+    bool navigate = call.arguments['navigate'];
+    if (navigate) {
+      if (last != next) {
+        // Navigator.of(context).pushReplacementNamed(next);
+        Routers.navigatorKey.currentState!.pushNamed(next);
+        // Routers.navigatorKey.currentState!.popAndPushNamed(next);
+      }
+      return next;
+    } else {
+      if (next == "changelog") {
+        const url =
+            'https://github.com/guchengxi1994/simple-tools-for-machine-learning/blob/dev/mltools_viewer/README.md';
+
+        if (await canLaunchUrl(Uri.parse(url))) {
+          await launchUrl(Uri.parse(url));
+        }
+      }
+      if (next == Routers.pageMain) {
+        Routers.navigatorKey.currentState!
+            .popUntil(ModalRoute.withName(Routers.pageMain));
+        return Routers.pageMain;
+      }
+
+      return last;
     }
   }
 

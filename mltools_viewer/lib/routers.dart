@@ -110,4 +110,7 @@ class Routers {
                 builder: (ctx) => classfication.NlpClassificationScreen())),
         loadWidgetFuture: classfication.loadLibrary())
   };
+
+  /// 无context跳转
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 }

@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/apis.dart';
 import 'package:mltools_viewer/controllers/no_label_aug_controller.dart';
+import 'package:mltools_viewer/utils/download_file_utils.dart';
 import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -222,6 +223,27 @@ class _NoLabelAugmentationScreenState
                     }
                   },
                   child: const Text("开始")),
+              TextButton(
+                  onPressed: () async {
+                    if (originImageData == null) {
+                      return;
+                    }
+                    if (images.isEmpty) {
+                      return;
+                    }
+                    String filename;
+                    if (savedPath.startsWith("cache")) {
+                      filename =
+                          savedPath.replaceAll("cache", "").replaceAll("/", "");
+                    } else {
+                      filename = savedPath.replaceAll("/", "");
+                    }
+                    // dioUtils.get(mltoolsApis["zipdownload"]! + savedPath);
+                    DownloadService service = DownloadService();
+                    await service.download(
+                        url: mltoolsApis["zipdownload"]! + filename);
+                  },
+                  child: const Text("下载压缩文件")),
             ],
           ),
           SingleChildScrollView(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/no_label_aug_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:mltools_viewer/utils/save_file.dart'
+    if (dart.library.html) 'package:mltools_viewer/utils/save_file_on_web.dart';
 
 // ignore: must_be_immutable
 class ImageDownloadWidget extends StatelessWidget {
@@ -110,7 +112,16 @@ class ImageDownloadWidget extends StatelessWidget {
                     right: 5,
                     bottom: 5,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        saveFile(
+                            filename: "$augType.jpg",
+                            data: "",
+                            context: context,
+                            byteData: context
+                                .read<NolabelAugController>()
+                                .findByName(augType)
+                                .imgData!);
+                      },
                       child: Container(
                         color: Colors.white.withAlpha(128),
                         child: const Icon(Icons.download),
