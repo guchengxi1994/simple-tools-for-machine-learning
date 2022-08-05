@@ -244,41 +244,41 @@ B.eJ().$1("[load ml file error]:"+B.e(J.cI(h)))
 b2.xs("\u8bfb\u53d6\u6587\u4ef6\u6570\u636e\u6709\u8bef",N.ir)}}}case 1:return B.N(v,w)}})
 return B.O($async$w4,w)},
 rL(d){return this.QA(d)},
-QA(a7){var x=0,w=B.P(y.z),v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,a0,a1,a2,a3,a4,a5,a6
-var $async$rL=B.Q(function(a8,a9){if(a8===1)return B.M(a9,w)
-while(true)switch(x){case 0:a4=y.d
-a5=D.D(a7,!1,a4).a
-a6=D.D(a7,!1,a4).b
-a4=y.K
-v=D.D(a7,!1,a4).a
+QA(a8){var x=0,w=B.P(y.z),v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,a0,a1,a2,a3,a4,a5,a6,a7
+var $async$rL=B.Q(function(a9,b0){if(a9===1)return B.M(b0,w)
+while(true)switch(x){case 0:a5=y.d
+a6=D.D(a8,!1,a5).a
+a7=D.D(a8,!1,a5).b
+a5=y.K
+v=D.D(a8,!1,a5).a
 u=B.b([],y.y)
-t=a5.length,s=y.n,r=y.U,q=y.I,p=0
-case 2:if(!(p<a5.length)){x=4
-break}o={}
-n=a5[p]
-m=n.b
-m.toString
-o.a=m
-m=D.D(a7,!1,a4).c
-l=B.Z(m).i("aj<1>")
-k=B.a5(new B.aj(m,new A.a98(o),l),!0,l.i("o.E"))
-l=D.D(a7,!1,s).a
-m=B.Z(l).i("aj<1>")
-j=B.a5(new B.aj(l,new A.a99(o),m),!0,m.i("o.E"))
-m=n.a
-m.toString
-i=E.bF.ge2().bl(m)
-for(m=k.length,h=0;h<m;++h){g=k[h]
-if(g.w){l=E.e.da(g.d)
-f=E.e.da(g.c)
-e=E.e.da(g.f)
-u.push(new A.lV("rect",new A.FR(f,E.e.da(g.e),l,e),g.a,null))}}for(m=j.length,h=0;h<j.length;j.length===m||(0,B.J)(j),++h){d=j[h]
-if(d.r){a0=B.b([],q)
-for(l=d.e,f=l.length,a1=0;a1<l.length;l.length===f||(0,B.J)(l),++a1){a2=l[a1]
-a0.push(new O.fQ(a2.b,a2.c,r))}u.push(new A.lV("polygon",null,d.a,a0))}}a3=J.TP(E.c.gK(o.a.split(".")),".ml")
+t=a6.length,s=y.n,r=1/a7,q=y.U,p=y.I,o=0
+case 2:if(!(o<a6.length)){x=4
+break}n={}
+m=a6[o]
+l=m.b
+l.toString
+n.a=l
+l=D.D(a8,!1,a5).c
+k=B.Z(l).i("aj<1>")
+j=B.a5(new B.aj(l,new A.a98(n),k),!0,k.i("o.E"))
+k=D.D(a8,!1,s).a
+l=B.Z(k).i("aj<1>")
+i=B.a5(new B.aj(k,new A.a99(n),l),!0,l.i("o.E"))
+l=m.a
+l.toString
+h=E.bF.ge2().bl(l)
+for(l=j.length,g=0;g<l;++g){f=j[g]
+if(f.w){k=E.e.da(f.d)
+e=E.e.da(f.c)
+d=E.e.da(f.f)
+u.push(new A.lV("rect",new A.FR(e,E.e.da(f.e),k,d),f.a,null))}}for(l=i.length,g=0;g<i.length;i.length===l||(0,B.J)(i),++g){a0=i[g]
+if(a0.r){a1=B.b([],p)
+for(k=a0.e,e=k.length,a2=0;a2<k.length;k.length===e||(0,B.J)(k),++a2){a3=k[a2]
+a1.push(new O.fQ(a3.b,a3.c,q))}u.push(new A.lV("polygon",null,a0.a,a1))}}a4=J.TP(E.c.gK(n.a.split(".")),".ml")
 x=5
-return B.U(A.acG(new A.a39(o.a,i,a6,v,u,K.iu),a3,a7),$async$rL)
-case 5:case 3:a5.length===t||(0,B.J)(a5),++p
+return B.U(A.acG(new A.a39(n.a,h,r,v,u,K.iu),a4,a8),$async$rL)
+case 5:case 3:a6.length===t||(0,B.J)(a6),++o
 x=2
 break
 case 4:return B.N(null,w)}})
@@ -429,4 +429,4 @@ C.P7=new B.bb("Open",null,null,null,null,null,null,null,null)
 C.P8=new B.bb("Fit width",null,null,null,null,null,null,null,null)
 C.P9=new B.bb("Save File",null,null,null,null,null,null,null,null)
 C.Pa=new B.bb("Fit Height",null,null,null,null,null,null,null,null)})()}
-$__dart_deferred_initializers__["LbjRZCw1t0JqJvV1yVrc18z5pnM="] = $__dart_deferred_initializers__.current
+$__dart_deferred_initializers__["FthOUsGnpDwtEP7qnisg9++h/lY="] = $__dart_deferred_initializers__.current
