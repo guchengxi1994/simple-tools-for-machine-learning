@@ -24,4 +24,8 @@ python main.py
 
   ![20220803_1](./resources/20220803_1.gif)
 
+* dlib
+
+  ![20220808](./resources/20220808.gif)
+
 * ...

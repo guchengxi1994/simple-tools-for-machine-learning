@@ -23,6 +23,18 @@
 * v0.1.0 改了项目文件结构，添加了一个主界面，为了支持多类型数据标注（暂时没有开发）
 * v0.0.3 完成labelImg标注，支持导出特定的`.ml`文件，暂不支持删除标注
 
+## Plans
+
+- [ ] 噪声与滤波
+
+- [ ] 模板匹配（基于opencv）
+- [ ] 文本分类与自动回复
+- [ ] simswap 图像/视频换脸
+- [ ] u-gat-it 风格迁移
+- [ ] pytorch yolov5目标检测
+- [ ] darknet yolov3目标检测
+- [ ] facenet人脸分割
+
 ## build(有些细节功能存在差异，所以打算分入口文件打包)
 * on windows(桌面上打算集成一些，比如多窗口这样的功能)
   `flutter build windows lib/main_desktop.dart`
