@@ -83,6 +83,14 @@ class BasePageState<T extends BaseToolsScreen> extends State<T> {
                               _showDialog(r.data['data']['codes']);
                             }
                             break;
+                          case "/pageDlib":
+                            Response? r =
+                                await dioUtils.get(mltoolsApis['dlibCode']);
+                            // print(r);
+                            if (r != null) {
+                              _showDialog(r.data['data']['codes']);
+                            }
+                            break;
                         }
                       },
                       icon: const Icon(Icons.details))

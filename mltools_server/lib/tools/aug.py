@@ -60,3 +60,51 @@ def nolabel_aug_process(imgData: str) -> str:
     t.start()
 
     return savdPath
+
+
+def aug_nolabel_codes():
+    return """
+# import module
+from mltools.src.augmentation.aug_no_label import NoLabelAugmentation
+
+# initial NoLabelAugmentation class
+n = NoLabelAugmentation(["0.png"], False, augNumber=3)
+
+# random augmentation
+n.go()
+
+# only flip
+n.onlyFlip()
+
+# only noise
+n.onlyNoise()
+
+# only rotation
+n.onlyRotation()
+
+# translation
+n.onlyTranslation()
+
+# zoom
+n.onlyZoom()
+
+# crop
+n.onlyCrop()
+
+# cutmix, needs 2 or more images
+# use append to add another image
+n.append("3.png")
+n.onlyCutmix()
+
+# distort
+n.onlyDistort()
+
+# inpaint
+n.onlyInpaint(reshape=True)
+
+# mosaic
+n.onlyMosaic()
+
+# resize
+n.onlyResize()
+    """

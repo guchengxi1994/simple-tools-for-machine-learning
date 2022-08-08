@@ -13,5 +13,8 @@ const Map<String, String> mltoolsApis = {
   "augNoLabelzoom": "$serverIp/aug/nolabel/zoom",
   "augNoLabelcode": "$serverIp/aug/nolabel/code",
   "siftCode": "$serverIp/sift/code",
-  "zipdownload": "$serverIp/zipdownload/"
+  "zipdownload": "$serverIp/zipdownload/",
+  "faceDetect": "$serverIp/dlib/faceDetect",
+  "faceDetails": "$serverIp/dlib/faceDetails",
+  "dlibCode": "$serverIp/dlib/code"
 };

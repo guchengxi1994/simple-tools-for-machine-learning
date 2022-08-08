@@ -5,11 +5,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from lib.tools.sift import SiftReq, process_sift
 from mltools_server.lib import CommonResponse
 from mltools_server.lib.exceptions import ImageError
-from mltools_server.lib.tools.aug import NoLabelGetReq, NoLabelReq, nolabel_aug_process
+from mltools_server.lib.tools.aug import (
+    NoLabelGetReq,
+    NoLabelReq,
+    nolabel_aug_process,
+    aug_nolabel_codes,
+)
 import glob
 from starlette.responses import FileResponse
 
 from mltools_server.lib.tools.zip_folder import zip_dir
+from mltools_server.lib.tools.dlib import get_face_details, get_faces, get_dlib_codes
 
 app = FastAPI(version="0.0.1")
 
@@ -118,13 +124,26 @@ plt.show()
     )
 
 
+@app.post("/dlib/faceDetect")
+async def dlib_face_detect(req: NoLabelReq):
+    r = get_faces(req.imgData)
+    return CommonResponse(200, "", {"imgData": r})
+
+
+@app.post("/dlib/faceDetails")
+async def dlib_face_detect_details(req: NoLabelReq):
+    r = get_face_details(req.imgData)
+    return CommonResponse(200, "", {"imgData": r})
+
+
 @app.post("/aug/nolabel")
 async def aug_nolabel(req: NoLabelReq):
     r = nolabel_aug_process(req.imgData)
     return CommonResponse(200, "", {"savedPath": r})
 
+
 @app.get("/zipdownload/{folderName}")
-async def download_movie(folderName:str):
+async def download_movie(folderName: str):
     if not folderName.startswith("cache"):
         folderName = "cache/" + folderName
     p = zip_dir(folderName)
@@ -132,58 +151,22 @@ async def download_movie(folderName:str):
     return FileResponse(p)
 
 
+@app.get("/dlib/code")
+async def get_dlib_code():
+
+    return CommonResponse(
+        200,
+        "",
+        {"codes":get_dlib_codes()},
+    )
+
+
 @app.get("/aug/nolabel/code")
 async def get_aug_nolabel_codes():
     return CommonResponse(
         200,
         "",
-        {
-            "codes": """
-# import module
-from mltools.src.augmentation.aug_no_label import NoLabelAugmentation
-
-# initial NoLabelAugmentation class
-n = NoLabelAugmentation(["0.png"], False, augNumber=3)
-
-# random augmentation
-n.go()
-
-# only flip
-n.onlyFlip()
-
-# only noise
-n.onlyNoise()
-
-# only rotation
-n.onlyRotation()
-
-# translation
-n.onlyTranslation()
-
-# zoom
-n.onlyZoom()
-
-# crop
-n.onlyCrop()
-
-# cutmix, needs 2 or more images
-# use append to add another image
-n.append("3.png")
-n.onlyCutmix()
-
-# distort
-n.onlyDistort()
-
-# inpaint
-n.onlyInpaint(reshape=True)
-
-# mosaic
-n.onlyMosaic()
-
-# resize
-n.onlyResize()
-    """
-        },
+        {"codes": aug_nolabel_codes()},
     )
 
 

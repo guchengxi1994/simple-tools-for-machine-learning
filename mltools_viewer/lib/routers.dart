@@ -15,13 +15,15 @@ import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/text_ner_scr
 import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/custom_text_ner_screen.dart'
     deferred as customner;
 import 'package:mltools_viewer/screens/mltools_screens/mltools_main_screen.dart'
-    deferred as toolsmain;
+    deferred as toolsmain show ToolsScreen;
 import 'package:mltools_viewer/screens/mltools_screens/tools_screens/sift_screen.dart'
     deferred as sift;
 import 'package:mltools_viewer/screens/mltools_screens/tools_screens/no_label_augmentation_screen.dart'
     deferred as nolabelaug;
 import 'package:mltools_viewer/screens/nlp_labeling/classification/nlp_classification_screen.dart'
     deferred as classfication;
+import 'package:mltools_viewer/screens/mltools_screens/tools_screens/dlib_screen.dart'
+    deferred as dlib;
 import 'package:taichi/taichi.dart';
 
 class Routers {
@@ -35,6 +37,7 @@ class Routers {
   static const pageSift = '/pageSift';
   static const pageNolabelaug = '/pageNolabelaug';
   static const pageClassification = 'pageClassification';
+  static const pageDlib = "/pageDlib";
 
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
@@ -85,8 +88,9 @@ class Routers {
 
     /// 机器学习工具主页面
     pageToolsMain: (context) => FutureLoaderWidget(
-        builder: (context) => toolsmain.MltoolsMainScreen(),
-        loadWidgetFuture: toolsmain.loadLibrary()),
+          builder: (context) => toolsmain.ToolsScreen(),
+          loadWidgetFuture: toolsmain.loadLibrary(),
+        ),
 
     /// sift页面
     pageSift: (context) => FutureLoaderWidget(
@@ -108,7 +112,12 @@ class Routers {
         builder: (context) => ShowCaseWidget(
             builder: Builder(
                 builder: (ctx) => classfication.NlpClassificationScreen())),
-        loadWidgetFuture: classfication.loadLibrary())
+        loadWidgetFuture: classfication.loadLibrary()),
+
+    /// dlib 页面
+    pageDlib: (context) => FutureLoaderWidget(
+        builder: (context) => dlib.DlibScreen(),
+        loadWidgetFuture: dlib.loadLibrary()),
   };
 
   /// 无context跳转
