@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -7,8 +9,10 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/custon_ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/nlp_classification_controller.dart';
+import 'package:mltools_viewer/model/mltool_ner_save_model.dart';
 import 'package:mltools_viewer/model/mltools_nlp_classification_model.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
+import 'package:mltools_viewer/model/ner_highlighted_offset.dart';
 import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -242,12 +246,9 @@ class NerSettingsDropdownButton extends StatelessWidget {
                                     rowIndexs: rowsCount,
                                     fileUint8Data: Uint8List.fromList(
                                         utf8.encode(model.fileData!)));
-                                // ignore: use_build_context_synchronously
                                 context
                                     .read<NlpClassificationController>()
                                     .setFileInfo(info);
-
-                                // ignore: use_build_context_synchronously
                                 context
                                     .read<NlpClassificationController>()
                                     .changeLabeledDataByList(model.annotations!
@@ -258,7 +259,56 @@ class NerSettingsDropdownButton extends StatelessWidget {
 
                                 break;
 
-                              case "":
+                              case "nlp":
+                                NerSaveModel model = NerSaveModel.fromJson(s);
+                                Map<int, Tuple2<int, int>> rowsCount = {};
+                                int rows = 0;
+                                for (int i = 0;
+                                    i < model.fileData!.length;
+                                    i++) {
+                                  if (model.fileData![i] == "\n") {
+                                    if (rows == 0) {
+                                      rowsCount[rows] = Tuple2(0, i);
+                                    } else {
+                                      rowsCount[rows] =
+                                          Tuple2(rowsCount[rows - 1]!.item2, i);
+                                    }
+
+                                    rows += 1;
+                                  }
+                                }
+                                NerFileInfo info = NerFileInfo(
+                                    dataLength: model.fileData!.length,
+                                    fileData: model.fileData!,
+                                    fileName: model.fileName!,
+                                    rowIndexs: rowsCount,
+                                    fileUint8Data: Uint8List.fromList(
+                                        utf8.encode(model.fileData!)));
+                                if (model.nerType == "common") {
+                                  context
+                                      .read<NerLabelingController>()
+                                      .setNerFileInfo(info);
+                                  List<HighlightedOffset> offsets = model
+                                      .annotations!
+                                      .map((e) =>
+                                          HighlightedOffset.fromAnnotation(e))
+                                      .toList();
+                                  context
+                                      .read<NerLabelingController>()
+                                      .addAll(offsets);
+                                } else {
+                                  context
+                                      .read<CustomNerLabelingController>()
+                                      .setNerFileInfo(info);
+                                  List<CustomNerHighlightedOffset> offsets =
+                                      model.annotations!
+                                          .map((e) => CustomNerHighlightedOffset
+                                              .fromAnnotation(e, model.labels))
+                                          .toList();
+                                  context
+                                      .read<CustomNerLabelingController>()
+                                      .addAll(offsets);
+                                }
                                 break;
                             }
                           }

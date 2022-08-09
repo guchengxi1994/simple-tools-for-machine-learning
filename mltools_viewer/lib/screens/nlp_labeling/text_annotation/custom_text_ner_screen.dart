@@ -291,7 +291,8 @@ class CustomTextAnnotationScreen extends StatelessWidget {
                             final data =
                                 context.read<CustomNerLabelingController>();
                             if (data.nerFileInfo == null) return;
-                            NerSaveModel model = NerSaveModel();
+                            NerSaveModel model = NerSaveModel(
+                                fileData: data.nerFileInfo!.fileData);
                             model.fileName = data.nerFileInfo!.fileName;
                             model.fileHash = base64Encode(md5
                                 .convert(data.nerFileInfo!.fileUint8Data)

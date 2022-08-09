@@ -5,6 +5,7 @@
 用于`mltools`的可视化工具 在线[demo](https://guchengxi1994.github.io/simple-tools-for-machine-learning/)
 
 ## Changelog
+* v0.4.3~v0.4.4 支持从`ml`文件中获取ner标注以及分类信息
 * v0.4.2 添加dlib人脸识别页面
 * v0.4.1 支持快捷键以及（桌面端）多窗口
 * v0.4.0 支持文本分类

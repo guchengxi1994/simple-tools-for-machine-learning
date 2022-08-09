@@ -42,6 +42,7 @@ class NerSaveModel {
   static const String extension = ".ml";
   String? fileName;
   String? fileHash;
+  String? fileData;
   List<NerAnnotation>? annotations;
   MltoolType? mltoolType;
   List<String> labels = Labels.map((e) => e.toStr()).toList();
@@ -52,7 +53,8 @@ class NerSaveModel {
       this.fileName,
       this.annotations,
       this.mltoolType,
-      this.nerType = "common"});
+      this.nerType = "common",
+      required this.fileData});
 
   NerSaveModel.fromJson(Map<String, dynamic> json) {
     mltoolType =
@@ -60,10 +62,15 @@ class NerSaveModel {
     fileName = json['fileName'];
     fileHash = json['fileHash'];
     if (json['annotations'] != null) {
-      annotations = json['annotations'].foreach((v) {
-        annotations!.add(NerAnnotation.fromJson(v));
-      });
+      // annotations = (json['annotations'] as List).forEach((v) {
+      //   annotations!.add(NerAnnotation.fromJson(v));
+      // });
+      annotations = [];
+      for (final i in json['annotations']) {
+        annotations!.add(NerAnnotation.fromJson(i));
+      }
     }
+    fileData = json['fileData'];
     nerType = json['nerType'];
   }
 
@@ -77,6 +84,7 @@ class NerSaveModel {
     }
     data["labels"] = labels;
     data["nerType"] = nerType;
+    data['fileData'] = fileData;
     return data;
   }
 

@@ -158,7 +158,8 @@ class TextAnnotationScreen extends StatelessWidget {
                           if (data.nerFileInfo == null) {
                             return;
                           }
-                          NerSaveModel model = NerSaveModel();
+                          NerSaveModel model = NerSaveModel(
+                              fileData: data.nerFileInfo!.fileData);
 
                           model.fileName = data.nerFileInfo!.fileName;
                           model.fileHash = base64Encode(md5

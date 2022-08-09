@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mltools_viewer/screens/nlp_labeling/text_annotation/components/text_highlight_widget.dart'
+    show highlightStyles;
 import 'mltool_ner_save_model.dart';
 import 'ner_models.dart';
 
@@ -37,6 +39,16 @@ class HighlightedOffset {
         rowId: rowId,
         labelId: NerItems.values.indexOf(itemType));
   }
+
+  static HighlightedOffset fromAnnotation(NerAnnotation annotation) {
+    return HighlightedOffset(
+        annotation.start!,
+        annotation.end!,
+        annotation.content!,
+        highlightStyles[NerItems.values[annotation.labelId!]]!,
+        NerItems.values[annotation.labelId!],
+        rowId: annotation.rowId!);
+  }
 }
 
 class CustomNerHighlightedOffset {
@@ -74,5 +86,19 @@ class CustomNerHighlightedOffset {
         content: highlightedText,
         rowId: rowId,
         labelId: savedClassNames.indexOf(className));
+  }
+
+  static CustomNerHighlightedOffset fromAnnotation(
+      NerAnnotation annotation, List<String> labels) {
+    return CustomNerHighlightedOffset(
+        annotation.start!,
+        annotation.end!,
+        annotation.content!,
+        const TextStyle(
+          backgroundColor: Colors.blue,
+          fontSize: 16,
+        ),
+        labels[annotation.labelId!],
+        rowId: annotation.rowId!);
   }
 }

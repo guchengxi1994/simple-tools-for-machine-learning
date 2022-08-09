@@ -399,9 +399,10 @@ class NerSelectableHighlightText extends StatelessWidget {
         context.watch<NerLabelingController>().getOffsetsByCurrentRowId();
 
     List<TextSpan> list = [];
-    if (offsets.isEmpty) {
+    if (offsets.isEmpty || text.isEmpty) {
       return [TextSpan(text: text, style: highlightStyles[NerItems.none])];
     }
+
     list.add(TextSpan(
         text: text.substring(0, offsets.first.start),
         style: highlightStyles[NerItems.none]));
@@ -661,7 +662,7 @@ class CustomNerSelectableHighlightText extends StatelessWidget {
         context.watch<CustomNerLabelingController>().getOffsetsByCurrentRowId();
 
     List<TextSpan> list = [];
-    if (offsets.isEmpty) {
+    if (offsets.isEmpty || text.isEmpty) {
       return [TextSpan(text: text, style: highlightStyles[NerItems.none])];
     }
     list.add(TextSpan(
