@@ -4,7 +4,7 @@ import sys
 
 sys.path.append("..")
 
-from mltools.src.utils.json2mask.third_party import img_b64_to_arr, img_arr_to_b64
+from mltools.src.utils.json2mask.third_party import img_b64_to_arr
 from mltools_extra.dlib import render_face_with_dlib, find_face_with_dlib
 from skimage import io
 

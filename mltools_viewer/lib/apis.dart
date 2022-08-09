@@ -16,5 +16,7 @@ const Map<String, String> mltoolsApis = {
   "zipdownload": "$serverIp/zipdownload/",
   "faceDetect": "$serverIp/dlib/faceDetect",
   "faceDetails": "$serverIp/dlib/faceDetails",
-  "dlibCode": "$serverIp/dlib/code"
+  "dlibCode": "$serverIp/dlib/code",
+  "noise": "$serverIp/noise",
+  "denoise": "$serverIp/denoise",
 };

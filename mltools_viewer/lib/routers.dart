@@ -24,6 +24,8 @@ import 'package:mltools_viewer/screens/nlp_labeling/classification/nlp_classific
     deferred as classfication;
 import 'package:mltools_viewer/screens/mltools_screens/tools_screens/dlib_screen.dart'
     deferred as dlib;
+import 'package:mltools_viewer/screens/mltools_screens/tools_screens/noise_screen.dart'
+    deferred as noise;
 import 'package:taichi/taichi.dart';
 
 class Routers {
@@ -38,6 +40,7 @@ class Routers {
   static const pageNolabelaug = '/pageNolabelaug';
   static const pageClassification = '/pageClassification';
   static const pageDlib = "/pageDlib";
+  static const pageNoise = "/pageNoise";
 
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
@@ -118,6 +121,11 @@ class Routers {
     pageDlib: (context) => FutureLoaderWidget(
         builder: (context) => dlib.DlibScreen(),
         loadWidgetFuture: dlib.loadLibrary()),
+
+    /// 加噪与去噪
+    pageNoise: (context) => FutureLoaderWidget(
+        builder: (context) => noise.NoiseScreen(),
+        loadWidgetFuture: noise.loadLibrary()),
   };
 
   /// 无context跳转

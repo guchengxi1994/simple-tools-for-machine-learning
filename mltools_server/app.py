@@ -13,6 +13,11 @@ from mltools_server.lib.tools.aug import (
 )
 import glob
 from starlette.responses import FileResponse
+from mltools_server.lib.tools.noise import (
+    NoiseReq,
+    get_denoised_image,
+    get_noised_image,
+)
 
 from mltools_server.lib.tools.zip_folder import zip_dir
 from mltools_server.lib.tools.dlib import get_face_details, get_faces, get_dlib_codes
@@ -136,6 +141,18 @@ async def dlib_face_detect_details(req: NoLabelReq):
     return CommonResponse(200, "", {"imgData": r})
 
 
+@app.post("/noise")
+async def noise(req: NoiseReq):
+    r = get_noised_image(req.img, req.ntype)
+    return CommonResponse(200, "", {"imgData": r})
+
+
+@app.post("/denoise")
+async def noise(req: NoiseReq):
+    r = get_denoised_image(req.img, req.ntype)
+    return CommonResponse(200, "", {"imgData": r})
+
+
 @app.post("/aug/nolabel")
 async def aug_nolabel(req: NoLabelReq):
     r = nolabel_aug_process(req.imgData)
@@ -157,7 +174,7 @@ async def get_dlib_code():
     return CommonResponse(
         200,
         "",
-        {"codes":get_dlib_codes()},
+        {"codes": get_dlib_codes()},
     )
 
 

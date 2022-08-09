@@ -33,6 +33,10 @@ dependencies:
   # window_manager: ^0.2.5  # 和desktop_multi_window好像有冲突
   desktop_multi_window: ^0.1.0
   universal_html: ^2.0.8
+  # magnifier: 
+  #   git:
+  #       url: https://github.com/guchengxi1994/magnifier
+  #       ref: null-safety
 
 
 dev_dependencies:
@@ -72,6 +76,7 @@ deferred-components:
       - package:mltools_viewer/screens/mltools_screens/tools_screens/sift_screen.dart
       - package:mltools_viewer/screens/nlp_labeling/classification/nlp_classification_screen.dart
       - package:mltools_viewer/screens/mltools_screens/tools_screens/dlib_screen.dart
+      - package:mltools_viewer/screens/mltools_screens/tools_screens/noise_screen.dart
 
 flutter:
   uses-material-design: true
