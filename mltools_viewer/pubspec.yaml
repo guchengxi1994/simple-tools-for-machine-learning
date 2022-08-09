@@ -3,7 +3,7 @@ description: 使用flutter编写的数据标注/增广的可视化工具
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.4.4
+version: 0.5.0
 
 environment:
   sdk: ">=2.17.5 <3.0.0"
@@ -77,6 +77,7 @@ deferred-components:
       - package:mltools_viewer/screens/nlp_labeling/classification/nlp_classification_screen.dart
       - package:mltools_viewer/screens/mltools_screens/tools_screens/dlib_screen.dart
       - package:mltools_viewer/screens/mltools_screens/tools_screens/noise_screen.dart
+      - package:mltools_viewer/screens/chat_bot/classification/chat_screen_using_classification.dart
 
 flutter:
   uses-material-design: true

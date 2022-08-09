@@ -1,5 +1,8 @@
 const String serverIp = "http://192.168.50.75:14378";
 
+// 使用的 kashgari 只支持3.6版本，所以有两个服务器
+const String kashServerIp = "http://192.168.50.75:9001";
+
 // const String serverIp = "http://192.168.10.2:14378";
 
 const Map<String, String> mltoolsApis = {
@@ -19,4 +22,6 @@ const Map<String, String> mltoolsApis = {
   "dlibCode": "$serverIp/dlib/code",
   "noise": "$serverIp/noise",
   "denoise": "$serverIp/denoise",
+  "askQuestion": "$kashServerIp/question/ask",
+  "questionHot": "$kashServerIp/question/hot",
 };

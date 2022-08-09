@@ -26,6 +26,8 @@ import 'package:mltools_viewer/screens/mltools_screens/tools_screens/dlib_screen
     deferred as dlib;
 import 'package:mltools_viewer/screens/mltools_screens/tools_screens/noise_screen.dart'
     deferred as noise;
+import 'package:mltools_viewer/screens/chat_bot/kashgari/chat_screen_using_classification.dart'
+    deferred as kash;
 import 'package:taichi/taichi.dart';
 
 class Routers {
@@ -41,6 +43,7 @@ class Routers {
   static const pageClassification = '/pageClassification';
   static const pageDlib = "/pageDlib";
   static const pageNoise = "/pageNoise";
+  static const pageKash = "/pageKash";
 
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
@@ -126,6 +129,11 @@ class Routers {
     pageNoise: (context) => FutureLoaderWidget(
         builder: (context) => noise.NoiseScreen(),
         loadWidgetFuture: noise.loadLibrary()),
+
+    /// kashgari
+    pageKash: (context) => FutureLoaderWidget(
+        builder: (context) => kash.KashgraiCharbotScreen(),
+        loadWidgetFuture: kash.loadLibrary()),
   };
 
   /// 无context跳转

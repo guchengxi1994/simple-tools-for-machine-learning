@@ -226,7 +226,10 @@ class MltoolsController extends ChangeNotifier {
       }, "Dlib人脸识别"),
       _wrapper(() {
         Routers.navigatorKey.currentState!.pushNamed(Routers.pageNoise);
-      }, "图像加噪与去噪")
+      }, "图像加噪与去噪"),
+      _wrapper(() {
+        Routers.navigatorKey.currentState!.pushNamed(Routers.pageKash);
+      }, "Chatbot demo")
     ];
   }
 }

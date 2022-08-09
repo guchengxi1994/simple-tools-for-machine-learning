@@ -35,6 +35,7 @@
 - [ ] pytorch yolov5目标检测
 - [ ] darknet yolov3目标检测
 - [ ] facenet人脸分割
+- [ ] 边缘提取
 
 ## build(有些细节功能存在差异，所以打算分入口文件打包)
 * on windows(桌面上打算集成一些，比如多窗口这样的功能)

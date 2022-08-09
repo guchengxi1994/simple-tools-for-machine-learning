@@ -1,0 +1,1 @@
+# `kashgari文件夹下`为 https://github.com/AI-change-the-world/chat-robot-with-flutter/tree/main/frontend 的改版，先前的功能以 `bloc`为状态管理工具，这里使用`provider`;服务器改为`fastapi`。环境部署与先前一致。因为 `kashgari`的python版本限定，所以会启动两个不同的服务器（同一个ip，不同端口）。
