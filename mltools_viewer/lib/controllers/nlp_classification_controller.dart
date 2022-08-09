@@ -42,6 +42,14 @@ class NlpClassificationController extends ChangeNotifier
     notifyListeners();
   }
 
+  changeLabeledDataByList(List<NlpClassificationData> data) {
+    if (nerFileInfo == null) {
+      return;
+    }
+    labeledData = data;
+    notifyListeners();
+  }
+
   @override
   void firstRow() {
     currentRowId = 0;
@@ -50,6 +58,7 @@ class NlpClassificationController extends ChangeNotifier
 
   setFileInfo(NerFileInfo info) {
     nerFileInfo = info;
+    labeledData.clear();
     for (final i in nerFileInfo!.rowIndexs.entries) {
       labeledData.add(NlpClassificationData(id: i.key));
     }

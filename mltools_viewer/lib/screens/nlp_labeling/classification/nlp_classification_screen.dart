@@ -177,9 +177,9 @@ class NlpClassificationScreen extends StatelessWidget {
                               return;
                             }
                             NlpClassificationSaveModel model =
-                                NlpClassificationSaveModel();
+                                NlpClassificationSaveModel(
+                                    fileData: data.nerFileInfo!.fileData);
 
-                            model.fileName = data.nerFileInfo!.fileName;
                             model.fileName = data.nerFileInfo!.fileName;
                             model.fileHash = base64Encode(md5
                                 .convert(data.nerFileInfo!.fileUint8Data)

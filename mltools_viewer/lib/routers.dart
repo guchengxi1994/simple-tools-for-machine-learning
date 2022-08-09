@@ -36,7 +36,7 @@ class Routers {
   static const pageToolsMain = '/pageToolsMain';
   static const pageSift = '/pageSift';
   static const pageNolabelaug = '/pageNolabelaug';
-  static const pageClassification = 'pageClassification';
+  static const pageClassification = '/pageClassification';
   static const pageDlib = "/pageDlib";
 
   static Map<String, WidgetBuilder> routers = {

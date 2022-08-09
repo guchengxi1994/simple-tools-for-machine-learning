@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/custon_ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/ner_labeling_controller.dart';
 import 'package:mltools_viewer/controllers/nlp_classification_controller.dart';
+import 'package:mltools_viewer/model/mltools_nlp_classification_model.dart';
 import 'package:mltools_viewer/model/ner_file_info.dart';
 import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import 'package:provider/provider.dart';
@@ -184,6 +186,7 @@ class NerSettingsDropdownButton extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
                         onTap: () {
@@ -198,6 +201,69 @@ class NerSettingsDropdownButton extends StatelessWidget {
                                   ));
                         },
                         child: const Text("从文档获取数据"),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          _hideOverlay();
+                          show = !show;
+                          CustomFilePickerResult result =
+                              CustomFilePickerResult();
+                          await result.pickAFile(extensions: ["ml"]);
+                          if (result.fileData != null) {
+                            final s = jsonDecode(utf8.decode(result.fileData!));
+                            // debugPrint(s);
+                            if (s['mltoolType'] == null) {
+                              return;
+                            }
+                            switch (s['mltoolType']) {
+                              case "nlp_classification":
+                                NlpClassificationSaveModel model =
+                                    NlpClassificationSaveModel.fromJson(s);
+                                Map<int, Tuple2<int, int>> rowsCount = {};
+                                int rows = 0;
+                                for (int i = 0;
+                                    i < model.fileData!.length;
+                                    i++) {
+                                  if (model.fileData![i] == "\n") {
+                                    if (rows == 0) {
+                                      rowsCount[rows] = Tuple2(0, i);
+                                    } else {
+                                      rowsCount[rows] =
+                                          Tuple2(rowsCount[rows - 1]!.item2, i);
+                                    }
+
+                                    rows += 1;
+                                  }
+                                }
+                                NerFileInfo info = NerFileInfo(
+                                    dataLength: model.fileData!.length,
+                                    fileData: model.fileData!,
+                                    fileName: model.fileName!,
+                                    rowIndexs: rowsCount,
+                                    fileUint8Data: Uint8List.fromList(
+                                        utf8.encode(model.fileData!)));
+                                // ignore: use_build_context_synchronously
+                                context
+                                    .read<NlpClassificationController>()
+                                    .setFileInfo(info);
+
+                                // ignore: use_build_context_synchronously
+                                context
+                                    .read<NlpClassificationController>()
+                                    .changeLabeledDataByList(model.annotations!
+                                        .map((e) => NlpClassificationData(
+                                            className: e.className,
+                                            id: e.rowId!))
+                                        .toList());
+
+                                break;
+
+                              case "":
+                                break;
+                            }
+                          }
+                        },
+                        child: const Text("从.ml文件获取数据"),
                       ),
                       InkWell(
                         onTap: () {

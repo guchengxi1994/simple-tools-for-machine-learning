@@ -17,17 +17,20 @@ class NlpClassificationSaveModel {
   String? fileName;
   String? fileHash;
   MltoolType? mltoolType;
+  String? fileData;
   List<Annotations>? annotations;
 
   NlpClassificationSaveModel(
       {this.mltoolType = MltoolType.nlpClassification,
       this.fileHash,
       this.fileName,
-      this.annotations});
+      this.annotations,
+      required this.fileData});
 
   NlpClassificationSaveModel.fromJson(Map<String, dynamic> json) {
     fileName = json['fileName'];
     fileHash = json['fileHash'];
+    fileData = json['fileData'];
     if (json['annotations'] != null) {
       annotations = <Annotations>[];
       json['annotations'].forEach((v) {
@@ -40,6 +43,7 @@ class NlpClassificationSaveModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['fileName'] = fileName;
     data['fileHash'] = fileHash;
+    data['fileData'] = fileData;
     if (annotations != null) {
       data['annotations'] = annotations!.map((v) => v.toJson()).toList();
     }
