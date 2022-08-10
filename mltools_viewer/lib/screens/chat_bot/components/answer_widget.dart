@@ -57,7 +57,7 @@ class AnswerWidgetState extends State<AnswerWidget> {
         future: _future,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            if (!snapshot.hasError) {
+            if (!snapshot.hasError && snapshot.data != null) {
               ans = CustomResponseModel.renderQuestion(
                   context, snapshot.data as List<Data>);
               return Column(
