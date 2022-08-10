@@ -46,7 +46,7 @@ const RESOURCES = {
 "favicon.png": "4181eae128f3688142d8464d36afbde0",
 "main.dart.js_35.part.js": "9cb31404e279acf91a7e40386f92149e",
 "main.dart.js_54.part.js": "3f9f349c363265fbba6507480b4f877b",
-"main.dart.js": "ad5e711e8e2bd185ac9ba3ab60b2608f",
+"main.dart.js": "a147eb12b562b512f599eafc4f44c9dd",
 "main.dart.js_73.part.js": "eeefee1c60394c0f8f4516b851f2a21f",
 "main.dart.js_25.part.js": "6bdc0a2c6163a15a95cc9b0df01e1f75",
 "main.dart.js_14.part.js": "6dd4e88bae03fac397d334d9fcb26bf7",
@@ -56,7 +56,7 @@ const RESOURCES = {
 "manifest.json": "00b727979ef78715cbd3e77133767af6",
 "main.dart.js_45.part.js": "eec20e18d2e30550b8a0389692b37d0c",
 "main.dart.js_43.part.js": "b4b876c837c28345e538da55e2d168e1",
-"version.json": "1c7f8780b0551b749195a953e1e5fddf",
+"version.json": "7d71abfeed91fc07462b789a0eadc5e8",
 "main.dart.js_42.part.js": "9efe748e1443de32b8bd1e9f149cb558",
 "main.dart.js_52.part.js": "fde7c347b7aff1370479a2b24a9e4dac",
 "main.dart.js_51.part.js": "e08a7b7c47ee82081baa99fcee2804cf",
@@ -97,7 +97,7 @@ const RESOURCES = {
 "main.dart.js_6.part.js": "ca6b91d93bf52d3eee48a17f0f4ec19f",
 "main.dart.js_46.part.js": "877a79b6746f19a9a2914b51ed66f52a",
 "main.dart.js_11.part.js": "bca35729e8e1eb43896943813e285bc1",
-"main.dart.js_88.part.js": "85f0da1a898bdd678631ae3af5a582dd",
+"main.dart.js_88.part.js": "c246b2143bbad4e32b7e3a78441f16e9",
 "main.dart.js_80.part.js": "f01c0d1d5846eaf47d3efe2fa6f58cc8"
 };
 
