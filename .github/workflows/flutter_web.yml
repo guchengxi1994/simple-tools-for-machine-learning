@@ -14,7 +14,9 @@ jobs:
       - name: "Web Build 🔧"
         run: |
           cd mltools_viewer/
-          git submodule add https://github.com/guchengxi1994/flow_graph.git flow_graph
+          cd flow_graph/ 
+          ls -l 
+          cd ..
           flutter pub get
           flutter build web  --release --base-href="/simple-tools-for-machine-learning/"  --web-renderer html
       - name: "Web Deploy 🚀"
