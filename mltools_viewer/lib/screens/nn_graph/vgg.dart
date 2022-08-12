@@ -19,12 +19,15 @@ class _VggScreenState extends State<VggScreen> {
   late GraphNode<NNNode> root;
   final Axis _direction = Axis.vertical;
   final bool _centerLayout = true;
+  late Map<int, String> nodeMessage = {};
 
   @override
   void initState() {
     super.initState();
     var inputNode = InputNode(inputSize: const Tuple3(3, 224, 224));
     root = GraphNode(isRoot: true, data: inputNode);
+
+    nodeMessage[root.id] = inputNode.outputSize.toString();
 
     /// 1
     var conv1_1 = GraphNode(
@@ -36,6 +39,8 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: inputNode.name));
     root.addNext(conv1_1);
 
+    nodeMessage[conv1_1.id] = conv1_1.data!.outputSize.toString();
+
     var conv1_2 = GraphNode(
         data: ConvActivation(
             inputSize: conv1_1.data!.outputSize,
@@ -45,12 +50,16 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "conv1"));
     conv1_1.addNext(conv1_2);
 
+    nodeMessage[conv1_2.id] = conv1_2.data!.outputSize.toString();
+
     var pooling1 = GraphNode(
         data: PoolingNode(
             name: "pooling1",
             inputSize: conv1_2.data!.outputSize,
             prevNodeName: "conv2"));
     conv1_2.addNext(pooling1);
+
+    nodeMessage[pooling1.id] = pooling1.data!.outputSize.toString();
 
     /// 2
     var conv2_1 = GraphNode(
@@ -62,6 +71,8 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "pooling1"));
     pooling1.addNext(conv2_1);
 
+    nodeMessage[conv2_1.id] = conv2_1.data!.outputSize.toString();
+
     var conv2_2 = GraphNode(
         data: ConvActivation(
             inputSize: conv2_1.data!.outputSize,
@@ -71,12 +82,16 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "conv2_1"));
     conv2_1.addNext(conv2_2);
 
+    nodeMessage[conv2_2.id] = conv2_2.data!.outputSize.toString();
+
     var pooling2 = GraphNode(
         data: PoolingNode(
             name: "pooling2",
             inputSize: conv2_2.data!.outputSize,
             prevNodeName: "conv2_2"));
     conv2_2.addNext(pooling2);
+
+    nodeMessage[pooling2.id] = pooling2.data!.outputSize.toString();
 
     /// 3
     var conv3_1 = GraphNode(
@@ -88,6 +103,8 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "pooling2"));
     pooling2.addNext(conv3_1);
 
+    nodeMessage[conv3_1.id] = conv3_1.data!.outputSize.toString();
+
     var conv3_2 = GraphNode(
         data: ConvActivation(
             inputSize: conv3_1.data!.outputSize,
@@ -96,6 +113,8 @@ class _VggScreenState extends State<VggScreen> {
             numOutput: 256,
             prevNodeName: "conv3_1"));
     conv3_1.addNext(conv3_2);
+
+    nodeMessage[conv3_2.id] = conv3_2.data!.outputSize.toString();
 
     var conv3_3 = GraphNode(
         data: ConvActivation(
@@ -106,12 +125,15 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "conv3_3"));
     conv3_2.addNext(conv3_3);
 
+    nodeMessage[conv3_3.id] = conv3_3.data!.outputSize.toString();
+
     var pooling3 = GraphNode(
         data: PoolingNode(
             name: "pooling3",
             inputSize: conv3_3.data!.outputSize,
             prevNodeName: "conv3_3"));
     conv3_3.addNext(pooling3);
+    nodeMessage[pooling3.id] = pooling3.data!.outputSize.toString();
 
     /// 4
     var conv4_1 = GraphNode(
@@ -123,6 +145,8 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "pooling3"));
     pooling3.addNext(conv4_1);
 
+    nodeMessage[conv4_1.id] = conv4_1.data!.outputSize.toString();
+
     var conv4_2 = GraphNode(
         data: ConvActivation(
             inputSize: conv4_1.data!.outputSize,
@@ -132,6 +156,8 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "conv4_1"));
     conv4_1.addNext(conv4_2);
 
+    nodeMessage[conv4_2.id] = conv4_2.data!.outputSize.toString();
+
     var conv4_3 = GraphNode(
         data: ConvActivation(
             inputSize: conv4_2.data!.outputSize,
@@ -140,13 +166,15 @@ class _VggScreenState extends State<VggScreen> {
             numOutput: 512,
             prevNodeName: "conv4_2"));
     conv4_2.addNext(conv4_3);
-
+    nodeMessage[conv4_3.id] = conv4_3.data!.outputSize.toString();
     var pooling4 = GraphNode(
         data: PoolingNode(
             name: "pooling4",
             inputSize: conv4_3.data!.outputSize,
             prevNodeName: "conv4_3"));
     conv4_3.addNext(pooling4);
+
+    nodeMessage[pooling4.id] = pooling4.data!.outputSize.toString();
 
     /// 5
     var conv5_1 = GraphNode(
@@ -158,6 +186,8 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "pooling4"));
     pooling4.addNext(conv5_1);
 
+    nodeMessage[conv5_1.id] = conv5_1.data!.outputSize.toString();
+
     var conv5_2 = GraphNode(
         data: ConvActivation(
             inputSize: conv5_1.data!.outputSize,
@@ -166,6 +196,8 @@ class _VggScreenState extends State<VggScreen> {
             numOutput: 512,
             prevNodeName: "conv5_1"));
     conv5_1.addNext(conv5_2);
+
+    nodeMessage[conv5_2.id] = conv5_2.data!.outputSize.toString();
 
     var conv5_3 = GraphNode(
         data: ConvActivation(
@@ -176,12 +208,16 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "conv5_2"));
     conv5_2.addNext(conv5_3);
 
+    nodeMessage[conv5_3.id] = conv5_3.data!.outputSize.toString();
+
     var pooling5 = GraphNode(
         data: PoolingNode(
             name: "pooling5",
             inputSize: conv5_3.data!.outputSize,
             prevNodeName: "conv5_3"));
     conv5_3.addNext(pooling5);
+
+    nodeMessage[pooling5.id] = pooling5.data!.outputSize.toString();
 
     /// fc
     var fc1 = GraphNode(
@@ -192,6 +228,8 @@ class _VggScreenState extends State<VggScreen> {
             inputSize: pooling5.data!.outputSize));
     pooling5.addNext(fc1);
 
+    nodeMessage[fc1.id] = fc1.data!.outputSize.toString();
+
     /// fc2
     var fc2 = GraphNode(
         data: FcActivationDropoutNode(
@@ -201,6 +239,8 @@ class _VggScreenState extends State<VggScreen> {
             inputSize: fc1.data!.outputSize));
     fc1.addNext(fc2);
 
+    nodeMessage[fc2.id] = fc2.data!.outputSize.toString();
+
     /// fc3
     var fc3 = GraphNode(
         data: FcNode(
@@ -209,6 +249,7 @@ class _VggScreenState extends State<VggScreen> {
             prevNodeName: "fc2",
             inputSize: fc2.data!.outputSize));
     fc2.addNext(fc3);
+    nodeMessage[fc3.id] = fc3.data!.outputSize.toString();
   }
 
   @override
@@ -231,6 +272,8 @@ class _VggScreenState extends State<VggScreen> {
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(20),
         child: FlowGraphView(
+          nodeMessageMap: nodeMessage,
+          messageStyle: const TextStyle(color: Colors.black, fontSize: 20),
           enabled: false,
           root: root,
           builder: (context, GraphNode<NNNode> node) {
