@@ -25,7 +25,14 @@ class DropoutNode extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "nodeType": NodeType.dropout.toStr(),
+      "name": name,
+      "prevNodeName": prevNodeName,
+      "inputSize": inputSize.toList(),
+      "outputSize": outputSize.toList(),
+      "details": {"rate": rate}
+    };
   }
 
   @override

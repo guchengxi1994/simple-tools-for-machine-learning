@@ -26,7 +26,14 @@ class ActivationNode extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "nodeType": NodeType.activation.toStr(),
+      "name": name,
+      "prevNodeName": prevNodeName,
+      "inputSize": inputSize.toList(),
+      "outputSize": outputSize.toList(),
+      "details": {"activationType": activationType}
+    };
   }
 
   @override

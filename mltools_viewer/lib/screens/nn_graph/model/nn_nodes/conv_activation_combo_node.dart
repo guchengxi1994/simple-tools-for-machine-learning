@@ -16,7 +16,8 @@ class ConvActivation extends NNNode {
       this.padding = 1,
       required this.prevNodeName,
       this.strides = 1,
-      this.paddingMode = "zeros"});
+      this.paddingMode = "zeros",
+      this.activationType = "relu"});
 
   String name;
   int kernelSize;
@@ -25,6 +26,8 @@ class ConvActivation extends NNNode {
   Tuple3<int, int, int> inputSize;
   int padding;
   String prevNodeName;
+
+  String activationType;
 
   int strides;
 
@@ -57,7 +60,30 @@ class ConvActivation extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "combination": [
+        {
+          "conv": {
+            "nodeType": NodeType.conv.toStr(),
+            "name": name,
+            "prevNodeName": prevNodeName,
+            "inputSize": inputSize.toList(),
+            "outputSize": outputSize.toList(),
+            "details": {"paddingMode": "zeros", "padding": 1, "strides": 1}
+          }
+        },
+        {
+          "activation": {
+            "nodeType": NodeType.activation.toStr(),
+            "name": name,
+            "prevNodeName": prevNodeName,
+            "inputSize": inputSize.toList(),
+            "outputSize": outputSize.toList(),
+            "details": {"activationType": activationType}
+          }
+        }
+      ]
+    };
   }
 
   @override

@@ -33,7 +33,14 @@ class PoolingNode extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "nodeType": NodeType.fc.toStr(),
+      "name": name,
+      "prevNodeName": prevNodeName,
+      "inputSize": inputSize.toList(),
+      "outputSize": outputSize.toList(),
+      "details": {"poolingType": poolingType, "strides": strides}
+    };
   }
 
   @override

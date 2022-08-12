@@ -43,7 +43,14 @@ class ConvNode extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "nodeType": NodeType.conv.toStr(),
+      "name": name,
+      "prevNodeName": prevNodeName,
+      "inputSize": inputSize.toList(),
+      "outputSize": outputSize.toList(),
+      "details": {"paddingMode": "zeros", "padding": 1, "strides": 1}
+    };
   }
 
   @override

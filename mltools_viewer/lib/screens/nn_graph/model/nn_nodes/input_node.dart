@@ -17,7 +17,14 @@ class InputNode extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "nodeType": NodeType.fc.toStr(),
+      "name": name,
+      "prevNodeName": "",
+      "inputSize": inputSize.toList(),
+      "outputSize": outputSize.toList(),
+      "details": {}
+    };
   }
 
   @override

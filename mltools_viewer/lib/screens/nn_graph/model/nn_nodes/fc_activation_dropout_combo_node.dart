@@ -9,12 +9,16 @@ class FcActivationDropoutNode extends NNNode {
       required this.name,
       required this.output,
       required this.prevNodeName,
-      required this.inputSize});
+      required this.inputSize,
+      this.activationType = 'relu',
+      this.rate = 0.5});
 
   int output;
   String name;
   String prevNodeName;
   Tuple3<int, int, int> inputSize;
+  String activationType;
+  double rate;
 
   @override
   Color getColor() {
@@ -42,7 +46,36 @@ class FcActivationDropoutNode extends NNNode {
 
   @override
   Map<String, dynamic> toJson() {
-    return {};
+    return {
+      "combination": [
+        {
+          "fc": {
+            "nodeType": NodeType.fc.toStr(),
+            "name": name,
+            "prevNodeName": prevNodeName,
+            "inputSize": inputSize.toList(),
+            "outputSize": outputSize.toList(),
+            "details": {}
+          },
+          "activation": {
+            "nodeType": NodeType.activation.toStr(),
+            "name": name,
+            "prevNodeName": prevNodeName,
+            "inputSize": inputSize.toList(),
+            "outputSize": outputSize.toList(),
+            "details": {"activationType": activationType}
+          },
+          "dropout": {
+            "nodeType": NodeType.dropout.toStr(),
+            "name": name,
+            "prevNodeName": prevNodeName,
+            "inputSize": inputSize.toList(),
+            "outputSize": outputSize.toList(),
+            "details": {"rate": rate}
+          }
+        }
+      ]
+    };
   }
 
   @override
