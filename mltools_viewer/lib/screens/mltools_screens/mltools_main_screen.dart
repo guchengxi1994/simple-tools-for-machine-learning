@@ -229,7 +229,10 @@ class MltoolsController extends ChangeNotifier {
       }, "图像加噪与去噪"),
       _wrapper(() {
         Routers.navigatorKey.currentState!.pushNamed(Routers.pageKash);
-      }, "Chatbot demo")
+      }, "Chatbot demo"),
+      _wrapper(() {
+        Routers.navigatorKey.currentState!.pushNamed(Routers.pageVgg);
+      }, "Vgg demo")
     ];
   }
 }

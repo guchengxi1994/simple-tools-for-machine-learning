@@ -1,3 +1,4 @@
+import 'package:taichi/taichi.dart' show TaichiDevUtils;
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/controllers/no_label_aug_controller.dart';
@@ -28,7 +29,7 @@ import 'package:mltools_viewer/screens/mltools_screens/tools_screens/noise_scree
     deferred as noise;
 import 'package:mltools_viewer/screens/chat_bot/kashgari/chat_screen_using_classification.dart'
     deferred as kash;
-import 'package:taichi/taichi.dart';
+import 'package:mltools_viewer/screens/nn_graph/vgg.dart' deferred as vgg;
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -44,6 +45,7 @@ class Routers {
   static const pageDlib = "/pageDlib";
   static const pageNoise = "/pageNoise";
   static const pageKash = "/pageKash";
+  static const pageVgg = "/pageVgg";
 
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
@@ -134,6 +136,11 @@ class Routers {
     pageKash: (context) => FutureLoaderWidget(
         builder: (context) => kash.KashgraiCharbotScreen(),
         loadWidgetFuture: kash.loadLibrary()),
+
+    /// vgg demo
+    pageVgg: (context) => FutureLoaderWidget(
+        builder: (context) => vgg.VggScreen(),
+        loadWidgetFuture: vgg.loadLibrary()),
   };
 
   /// 无context跳转
