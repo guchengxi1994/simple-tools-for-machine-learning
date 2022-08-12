@@ -34,8 +34,8 @@
 - [ ] u-gat-it 风格迁移
 - [ ] pytorch yolov5目标检测
 - [ ] darknet yolov3目标检测
-- [ ] facenet人脸分割
-- [ ] 边缘提取
+- [ ] 人脸分割
+- [x] 边缘提取
 - [ ] 实现神经网络模型 `toJson` 和 `fromJson`,并能够通过`flow_graph`渲染
 
 ## build(有些细节功能存在差异，所以打算分入口文件打包)

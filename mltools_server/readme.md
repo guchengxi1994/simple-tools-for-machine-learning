@@ -28,4 +28,12 @@ python main.py
 
   ![20220808](./resources/20220808.gif)
 
-* ...
+* vgg 结构demo
+
+  ![20220812_2](./resources/20220812_2.gif)
+
+* 边缘提取
+
+  ![20220812_1](./resources/20220812_1.gif)
+
+* 

@@ -19,7 +19,7 @@ class KashgariChatbotController extends ChangeNotifier {
               style: TextStyle(color: Colors.blueAccent, fontSize: 20),
             ),
           ),
-          const Divider(),
+          // const Divider(),
           const AnswerWidget()
         ],
       ),

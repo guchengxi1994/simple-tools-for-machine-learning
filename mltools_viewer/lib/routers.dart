@@ -30,6 +30,8 @@ import 'package:mltools_viewer/screens/mltools_screens/tools_screens/noise_scree
 import 'package:mltools_viewer/screens/chat_bot/kashgari/chat_screen_using_classification.dart'
     deferred as kash;
 import 'package:mltools_viewer/screens/nn_graph/vgg.dart' deferred as vgg;
+import 'package:mltools_viewer/screens/mltools_screens/tools_screens/edge_detection_screen.dart'
+    deferred as edge;
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -46,6 +48,7 @@ class Routers {
   static const pageNoise = "/pageNoise";
   static const pageKash = "/pageKash";
   static const pageVgg = "/pageVgg";
+  static const pageEdgeDetection = "/pageEdgeDetection";
 
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
@@ -141,6 +144,11 @@ class Routers {
     pageVgg: (context) => FutureLoaderWidget(
         builder: (context) => vgg.VggScreen(),
         loadWidgetFuture: vgg.loadLibrary()),
+
+    /// edge detection demo
+    pageEdgeDetection: (context) => FutureLoaderWidget(
+        builder: (context) => edge.EdgeDetectionScreen(),
+        loadWidgetFuture: edge.loadLibrary()),
   };
 
   /// 无context跳转

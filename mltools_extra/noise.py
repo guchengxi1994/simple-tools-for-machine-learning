@@ -14,4 +14,4 @@ def denoise(imgData: np.ndarray, denoiseType: int = 0) -> np.ndarray:
     if denoiseType == 0:
         return cv2.medianBlur(imgData, 5)
     else:
-        return cv2.blur(imgData, (5,5))
+        return cv2.blur(imgData, (5, 5))

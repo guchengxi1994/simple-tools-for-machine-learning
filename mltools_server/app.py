@@ -21,6 +21,7 @@ from mltools_server.lib.tools.noise import (
 
 from mltools_server.lib.tools.zip_folder import zip_dir
 from mltools_server.lib.tools.dlib import get_face_details, get_faces, get_dlib_codes
+from mltools_server.lib.tools.edge_detection import canny_detection, sobel_detection
 
 app = FastAPI(version="0.0.1")
 
@@ -263,3 +264,15 @@ async def get_aug_nolabel_zoom(f: NoLabelGetReq):
         return CommonResponse(200, "", {"imgData": b64})
     else:
         return CommonResponse(200, "", {"imgData": None})
+
+
+@app.post("/edgeDetection/canny")
+async def canny_edge_detection(req: NoLabelReq):
+    r = canny_detection(req.imgData)
+    return CommonResponse(200, "", {"imgData": r})
+
+
+@app.post("/edgeDetection/sobel")
+async def sobel_edge_detection(req: NoLabelReq):
+    r = sobel_detection(req.imgData)
+    return CommonResponse(200, "", {"imgData": r})

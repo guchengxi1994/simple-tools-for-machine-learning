@@ -232,7 +232,10 @@ class MltoolsController extends ChangeNotifier {
       }, "Chatbot demo"),
       _wrapper(() {
         Routers.navigatorKey.currentState!.pushNamed(Routers.pageVgg);
-      }, "Vgg demo")
+      }, "Vgg demo"),
+      _wrapper(() {
+        Routers.navigatorKey.currentState!.pushNamed(Routers.pageEdgeDetection);
+      }, "边缘检测"),
     ];
   }
 }

@@ -24,4 +24,6 @@ const Map<String, String> mltoolsApis = {
   "denoise": "$serverIp/denoise",
   "askQuestion": "$kashServerIp/question/ask",
   "questionHot": "$kashServerIp/question/hot",
+  "canny": "$serverIp/edgeDetection/canny",
+  "sobel": "$serverIp/edgeDetection/sobel",
 };
