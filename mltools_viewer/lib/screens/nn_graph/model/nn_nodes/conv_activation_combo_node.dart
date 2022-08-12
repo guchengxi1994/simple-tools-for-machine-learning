@@ -69,4 +69,11 @@ class ConvActivation extends NNNode {
   Tuple3<int, int, int> getInputSize() {
     return inputSize;
   }
+
+  @override
+  String getParameter() {
+    final result = inputSize.item1 * kernelSize * kernelSize * numOutput;
+
+    return "(${inputSize.item1}*$kernelSize*$kernelSize)*$numOutput=$result";
+  }
 }

@@ -48,4 +48,9 @@ class ActivationNode extends NNNode {
   Tuple3<int, int, int> getInputSize() {
     return inputSize;
   }
+
+  @override
+  String getParameter() {
+    return "";
+  }
 }

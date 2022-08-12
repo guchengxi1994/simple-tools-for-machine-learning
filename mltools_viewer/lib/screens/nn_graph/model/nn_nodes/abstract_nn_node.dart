@@ -18,4 +18,11 @@ abstract class NNNode {
   Size getWidgetSize();
   Color getColor();
   String getName();
+
+  String getMemory() {
+    final result = outputSize.item1 * outputSize.item2 * outputSize.item3;
+    return "${outputSize.item1}*${outputSize.item2}*${outputSize.item3}=$result";
+  }
+
+  String getParameter();
 }

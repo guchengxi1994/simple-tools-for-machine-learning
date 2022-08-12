@@ -49,4 +49,10 @@ class FcActivationDropoutNode extends NNNode {
   Tuple3<int, int, int> getInputSize() {
     return inputSize;
   }
+
+  @override
+  String getParameter() {
+    final result = inputSize.item1 * inputSize.item2 * inputSize.item3 * output;
+    return "${inputSize.item1}*${inputSize.item2}*${inputSize.item3}*$output=$result";
+  }
 }
