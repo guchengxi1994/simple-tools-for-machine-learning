@@ -299,6 +299,7 @@ Simple tools for machine learning. Including computer vision, deep learning,...
 >   > `inpaint` is slow with `skimage` . Using `opencv-python` is faster.
 
 ## 进度
+* 2022-08-15 开始考虑 windows opencv+flutter直接在前端完成一些图像操作（opencv.js有很多功能不完善，很多方法都没有实现，所以应该时不支持web端），这是[仓库地址](https://github.com/guchengxi1994/flutter_windows_opencv)
 * 2022-07-29 添加一个方法，用于转化`labelme`和`labelImg`标注文件到`.ml`标注文件(v0.1.2)
 * 2022-07-25 添加一个方法，用于转化`viewer`生成的文件到`labelme`和`labelImg`标注文件(v0.1.1)
 * 2022-07-15 已完成重构工作，准备着手UI工具开发(v0.1.0)
