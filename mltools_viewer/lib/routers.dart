@@ -32,6 +32,8 @@ import 'package:mltools_viewer/screens/chat_bot/kashgari/chat_screen_using_class
 import 'package:mltools_viewer/screens/nn_graph/vgg.dart' deferred as vgg;
 import 'package:mltools_viewer/screens/mltools_screens/tools_screens/edge_detection_screen.dart'
     deferred as edge;
+import 'package:mltools_viewer/screens/mltools_screens/tools_screens/template_match_screen.dart'
+    deferred as template;
 
 class Routers {
   static const pageMain = "/pageMain";
@@ -49,6 +51,7 @@ class Routers {
   static const pageKash = "/pageKash";
   static const pageVgg = "/pageVgg";
   static const pageEdgeDetection = "/pageEdgeDetection";
+  static const pageTemplateMatch = "/pageTemplateMatch";
 
   static Map<String, WidgetBuilder> routers = {
     /// 主页面
@@ -149,6 +152,11 @@ class Routers {
     pageEdgeDetection: (context) => FutureLoaderWidget(
         builder: (context) => edge.EdgeDetectionScreen(),
         loadWidgetFuture: edge.loadLibrary()),
+
+    /// template match demo
+    pageTemplateMatch: (context) => FutureLoaderWidget(
+        builder: (context) => template.TemplateMatchScreen(),
+        loadWidgetFuture: template.loadLibrary()),
   };
 
   /// 无context跳转

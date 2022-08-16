@@ -236,6 +236,9 @@ class MltoolsController extends ChangeNotifier {
       _wrapper(() {
         Routers.navigatorKey.currentState!.pushNamed(Routers.pageEdgeDetection);
       }, "边缘检测"),
+      _wrapper(() {
+        Routers.navigatorKey.currentState!.pushNamed(Routers.pageTemplateMatch);
+      }, "opencv模板匹配demo"),
     ];
   }
 }

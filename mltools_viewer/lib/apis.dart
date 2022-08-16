@@ -26,4 +26,5 @@ const Map<String, String> mltoolsApis = {
   "questionHot": "$kashServerIp/question/hot",
   "canny": "$serverIp/edgeDetection/canny",
   "sobel": "$serverIp/edgeDetection/sobel",
+  "template_match": "$serverIp/templateMatch",
 };

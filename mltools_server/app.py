@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import *
 
-app = FastAPI(version="0.0.1")
+app = FastAPI(version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,6 +26,7 @@ app.include_router(dlibRouter)
 app.include_router(operationRouter)
 app.include_router(augRouter)
 app.include_router(edgeDetectionRouter)
+app.include_router(templateMatchRouter)
 
 
 @app.get("/")
