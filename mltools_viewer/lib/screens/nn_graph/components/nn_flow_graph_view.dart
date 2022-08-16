@@ -9,6 +9,7 @@ import '../model/nn_nodes.dart';
 import 'nn_node_widget.dart';
 
 /// this is a modification of [flow_graph_view] to draw nn graph
+
 class NNFlowGraphView<T extends NNNode> extends StatefulWidget {
   const NNFlowGraphView(
       {Key? key,

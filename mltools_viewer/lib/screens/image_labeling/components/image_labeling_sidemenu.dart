@@ -27,6 +27,8 @@ import '../../../widgets/icon_text_widget.dart';
 import 'labelimg/labelimg_widget.dart';
 import 'labelme/polygon_point_v2.dart';
 
+import 'dart:ui' as ui;
+
 const double pointSize = 20;
 
 class SideMenu extends StatelessWidget {
@@ -428,8 +430,15 @@ Future onOpenButtonClicked(BuildContext context) async {
 
     if (fileBytes != null) {
       MltoolImage image = MltoolImage();
-      image.imageHeight = 0;
-      image.imageWidth = 0;
+
+      try {
+        final imgShape = await getImgShape(fileBytes);
+        image.imageHeight = imgShape.item2;
+        image.imageWidth = imgShape.item1;
+      } catch (_) {
+        image.imageHeight = 0;
+        image.imageWidth = 0;
+      }
 
       image.imageData = fileBytes;
       image.imageName = result.files.first.name;
@@ -518,13 +527,24 @@ onChooseFolderButtonClicked(BuildContext context) async {
     List<MltoolImage> images = [];
     // print(filenames);
     for (int i = 0; i < filenames.length; i++) {
+      final imgShape = await getImgShape(filesBytes[i]!);
       images.add(MltoolImage(
           imageData: filesBytes[i],
           imageName: filenames[i],
-          imageHeight: 0,
-          imageWidth: 0));
+          imageHeight: imgShape.item2,
+          imageWidth: imgShape.item1));
     }
 
     context.read<ImageController>().changeImages(images);
+  }
+}
+
+Future<Tuple2<int, int>> getImgShape(Uint8List imgData) async {
+  try {
+    final codec = await ui.instantiateImageCodec(imgData);
+    final image = await codec.getNextFrame().then((value) => value.image);
+    return Tuple2(image.width, image.height);
+  } catch (_) {
+    return const Tuple2<int, int>(0, 0);
   }
 }
