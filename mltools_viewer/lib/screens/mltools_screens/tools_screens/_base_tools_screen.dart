@@ -91,6 +91,14 @@ class BasePageState<T extends BaseToolsScreen> extends State<T> {
                               _showDialog(r.data['data']['codes']);
                             }
                             break;
+                          case "/pageTemplateMatch":
+                            Response? r = await dioUtils
+                                .get(mltoolsApis['template_match_match']);
+                            // print(r);
+                            if (r != null) {
+                              _showDialog(r.data['data']['codes']);
+                            }
+                            break;
                         }
                       },
                       icon: const Icon(Icons.details))

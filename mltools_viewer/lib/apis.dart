@@ -27,4 +27,5 @@ const Map<String, String> mltoolsApis = {
   "canny": "$serverIp/edgeDetection/canny",
   "sobel": "$serverIp/edgeDetection/sobel",
   "template_match": "$serverIp/templateMatch",
+  "template_match_match": "$serverIp/templateMatch/code",
 };

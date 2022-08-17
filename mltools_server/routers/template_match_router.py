@@ -6,6 +6,7 @@ sys.path.append("..")
 from fastapi import APIRouter
 from mltools_server.lib.tools.template_match import (
     template_match_script,
+    get_code,
     TemplateMatchReq,
 )
 from mltools_server.lib.exceptions import ImageError
@@ -25,3 +26,11 @@ def template_match(req: TemplateMatchReq):
     except:
         traceback.print_exc()
         return CommonResponse(500, "未知错误", None)
+
+@templateMatchRouter.get("/templateMatch/code", tags=["templateMatch"])
+def template_match_code():
+    return CommonResponse(
+        200,
+        "",
+        {"codes": get_code()},
+    )

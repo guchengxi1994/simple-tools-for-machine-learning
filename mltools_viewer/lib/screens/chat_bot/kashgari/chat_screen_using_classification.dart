@@ -2,12 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mltools_viewer/apis.dart';
 import 'package:mltools_viewer/app_style.dart';
+import 'package:mltools_viewer/screens/chat_bot/components/base_question_widget.dart';
 import 'package:mltools_viewer/screens/chat_bot/controllers/kash_chat_bot_controller.dart';
 import 'package:mltools_viewer/utils/dio_utils.dart';
 import 'package:mltools_viewer/utils/toast_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../components/base_answer_widget.dart';
 import '../components/chat_list_widget.dart';
+import '../components/custom_ask_widget.dart';
 import '../models/ask_question_model.dart';
 import '../models/question_model.dart';
 
@@ -110,6 +113,9 @@ class KashgraiCharbotScreen extends StatelessWidget {
                         String url = mltoolsApis['askQuestion']!;
                         askQuestion.question = textEditingController.text;
                         Map jsonStr = askQuestion.toJson();
+                        context.read<KashgariChatbotController>().addWidget(
+                            BaseQuestionWidget(
+                                text: textEditingController.text));
                         Response? response =
                             await dioUtil.post(url, data: jsonStr);
                         if (null != response) {
@@ -117,6 +123,44 @@ class KashgraiCharbotScreen extends StatelessWidget {
                           List data = result['data'];
                           List<Data> questions =
                               data.map((e) => Data.fromJson(e)).toList();
+                          Future.delayed(const Duration(milliseconds: 1))
+                              .then((value) => textEditingController.text = "")
+                              .then((value) => Future.delayed(
+                                          const Duration(milliseconds: 100))
+                                      .then((value) {
+                                    _scrollController.jumpTo(_scrollController
+                                        .position.maxScrollExtent);
+                                  }))
+                              .then((value) {
+                            Future.delayed(const Duration(milliseconds: 1000))
+                                .then((value) => context
+                                    .read<KashgariChatbotController>()
+                                    .addWidget(const BaseAnswerWidget(
+                                      text: null,
+                                    )))
+                                .then((value) {
+                              Future.delayed(const Duration(milliseconds: 100))
+                                  .then((value) {
+                                _scrollController.jumpTo(
+                                    _scrollController.position.maxScrollExtent);
+                              }).then((value) {
+                                Future.delayed(
+                                        const Duration(milliseconds: 1000))
+                                    .then((value) => context
+                                        .read<KashgariChatbotController>()
+                                        .replaceLast(CustomerAskWidget(
+                                          dataList: questions,
+                                        )))
+                                    .then((value) {
+                                  Future.delayed(
+                                          const Duration(milliseconds: 100))
+                                      .then((value) => _scrollController.jumpTo(
+                                          _scrollController
+                                              .position.maxScrollExtent));
+                                });
+                              });
+                            });
+                          });
                         } else {
                           // ignore: use_build_context_synchronously
                           ToastUtils(context).showToast("服务器无连接");

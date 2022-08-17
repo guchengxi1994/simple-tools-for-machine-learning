@@ -31,3 +31,21 @@ def template_match(
     else:
         similarity = str(max_val)
     return TemplateMatchModel(imgData, similarity)
+
+def get_template_match_code()->str:
+    return """
+import cv2
+
+# img 和 template 的类型是numpy.ndarray
+# 但是可以是一维向量，所以可以用这种方法计算两个向量之间的相关系数
+
+img = cv2.imread("path/to/img")
+template = cv2.imread("path/to/template")
+
+
+# 一般都是用这个计算相似度（皮尔逊系数）
+res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED) 
+
+# 函数签名里返回值是 Tuple[float, float, Tuple[int, int], Tuple[int, int]]，前两个参数是最大以及最小相似度，后面两个是对应的坐标
+min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res) 
+"""

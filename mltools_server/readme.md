@@ -36,4 +36,8 @@ python main.py
 
   ![20220812_1](./resources/20220812_1.gif)
 
+* chat bot demo
+
+  ![20220817](./resources/20220817.gif)
+
 * 
