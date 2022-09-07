@@ -16,8 +16,8 @@ def convert_json_to_mask(jsonPath: str, saveFile: bool = True):
         captions = ["%d: %s" % (l, name) for l, name in enumerate(lbl_names)]
         lbl_viz = draw_label(lbl, img, captions)
 
-        if np.max(lbl) == 255 or np.max(lbl) == 1:
-            lbl[lbl > 0] = 255
+        # if np.max(lbl) == 255 or np.max(lbl) == 1:
+        lbl[lbl > 0] = 255
 
         lbl = np.array(lbl, dtype=np.uint8)
         if saveFile:

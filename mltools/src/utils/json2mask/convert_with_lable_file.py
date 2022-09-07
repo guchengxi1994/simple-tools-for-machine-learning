@@ -78,9 +78,11 @@ def generate_mask_file(data, yamlFile):
             # print(v)
             polygon = i["points"]
             if v != 0:
+                # print(v)
                 # print('lllllllllllllllllll')
                 mask = draw_mask(polygon, mask, int(v))
         # print("<==================>".format(np.max(mask)))
+        # print(np.max(mask))
         return mask
 
     except Exception as e:

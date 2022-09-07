@@ -22,6 +22,7 @@ def get_multi_region(img_bin):
 
         # io.imsave("dddd.jpg", _img)
     else:
-        logger.info("no contours find")
+        # logger.info("no contours find")
+        pass
 
     return regions
