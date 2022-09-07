@@ -1,5 +1,5 @@
 self.$__dart_deferred_initializers__=self.$__dart_deferred_initializers__||Object.create(null)
-$__dart_deferred_initializers__.current=function(a,b,c,$){var A={Cz:function Cz(d,e){this.a=d
+$__dart_deferred_initializers__.current=function(a,b,c,$){var A={Cy:function Cy(d,e){this.a=d
 this.b=e},a0U:function a0U(d){var _=this
 _.b=_.a=null
 _.c=d
@@ -8,7 +8,7 @@ _.a=d
 _.b=e
 _.c=f
 _.d=g},Uf:function Uf(d,e){this.a=d
-this.b=e},FO:function FO(d,e,f,g){var _=this
+this.b=e},FN:function FN(d,e,f,g){var _=this
 _.c=d
 _.d=e
 _.e=f
@@ -20,12 +20,12 @@ _.eH$=d
 _.bG$=e
 _.a=null
 _.b=f
-_.c=null},agC:function agC(d){this.a=d},FP:function FP(){},
-qJ(d){var w=$.aze
-if(w==null){w=$.aze=new A.agD(d)
-$.avo()
+_.c=null},agD:function agD(d){this.a=d},FO:function FO(){},
+qH(d){var w=$.azf
+if(w==null){w=$.azf=new A.agE(d)
+$.avp()
 $.avg().a=d}return w},
-agD:function agD(d){this.a=d}},C,B,D,E,F,G
+agE:function agE(d){this.a=d}},C,B,D,E,F,G
 A=a.updateHolder(c[49],A)
 C=c[2]
 B=c[0]
@@ -33,7 +33,7 @@ D=c[134]
 E=c[113]
 F=c[61]
 G=c[77]
-A.Cz.prototype={
+A.Cy.prototype={
 j(d){return"ToastGravity."+this.b}}
 A.a0U.prototype={
 Lw(){var w,v,u=this,t=u.c
@@ -51,7 +51,7 @@ t.a=e
 w=u.a
 if(w==null)throw B.c(y.b)
 if(e===D.SB)if(w.F(x.h).f.e.d!==0)t.a=D.xE
-v=B.ix(new A.a0X(t,u,null,new A.FO(d,f,350,null)),!1)
+v=B.ix(new A.a0X(t,u,null,new A.FN(d,f,350,null)),!1)
 u.c.push(new A.Uf(v,f))
 if(u.d==null)u.Lw()},
 a09(d,e){var w=null
@@ -66,7 +66,7 @@ case 6:return B.c9(50,d,w,w,w,24,w,w)
 case 9:return B.c9(this.a.F(x.h).f.e.d,d,w,w,0,0,w,w)
 case 1:default:return B.c9(50,d,w,w,24,24,w,w)}}}
 A.Uf.prototype={}
-A.FO.prototype={
+A.FN.prototype={
 ah(){return new A.NO(null,null,C.k)}}
 A.NO.prototype={
 av(){var w=this,v=null,u=B.bI(v,B.cs(0,w.a.e,0),v,v,w)
@@ -74,7 +74,7 @@ w.d=u
 w.e=B.cr(E.bX,u,v)
 w.aT()
 w.d.bK(0)
-w.f=B.cp(w.a.d,new A.agC(w))},
+w.f=B.cp(w.a.d,new A.agD(w))},
 dU(){var w=this.f
 if(w!=null)w.az(0)
 this.d.eY(0)
@@ -86,7 +86,7 @@ if(w!=null)w.n(0)
 this.Wj(0)},
 E(d,e){var w=null,v=x.f.a(B.a(this.e,"_fadeAnimation"))
 return B.hv(!1,B.f7(B.eT(C.A,!0,w,this.a.c,C.v,C.a_,0,w,w,w,w,w,C.aT),w,w),v)}}
-A.FP.prototype={
+A.FO.prototype={
 n(d){var w=this,v=w.bG$
 if(v!=null)v.P(0,w.gig())
 w.bG$=null
@@ -94,11 +94,11 @@ w.aO(0)},
 bP(){this.cS()
 this.cv()
 this.ih()}}
-A.agD.prototype={
+A.agE.prototype={
 ys(d,e){var w,v=null,u=B.h3(25),t=B.b([],x.e)
 t.push(F.b9(d,v,v,v,v,v,v))
 w=B.a6(v,B.bj(t,C.q,C.r,C.di,v),v,v,new B.bp(e,v,v,u,v,v,C.y),v,v,v,D.DB,v)
-$.avo().SZ(w,D.xE,C.d2)},
+$.avp().SZ(w,D.xE,C.d2)},
 lB(d){return this.ys(d,G.ej)}}
 var z=a.updateTypes([])
 A.a0W.prototype={
@@ -116,26 +116,26 @@ $S:6}
 A.a0X.prototype={
 $1(d){return this.b.a09(this.d,this.a.a)},
 $S:15}
-A.agC.prototype={
+A.agD.prototype={
 $0(){var w=this.a
 w.d.d_(0)
 w=w.f
 if(w!=null)w.az(0)},
-$S:0};(function aliases(){var w=A.FP.prototype
+$S:0};(function aliases(){var w=A.FO.prototype
 w.Wj=w.n})();(function inheritance(){var w=a.mixinHard,v=a.inherit,u=a.inheritMany
-v(A.Cz,B.dL)
-u(B.C,[A.a0U,A.Uf,A.agD])
-u(B.bQ,[A.a0W,A.a0V,A.agC])
+v(A.Cy,B.dL)
+u(B.C,[A.a0U,A.Uf,A.agE])
+u(B.bQ,[A.a0W,A.a0V,A.agD])
 v(A.a0X,B.b2)
-v(A.FO,B.S)
-v(A.FP,B.X)
-v(A.NO,A.FP)
-w(A.FP,B.hO)})()
-B.b0(b.typeUniverse,JSON.parse('{"FO":{"S":[],"d":[]},"Cz":{"U":[]},"NO":{"X":["FO"]}}'))
+v(A.FN,B.S)
+v(A.FO,B.X)
+v(A.NO,A.FO)
+w(A.FO,B.hO)})()
+B.b0(b.typeUniverse,JSON.parse('{"FN":{"S":[],"d":[]},"Cy":{"U":[]},"NO":{"X":["FN"]}}'))
 var y={b:"Error: Context is null, Please call init(context) before showing toast."}
-var x={f:B.q("by<z>"),e:B.q("k<d>"),h:B.q("bL"),p:B.q("aB"),n:B.q("lS")};(function constants(){D.DB=new B.av(24,12,24,12)
-D.SB=new A.Cz(1,"BOTTOM")
-D.xE=new A.Cz(2,"CENTER")})();(function staticFields(){$.aze=null})();(function lazyInitializers(){var w=a.lazyFinal,v=a.lazy
+var x={f:B.q("by<z>"),e:B.q("k<d>"),h:B.q("bL"),p:B.q("aB"),n:B.q("lR")};(function constants(){D.DB=new B.av(24,12,24,12)
+D.SB=new A.Cy(1,"BOTTOM")
+D.xE=new A.Cy(2,"CENTER")})();(function staticFields(){$.azf=null})();(function lazyInitializers(){var w=a.lazyFinal,v=a.lazy
 w($,"aQa","avg",()=>new A.a0U(B.b([],B.q("k<Uf>"))))
-v($,"aR9","avo",()=>$.avg())})()}
-$__dart_deferred_initializers__["d9mRA/L9k9aqReK0kn+i4qi26fU="] = $__dart_deferred_initializers__.current
+v($,"aRa","avp",()=>$.avg())})()}
+$__dart_deferred_initializers__["N+fZyj15XjyZx9fZRX5F0CdnYVs="] = $__dart_deferred_initializers__.current
