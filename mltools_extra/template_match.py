@@ -32,7 +32,8 @@ def template_match(
         similarity = str(max_val)
     return TemplateMatchModel(imgData, similarity)
 
-def get_template_match_code()->str:
+
+def get_template_match_code() -> str:
     return """
 import cv2
 

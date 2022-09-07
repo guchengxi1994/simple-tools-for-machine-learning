@@ -25,6 +25,8 @@ def get_multiple_shapes(
         label_img[label_img > 127] = 255
         label_img[label_img != 255] = 0
         label_img = label_img / 255
+    else:
+        label_img[label_img > 0] = 1
 
     labelShape = label_img.shape
     labels = read_yaml(yamlPath, label_img)

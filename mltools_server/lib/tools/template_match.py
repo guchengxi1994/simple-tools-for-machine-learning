@@ -5,7 +5,7 @@ import sys
 
 sys.path.append("..")
 
-from mltools_extra.template_match import template_match,get_template_match_code
+from mltools_extra.template_match import template_match, get_template_match_code
 from mltools.src.utils.json2mask.third_party import img_b64_to_arr
 from mltools_server.lib.exceptions import ImageError
 from pydantic import BaseModel
@@ -42,6 +42,7 @@ def template_match_script(req: TemplateMatchReq):
     b64 = base64.b64encode(fi.read()).decode()
 
     return TemplateMatchResp(b64, result.similarity)
+
 
 def get_code():
     return get_template_match_code()

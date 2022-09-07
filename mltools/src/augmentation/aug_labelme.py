@@ -4,6 +4,7 @@ import random
 import traceback
 from typing import List
 import copy
+import numpy as np
 
 from mltools.src import split_file_name
 from mltools.src.augmentation import AugmentationTypes
@@ -61,6 +62,7 @@ class LabelmeAugementation(BaseAugmentation):
                     )
                 else:
                     mask = convert_json_to_mask(self.labels[_imgCount], saveFile=False)
+                    # print(np.max(mask))
 
                 oriImgList = img_flip(_img, flipList=[1, 0, -1])
                 maskImgList = img_flip(mask, flipList=[1, 0, -1])
@@ -70,6 +72,7 @@ class LabelmeAugementation(BaseAugmentation):
                 io.imsave(_savePath + fileName + "_h.jpg", oriImgList[0])
                 io.imsave(_savePath + fileName + "_v.jpg", oriImgList[1])
                 io.imsave(_savePath + fileName + "_both.jpg", oriImgList[2])
+                # print(_savePath + fileName + "_both.jpg")
 
                 jsonH = get_multiple_shapes(
                     _savePath + fileName + "_h.jpg",
