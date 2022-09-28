@@ -183,8 +183,10 @@ class LabelmeAugementation(BaseAugmentation):
                 for j in range(0, self.augNumber):
                     trans_h = random.randint(0, int(0.5 * imgShape[1]))
                     trans_v = random.randint(0, int(0.5 * imgShape[0]))
+
                     _transImg = img_translation(_img, trans_h, trans_v)
                     _transMask = img_translation(mask, trans_h, trans_v)
+
                     filename = self.savedPath + "translation-{}-{}-{}-h{}-v{}".format(
                         split_file_name(i),
                         _imgCount + 1,
@@ -201,6 +203,7 @@ class LabelmeAugementation(BaseAugmentation):
                         maskFile=_transMask,
                         yamlPath=self.yamlPath,
                     )
+
                     with open(filename + ".json", "w") as f:
                         f.write(jsonMask)
                 _imgCount += 1

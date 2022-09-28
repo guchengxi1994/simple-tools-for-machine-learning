@@ -25,7 +25,6 @@ def get_multiple_shapes(
         label_img[label_img > 127] = 255
         label_img[label_img != 255] = 0
         label_img = label_img / 255
-    
 
     labelShape = label_img.shape
     labels = read_yaml(yamlPath, label_img)
@@ -53,7 +52,7 @@ def get_multiple_shapes(
                 for i in range(0, region.shape[0]):
                     # print(region[i][0])
                     tmp = region[i].tolist()
-                    tmp.reverse()
+                    # tmp.reverse()
                     points.append(tmp)
                 shape = dict()
                 shape["label"] = la[0]
@@ -70,7 +69,7 @@ def get_multiple_shapes(
                     for i in range(0, subregion.shape[0]):
                         # points.append(subregion[i].tolist().reverse())
                         tmp = subregion[i].tolist()
-                        tmp.reverse()
+                        # tmp.reverse()
                         points.append(tmp)
                     shape = dict()
                     shape["label"] = la[0]
