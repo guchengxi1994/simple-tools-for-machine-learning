@@ -14,7 +14,7 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/controllers/annotation_controller.dart';
 import 'package:mltools_viewer/controllers/board_controller.dart';
 import 'package:mltools_viewer/controllers/image_controller.dart';
-import 'package:mltools_viewer/controllers/menu_controller.dart';
+import 'package:mltools_viewer/controllers/menu_controller.dart' as menu;
 import 'package:mltools_viewer/controllers/right_menu_controller.dart';
 import 'package:mltools_viewer/utils/common.dart';
 import 'package:mltools_viewer/widgets/future_builder.dart';
@@ -35,7 +35,7 @@ class ImageLabelingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => MenuController()),
+        ChangeNotifierProvider(create: (_) => menu.MenuController()),
         ChangeNotifierProvider(create: (_) => ImageController()),
         ChangeNotifierProvider(
             create: (_) => BoardController()..addWidget(const ImageView())),
@@ -70,9 +70,13 @@ class _ImageLabelingState extends State<ImageLabelingMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (context.read<MenuController>().scaffoldKey.currentState != null &&
-        context.read<MenuController>().scaffoldKey.currentState!.isDrawerOpen) {
-      context.read<MenuController>().closeDrawer();
+    if (context.read<menu.MenuController>().scaffoldKey.currentState != null &&
+        context
+            .read<menu.MenuController>()
+            .scaffoldKey
+            .currentState!
+            .isDrawerOpen) {
+      context.read<menu.MenuController>().closeDrawer();
     }
 
     return Row(
@@ -99,7 +103,7 @@ class _ImageLabelingState extends State<ImageLabelingMainScreen> {
                   ScreenTypeUtils.isDesktop(context) ? [Container()] : null,
             ),
           ),
-          key: context.read<MenuController>().scaffoldKey,
+          key: context.read<menu.MenuController>().scaffoldKey,
           drawer: FutureLoaderWidget(
             loadWidgetFuture: loadSidemenuLib,
             builder: (context) => sidemenu.SideMenu(),
