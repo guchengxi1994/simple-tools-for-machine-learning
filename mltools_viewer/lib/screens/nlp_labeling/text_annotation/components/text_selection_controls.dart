@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 
 import 'package:mltools_viewer/model/ner_models.dart';
@@ -85,7 +84,7 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
     BuildContext context,
     Rect globalEditableRegion,
     double textLineHeight,
-    Offset position,
+    Offset selectionMidpoint,
     List<TextSelectionPoint> endpoints,
     TextSelectionDelegate delegate,
     ClipboardStatusNotifier? clipboardStatus,
@@ -95,13 +94,13 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
     final TextSelectionPoint endTextSelectionPoint =
         endpoints.length > 1 ? endpoints[1] : endpoints[0];
     final Offset anchorAbove = Offset(
-        globalEditableRegion.left + (position).dx,
+        globalEditableRegion.left + (selectionMidpoint).dx,
         globalEditableRegion.top +
             startTextSelectionPoint.point.dy -
             textLineHeight -
             _kToolbarContentDistance);
     final Offset anchorBelow = Offset(
-      globalEditableRegion.left + (position).dx,
+      globalEditableRegion.left + (selectionMidpoint).dx,
       globalEditableRegion.top +
           endTextSelectionPoint.point.dy +
           _kToolbarContentDistanceBelow,

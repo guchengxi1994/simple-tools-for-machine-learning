@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -127,7 +127,6 @@ class CustomTextAnnotationScreen extends StatelessWidget {
                                   );
                                 }));
                             if (result != null) {
-                              // ignore: use_build_context_synchronously
                               context
                                   .read<CustomNerLabelingController>()
                                   .addClassName(result);

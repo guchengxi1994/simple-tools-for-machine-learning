@@ -55,7 +55,6 @@ class Home extends StatelessWidget {
               onSelectionChanged: (selection, cause) {
                 // debugPrint("selection end:${selection.end}");
               },
-              toolbarOptions: ToolbarOptions(copy: true),
               // ignore: deprecated_member_use_from_same_package
               selectionControls: NlpAnnotationTextSelectionControls(
                   toolBarItems: NerItems.values

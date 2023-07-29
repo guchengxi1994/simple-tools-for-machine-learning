@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
@@ -244,7 +246,6 @@ class NlpClassificationScreen extends StatelessWidget {
               if (result == null) {
                 return;
               }
-              // ignore: use_build_context_synchronously
               ctx.read<NlpClassificationController>().addClassName(result);
             },
             icon: const Icon(
