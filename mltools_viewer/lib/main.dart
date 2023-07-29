@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
       navigatorKey: Routers.navigatorKey,
       debugShowCheckedModeBanner: false,
       routes: Routers.routers,

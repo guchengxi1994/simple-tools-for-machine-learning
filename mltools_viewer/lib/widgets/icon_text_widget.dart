@@ -25,21 +25,30 @@ class IconTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: !enable ? null : () => onTap(),
+    return Material(
+      color: Colors.transparent,
       child: Container(
+        padding: const EdgeInsets.only(left: 5, right: 5),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
         width: AppStyle.sidemenuWidthHalf,
         constraints: const BoxConstraints(minHeight: AppStyle.iconWidgetHeight),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            icon,
-            const SizedBox(
-              height: 5,
-            ),
-            label
-          ],
+        child: InkWell(
+          borderRadius: BorderRadius.circular(5),
+          hoverColor: AppStyle.chipBackground,
+          focusColor: AppStyle.chipBackground,
+          // highlightColor: AppStyle.white,
+          onTap: !enable ? null : () => onTap(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              icon,
+              const SizedBox(
+                height: 5,
+              ),
+              label
+            ],
+          ),
         ),
       ),
     );

@@ -11,7 +11,6 @@ import 'package:mltools_viewer/utils/dio_utils.dart';
 import 'package:mltools_viewer/utils/toast_utils.dart';
 import 'package:taichi/taichi.dart' show TaichiOverlay;
 import 'package:highlight/languages/python.dart' as python;
-import 'package:flutter_highlight/themes/monokai-sublime.dart';
 
 abstract class BaseToolsScreen extends StatefulWidget {
   const BaseToolsScreen({Key? key, required this.barTitle}) : super(key: key);
@@ -112,7 +111,7 @@ class BasePageState<T extends BaseToolsScreen> extends State<T> {
     _codeController = CodeController(
       text: dialogContent,
       language: python.python,
-      theme: monokaiSublimeTheme,
+      // theme: monokaiSublimeTheme,
     );
     showCupertinoDialog(
         context: context,
