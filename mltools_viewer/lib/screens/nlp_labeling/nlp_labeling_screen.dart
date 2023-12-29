@@ -5,7 +5,7 @@ import 'package:mltools_viewer/app_style.dart';
 import 'package:mltools_viewer/routers.dart';
 
 class NlpLabelingScreen extends StatelessWidget {
-  const NlpLabelingScreen({Key? key}) : super(key: key);
+  const NlpLabelingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,13 @@ class NlpLabelingScreen extends StatelessWidget {
           child: const Icon(Icons.chevron_left),
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 ClickableCard(
                   cardName: "文本分类",
                   route: Routers.pageClassification,
@@ -44,7 +44,7 @@ class NlpLabelingScreen extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 ClickableCard(
                   cardName: "自定义命名实体识别",
                   route: Routers.pageCustomNer,
@@ -59,8 +59,7 @@ class NlpLabelingScreen extends StatelessWidget {
 }
 
 class ClickableCard extends StatelessWidget {
-  const ClickableCard({Key? key, required this.cardName, required this.route})
-      : super(key: key);
+  const ClickableCard({super.key, required this.cardName, required this.route});
   final String cardName;
   final String route;
 

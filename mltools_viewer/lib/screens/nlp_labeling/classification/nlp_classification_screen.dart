@@ -18,7 +18,7 @@ import '../text_annotation/components/ner_settings_dropdown_button.dart';
 
 // ignore: must_be_immutable
 class NlpClassificationScreen extends StatelessWidget {
-  NlpClassificationScreen({Key? key}) : super(key: key);
+  NlpClassificationScreen({super.key});
   final ScrollController mainController = ScrollController();
 
   final GlobalKey actionKey = GlobalKey();
@@ -77,7 +77,7 @@ class NlpClassificationScreen extends StatelessWidget {
               Showcase(
                   key: actionKey,
                   description: "这里导入数据",
-                  child: NerSettingsDropdownButton(
+                  child: const NerSettingsDropdownButton(
                     nerType: 2,
                   ))
             ],
@@ -123,7 +123,7 @@ class NlpClassificationScreen extends StatelessWidget {
                             .watch<NlpClassificationController>()
                             .classNames
                             .map((e) => SelectableIcon(className: e))
-                            .toList()
+                            
                       ],
                     )),
                 Row(

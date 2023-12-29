@@ -63,8 +63,7 @@ typedef OnHighlightedCallback = void Function(
 
 class NerSelectableHighlightText extends StatelessWidget {
   NerSelectableHighlightText(
-      {Key? key, this.onHighlightedCallback, required this.text})
-      : super(key: key);
+      {super.key, this.onHighlightedCallback, required this.text});
 
   final OnHighlightedCallback? onHighlightedCallback;
   final String text;
@@ -225,6 +224,9 @@ class NerSelectableHighlightText extends StatelessWidget {
             TextSpan(children: getTextSpanList(context)),
             maxLines: null,
             onSelectionChanged: (selection, cause) {
+              print(selection.end);
+              print(selection.start);
+
               if ((selection.end - selection.start) != 0) {
                 tempBaseOffset =
                     min(selection.baseOffset, selection.extentOffset);
@@ -433,8 +435,7 @@ class NerSelectableHighlightText extends StatelessWidget {
 
 class CustomNerSelectableHighlightText extends StatelessWidget {
   CustomNerSelectableHighlightText(
-      {Key? key, this.onHighlightedCallback, required this.text})
-      : super(key: key);
+      {super.key, this.onHighlightedCallback, required this.text});
 
   final OnHighlightedCallback? onHighlightedCallback;
   final String text;
@@ -630,6 +631,8 @@ class CustomNerSelectableHighlightText extends StatelessWidget {
     }
   }
 
+  late EditableTextState _editableTextState = EditableTextState();
+
   @override
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
@@ -642,15 +645,51 @@ class CustomNerSelectableHighlightText extends StatelessWidget {
         child: SelectableText.rich(
           TextSpan(children: getTextSpanList(context)),
           maxLines: null,
+          contextMenuBuilder: (context, editableTextState) {
+            _editableTextState = editableTextState;
+            // return Material(
+            //   child: Container(
+            //     width: 300,
+            //     height: 300,
+            //     child: Column(
+            //       children: [
+            //         InkWell(
+            //           onTap: () {
+            //             editableTextState.hideToolbar();
+            //           },
+            //           child: Icon(Icons.close),
+            //         ),
+            //         Text("aaaaaaaaaaaa")
+            //       ],
+            //     ),
+            //   ),
+            // );
+            return AdaptiveTextSelectionToolbar.buttonItems(
+                anchors: _editableTextState.contextMenuAnchors,
+                buttonItems: editableTextState.contextMenuButtonItems
+                  ..add(
+                    ContextMenuButtonItem(
+                      onPressed: () {
+                        print('Custom Button Tapped!');
+                        editableTextState.hideToolbar();
+                      },
+                      label: 'Custom Button',
+                    ),
+                  ));
+          },
           onSelectionChanged: (selection, cause) {
-            if ((selection.end - selection.start) != 0) {
-              tempBaseOffset =
-                  min(selection.baseOffset, selection.extentOffset);
-              tempExtentOffset =
-                  max(selection.baseOffset, selection.extentOffset);
+            // _editableTextState.showToolbar();
 
-              _toggleOverlay(context);
-            }
+            // print(selection.end);
+            // print(selection.start);
+            // if ((selection.end - selection.start) != 0) {
+            //   tempBaseOffset =
+            //       min(selection.baseOffset, selection.extentOffset);
+            //   tempExtentOffset =
+            //       max(selection.baseOffset, selection.extentOffset);
+
+            //   _toggleOverlay(context);
+            // }
           },
         ),
       ),

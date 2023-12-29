@@ -9,7 +9,7 @@ import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import '_base_tools_screen.dart';
 
 class EdgeDetectionScreen extends BaseToolsScreen {
-  const EdgeDetectionScreen({Key? key}) : super(key: key, barTitle: "边缘检测");
+  const EdgeDetectionScreen({super.key}) : super(barTitle: "边缘检测");
 
   @override
   BasePageState<EdgeDetectionScreen> getState() => _EdgeDetectionScreenState();

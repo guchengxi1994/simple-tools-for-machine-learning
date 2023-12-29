@@ -14,9 +14,8 @@ import 'package:mltools_viewer/utils/toast_utils.dart';
 import '_base_tools_screen.dart';
 
 class SiftScreen extends BaseToolsScreen {
-  const SiftScreen({Key? key})
+  const SiftScreen({super.key})
       : super(
-          key: key,
           barTitle: "图像相似度对比(基于SIFT)",
         );
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class BaseQuestionWidget extends StatelessWidget {
-  const BaseQuestionWidget({Key? key, required this.text}) : super(key: key);
+  const BaseQuestionWidget({super.key, required this.text});
   final String text;
 
   @override

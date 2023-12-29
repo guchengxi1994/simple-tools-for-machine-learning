@@ -29,7 +29,7 @@ import 'package:mltools_viewer/screens/image_labeling/components/image_labeling_
 import 'components/image_view.dart';
 
 class ImageLabelingPage extends StatelessWidget {
-  const ImageLabelingPage({Key? key}) : super(key: key);
+  const ImageLabelingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ImageLabelingPage extends StatelessWidget {
 }
 
 class ImageLabelingMainScreen extends StatefulWidget {
-  const ImageLabelingMainScreen({Key? key}) : super(key: key);
+  const ImageLabelingMainScreen({super.key});
 
   @override
   State<ImageLabelingMainScreen> createState() => _ImageLabelingState();

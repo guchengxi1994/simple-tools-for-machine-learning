@@ -9,7 +9,7 @@ import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import '_base_tools_screen.dart';
 
 class DlibScreen extends BaseToolsScreen {
-  const DlibScreen({Key? key}) : super(key: key, barTitle: "Dlib人脸识别");
+  const DlibScreen({super.key}) : super(barTitle: "Dlib人脸识别");
 
   @override
   BasePageState<DlibScreen> getState() => _DlibScreenState();

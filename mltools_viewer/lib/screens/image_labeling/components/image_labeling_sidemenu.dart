@@ -32,7 +32,7 @@ import 'dart:ui' as ui;
 const double pointSize = 20;
 
 class SideMenu extends StatelessWidget {
-  SideMenu({Key? key}) : super(key: key);
+  SideMenu({super.key});
   final ScrollController scrollController = ScrollController();
 
   @override

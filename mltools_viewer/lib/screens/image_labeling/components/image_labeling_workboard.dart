@@ -14,8 +14,7 @@ import 'package:provider/provider.dart';
 
 class ImageLabelingWorkboard extends StatefulWidget {
   const ImageLabelingWorkboard(
-      {Key? key, required this.boardHeight, required this.boardWidth})
-      : super(key: key);
+      {super.key, required this.boardHeight, required this.boardWidth});
   final double boardWidth;
   final double boardHeight;
 

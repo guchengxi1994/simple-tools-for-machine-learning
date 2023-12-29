@@ -20,7 +20,7 @@ import 'components/ner_settings_dropdown_button.dart';
 import 'package:crypto/crypto.dart';
 
 class TextAnnotationScreen extends StatelessWidget {
-  TextAnnotationScreen({Key? key}) : super(key: key);
+  TextAnnotationScreen({super.key});
   // String text = "小明在2022年2月29日去位于常州的世界银行存储了100块津巴布韦，一看时间是17点56分，当时，股票涨了100个点。";
   final ScrollController mainController = ScrollController();
   final ScrollController childController = ScrollController();
@@ -75,7 +75,7 @@ class TextAnnotationScreen extends StatelessWidget {
               Showcase(
                   key: actionKey,
                   description: "这里导入数据",
-                  child: NerSettingsDropdownButton(
+                  child: const NerSettingsDropdownButton(
                     nerType: 0,
                   ))
             ],

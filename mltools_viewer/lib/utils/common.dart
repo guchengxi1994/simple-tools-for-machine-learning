@@ -1,4 +1,5 @@
 /// copied from taichi_admin
+library;
 import 'package:flutter/material.dart';
 
 enum ScreenType { mobile, tablet, desktop }

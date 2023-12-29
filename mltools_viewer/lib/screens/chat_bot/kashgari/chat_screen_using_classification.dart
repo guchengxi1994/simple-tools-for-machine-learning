@@ -15,7 +15,7 @@ import '../models/ask_question_model.dart';
 import '../models/question_model.dart';
 
 class KashgraiCharbotScreen extends StatelessWidget {
-  KashgraiCharbotScreen({Key? key}) : super(key: key);
+  KashgraiCharbotScreen({super.key});
   final ScrollController _scrollController = ScrollController(); //listview的控制器
   final TextEditingController textEditingController = TextEditingController();
   final DioUtils dioUtil = DioUtils();

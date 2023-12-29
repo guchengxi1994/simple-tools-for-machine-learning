@@ -8,6 +8,8 @@
  * @LastEditTime: 2022-07-16 23:42:01
  */
 /// copied from taichi_admin
+library;
+
 import 'package:flutter/material.dart';
 
 class AppStyle {

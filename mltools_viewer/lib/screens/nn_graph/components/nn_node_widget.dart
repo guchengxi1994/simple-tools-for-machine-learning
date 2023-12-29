@@ -3,7 +3,7 @@ import 'package:mltools_viewer/screens/nn_graph/model/nn_nodes.dart';
 
 // ignore: must_be_immutable
 class NodeWidget<T extends NNNode> extends StatelessWidget {
-  NodeWidget({Key? key, required this.node}) : super(key: key);
+  NodeWidget({super.key, required this.node});
   final T node;
   final LayerLink layerLink = LayerLink();
 

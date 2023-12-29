@@ -9,8 +9,8 @@ import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import '_base_tools_screen.dart';
 
 class TemplateMatchScreen extends BaseToolsScreen {
-  const TemplateMatchScreen({Key? key})
-      : super(key: key, barTitle: "opencv模板匹配demo");
+  const TemplateMatchScreen({super.key})
+      : super(barTitle: "opencv模板匹配demo");
 
   @override
   BasePageState<TemplateMatchScreen> getState() => _TemplateMatchScreenState();

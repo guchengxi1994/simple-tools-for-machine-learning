@@ -7,7 +7,7 @@ import 'package:mltools_viewer/controllers/right_menu_controller.dart';
 import 'package:provider/provider.dart';
 
 class ImageLabelingRightSidemenu extends StatefulWidget {
-  const ImageLabelingRightSidemenu({Key? key}) : super(key: key);
+  const ImageLabelingRightSidemenu({super.key});
 
   @override
   State<ImageLabelingRightSidemenu> createState() => _RightSidemenuState();

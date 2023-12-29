@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 class SelectableIcon extends StatelessWidget {
   const SelectableIcon({
     required this.className,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final String className;
 
   @override

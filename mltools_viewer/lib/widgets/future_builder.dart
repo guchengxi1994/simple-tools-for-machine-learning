@@ -1,10 +1,10 @@
 /// copied from taichi_admin
+library;
 import 'package:flutter/material.dart';
 
 class FutureLoaderWidget extends StatelessWidget {
   const FutureLoaderWidget(
-      {Key? key, required this.builder, required this.loadWidgetFuture})
-      : super(key: key);
+      {super.key, required this.builder, required this.loadWidgetFuture});
 
   final Future loadWidgetFuture;
   final WidgetBuilder builder;

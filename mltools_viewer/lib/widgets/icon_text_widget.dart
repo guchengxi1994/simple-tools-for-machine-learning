@@ -12,12 +12,11 @@ import 'package:mltools_viewer/app_style.dart';
 
 class IconTextWidget extends StatelessWidget {
   const IconTextWidget(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.label,
       required this.onTap,
-      this.enable = true})
-      : super(key: key);
+      this.enable = true});
   final Widget icon;
   final Text label;
   final VoidCallback onTap;

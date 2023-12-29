@@ -6,8 +6,7 @@ import 'package:mltools_viewer/utils/save_file.dart'
 
 // ignore: must_be_immutable
 class ImageDownloadWidget extends StatelessWidget {
-  ImageDownloadWidget({Key? key, this.widgetSize = 200, required this.augType})
-      : super(key: key);
+  ImageDownloadWidget({super.key, this.widgetSize = 200, required this.augType});
   final double widgetSize;
   final String augType;
 

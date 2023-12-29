@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ChatListWidget extends StatelessWidget {
-  ChatListWidget({Key? key, required this.scrollController}) : super(key: key);
+  ChatListWidget({super.key, required this.scrollController});
   ScrollController scrollController;
 
   @override

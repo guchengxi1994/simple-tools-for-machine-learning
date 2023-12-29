@@ -1,4 +1,5 @@
 /// https://stackoverflow.com/questions/60924384/creating-resizable-view-that-resizes-when-pinch-or-drag-from-corners-and-sides-i
+library;
 
 // ignore_for_file: library_private_types_in_public_api
 
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Demo extends StatefulWidget {
-  const Demo({Key? key}) : super(key: key);
+  const Demo({super.key});
 
   @override
   _DemoState createState() => _DemoState();
@@ -48,7 +49,7 @@ class _DemoState extends State<Demo> {
 }
 
 class ResizebleWidget extends StatefulWidget {
-  const ResizebleWidget({Key? key, required this.child}) : super(key: key);
+  const ResizebleWidget({super.key, required this.child});
 
   final Widget child;
   @override
@@ -245,7 +246,7 @@ class _ResizebleWidgetState extends State<ResizebleWidget> {
 
 class ManipulatingBall extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  ManipulatingBall({Key? key, required this.onDrag}) : super(key: key);
+  ManipulatingBall({super.key, required this.onDrag});
 
   final Function onDrag;
 

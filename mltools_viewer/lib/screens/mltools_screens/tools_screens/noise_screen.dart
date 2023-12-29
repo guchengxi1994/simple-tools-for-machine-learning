@@ -11,7 +11,7 @@ import 'package:mltools_viewer/utils/file_picker_utils.dart';
 import '_base_tools_screen.dart';
 
 class NoiseScreen extends BaseToolsScreen {
-  const NoiseScreen({Key? key}) : super(key: key, barTitle: "图像加噪与去噪");
+  const NoiseScreen({super.key}) : super(barTitle: "图像加噪与去噪");
 
   @override
   BasePageState<NoiseScreen> getState() => _NoiseScreenState();

@@ -1,6 +1,8 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
+// ignore: implementation_imports
+import 'package:flutter/src/foundation/change_notifier.dart';
 import 'dart:math' as math;
 
 import 'package:mltools_viewer/model/ner_models.dart';
@@ -33,7 +35,7 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
   void _onItemSelected(
       {required NerToolBarItem item,
       required TextSelectionDelegate delegate,
-      required ClipboardStatusNotifier clipboardStatus}) {
+      required ValueListenable<ClipboardStatus> clipboardStatus}) {
     if (item.itemControl != null) {
       final NerItems control = item.itemControl!;
       switch (control) {
@@ -81,15 +83,14 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
 
   @override
   Widget buildToolbar(
-    BuildContext context,
-    Rect globalEditableRegion,
-    double textLineHeight,
-    Offset selectionMidpoint,
-    List<TextSelectionPoint> endpoints,
-    TextSelectionDelegate delegate,
-    ClipboardStatusNotifier? clipboardStatus,
-    Offset? lastSecondaryTapDownPosition,
-  ) {
+      BuildContext context,
+      Rect globalEditableRegion,
+      double textLineHeight,
+      Offset selectionMidpoint,
+      List<TextSelectionPoint> endpoints,
+      TextSelectionDelegate delegate,
+      ValueListenable<ClipboardStatus>? clipboardStatus,
+      Offset? lastSecondaryTapDownPosition) {
     final TextSelectionPoint startTextSelectionPoint = endpoints[0];
     final TextSelectionPoint endTextSelectionPoint =
         endpoints.length > 1 ? endpoints[1] : endpoints[0];
@@ -171,19 +172,23 @@ class NlpAnnotationTextSelectionControls extends TextSelectionControls {
   Size getHandleSize(double textLineHeight) {
     return const Size(_kHandleSize, _kHandleSize);
   }
+
+  // @override
+  // Widget buildToolbar(BuildContext context, Rect globalEditableRegion, double textLineHeight, Offset selectionMidpoint, List<TextSelectionPoint> endpoints, TextSelectionDelegate delegate, ValueListenable<ClipboardStatus>? clipboardStatus, Offset? lastSecondaryTapDownPosition) {
+  //   // TODO: implement buildToolbar
+  //   throw UnimplementedError();
+  // }
 }
 
 class _NerSelectionToolBar extends StatefulWidget {
   const _NerSelectionToolBar(
-      {Key? key,
-      required this.anchorAbove,
+      {required this.anchorAbove,
       required this.anchorBelow,
       required this.clipboardStatus,
       required this.toolBarItems,
       required this.onItemSelected,
       required this.horizontalPadding,
-      required this.verticalPadding})
-      : super(key: key);
+      required this.verticalPadding});
 
   /// The focal point above which the toolbar attempts to position itself.
   final Offset anchorAbove;
@@ -192,7 +197,7 @@ class _NerSelectionToolBar extends StatefulWidget {
   final Offset anchorBelow;
 
   ///A [ValueNotifier] whose [value] indicates whether the current contents of the clipboard can be pasted.
-  final ClipboardStatusNotifier clipboardStatus;
+  final ValueListenable<ClipboardStatus> clipboardStatus;
 
   /// Widgets to be displayed on the text selection tool bar
   final List<NerToolBarItem> toolBarItems;
@@ -220,7 +225,7 @@ class __NerSelectionToolBarState<T extends BaseToolBarItem>
   void initState() {
     super.initState();
     widget.clipboardStatus.addListener(_onChangedClipboardStatus);
-    widget.clipboardStatus.update();
+    // widget.clipboardStatus.update();
   }
 
   @override
@@ -230,14 +235,12 @@ class __NerSelectionToolBarState<T extends BaseToolBarItem>
       widget.clipboardStatus.addListener(_onChangedClipboardStatus);
       oldWidget.clipboardStatus.removeListener(_onChangedClipboardStatus);
     }
-    widget.clipboardStatus.update();
+    // widget.clipboardStatus.update();
   }
 
   @override
   void dispose() {
-    if (!widget.clipboardStatus.disposed) {
-      widget.clipboardStatus.removeListener(_onChangedClipboardStatus);
-    }
+    widget.clipboardStatus.removeListener(_onChangedClipboardStatus);
     super.dispose();
   }
 

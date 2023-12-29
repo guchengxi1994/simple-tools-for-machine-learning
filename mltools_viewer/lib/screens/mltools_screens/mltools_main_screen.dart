@@ -7,7 +7,7 @@ import 'package:mltools_viewer/routers.dart';
 import 'package:provider/provider.dart';
 
 class ToolsScreen extends StatelessWidget {
-  const ToolsScreen({Key? key}) : super(key: key);
+  const ToolsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ToolsScreen extends StatelessWidget {
 
 // ignore: must_be_immutable
 class MltoolsMainScreen extends StatelessWidget {
-  MltoolsMainScreen({Key? key}) : super(key: key);
+  MltoolsMainScreen({super.key});
   final TextEditingController controller = TextEditingController();
   final shotCut = LogicalKeySet(LogicalKeyboardKey.control,
       LogicalKeyboardKey.alt, LogicalKeyboardKey.keyF);
@@ -160,9 +160,7 @@ class MltoolsMainScreen extends StatelessWidget {
 class _wrapper extends StatelessWidget {
   const _wrapper(
     this.onTap,
-    this.title, {
-    Key? key,
-  }) : super(key: key);
+    this.title);
   final VoidCallback onTap;
   final String title;
 

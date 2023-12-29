@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/custom_response_model.dart';
 
 class ProposalWidget extends StatelessWidget {
-  const ProposalWidget({Key? key, required this.customResponseModel})
-      : super(key: key);
+  const ProposalWidget({super.key, required this.customResponseModel});
   final CustomResponseModel customResponseModel;
 
   @override

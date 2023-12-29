@@ -20,7 +20,7 @@ import 'components/ner_settings_dropdown_button.dart';
 import 'components/text_highlight_widget.dart';
 
 class CustomTextAnnotationScreen extends StatelessWidget {
-  CustomTextAnnotationScreen({Key? key}) : super(key: key);
+  CustomTextAnnotationScreen({super.key});
   PersistenceStorage ps = PersistenceStorage();
   final TextEditingController controller = TextEditingController();
 
@@ -75,7 +75,7 @@ class CustomTextAnnotationScreen extends StatelessWidget {
               Showcase(
                   key: actionKey,
                   description: "这里导入数据",
-                  child: NerSettingsDropdownButton(
+                  child: const NerSettingsDropdownButton(
                     nerType: 1,
                   ))
             ],

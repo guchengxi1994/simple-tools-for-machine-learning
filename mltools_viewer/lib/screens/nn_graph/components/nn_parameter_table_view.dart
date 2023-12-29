@@ -5,11 +5,10 @@ import '../model/nn_parameter_model.dart';
 // ignore: must_be_immutable
 class NNParameterTableview extends StatelessWidget {
   NNParameterTableview(
-      {Key? key,
+      {super.key,
       required this.widgetWidth,
       this.widgetHeight = 600,
-      required this.datas})
-      : super(key: key);
+      required this.datas});
   final double widgetWidth;
   final double widgetHeight;
 

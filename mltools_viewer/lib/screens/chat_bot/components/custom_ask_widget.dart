@@ -7,7 +7,7 @@ import 'constants.dart';
 
 // ignore: must_be_immutable
 class CustomerAskWidget extends StatefulWidget {
-  CustomerAskWidget({Key? key, required this.dataList}) : super(key: key);
+  CustomerAskWidget({super.key, required this.dataList});
   List<Data>? dataList;
 
   @override

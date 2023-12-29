@@ -7,7 +7,7 @@ import '../models/custom_response_model.dart';
 import '../models/question_model.dart';
 
 class AnswerWidget extends StatefulWidget {
-  const AnswerWidget({Key? key}) : super(key: key);
+  const AnswerWidget({super.key});
 
   @override
   AnswerWidgetState createState() => AnswerWidgetState();

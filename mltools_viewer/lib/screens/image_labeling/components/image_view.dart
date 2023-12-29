@@ -19,8 +19,7 @@ import 'labelme/polygon_point_v2.dart';
 /// this widget will be displayed when selecting the region, then will be removed
 /// when bndbox is generated.
 class BndBoxPreviewWidget extends StatelessWidget {
-  const BndBoxPreviewWidget({Key? key, required this.left, required this.top})
-      : super(key: key);
+  const BndBoxPreviewWidget({super.key, required this.left, required this.top});
   final double left;
   final double top;
 
@@ -45,7 +44,7 @@ class BndBoxPreviewWidget extends StatelessWidget {
 
 /// [ImageView] a stateful widget showing the image
 class ImageView extends StatefulWidget {
-  const ImageView({Key? key}) : super(key: key);
+  const ImageView({super.key});
 
   @override
   State<ImageView> createState() => ImageViewState();

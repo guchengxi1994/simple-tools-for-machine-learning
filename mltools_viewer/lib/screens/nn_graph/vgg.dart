@@ -12,7 +12,7 @@ import 'model/nn_parameter_model.dart';
 
 /// this is a demo of [flow_graph]
 class VggScreen extends StatefulWidget {
-  const VggScreen({Key? key}) : super(key: key);
+  const VggScreen({super.key});
 
   @override
   State<VggScreen> createState() => _VggScreenState();

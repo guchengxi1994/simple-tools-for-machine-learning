@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 class DeletableCard extends StatelessWidget {
   const DeletableCard(
-      {Key? key,
+      {super.key,
       this.paddingSize = 3,
       required this.text,
       required this.onTap,
-      this.style = 1})
-      : super(key: key);
+      this.style = 1});
   final double paddingSize;
   final String text;
   final VoidCallback onTap;

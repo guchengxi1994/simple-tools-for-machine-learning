@@ -12,7 +12,7 @@ import 'nn_node_widget.dart';
 
 class NNFlowGraphView<T extends NNNode> extends StatefulWidget {
   const NNFlowGraphView(
-      {Key? key,
+      {super.key,
       this.root,
       this.direction = Axis.horizontal,
       this.onSelectChanged,
@@ -20,8 +20,7 @@ class NNFlowGraphView<T extends NNNode> extends StatefulWidget {
       this.messageStyle,
       required this.nodeMessageMap,
       this.structure})
-      : assert(root != null || structure != null),
-        super(key: key);
+      : assert(root != null || structure != null);
   final GraphNode<T>? root;
   final Axis direction;
   final OnSelectChanged<T>? onSelectChanged;

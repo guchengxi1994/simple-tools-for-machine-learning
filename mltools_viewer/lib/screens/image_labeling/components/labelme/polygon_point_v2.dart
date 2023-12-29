@@ -6,8 +6,7 @@ import 'package:provider/provider.dart';
 const double pointSize = 20;
 
 class PolygonPointV2 extends StatelessWidget {
-  const PolygonPointV2({Key? key, required this.id, required this.polygonId})
-      : super(key: key);
+  const PolygonPointV2({super.key, required this.id, required this.polygonId});
   final int id;
   final int polygonId;
 

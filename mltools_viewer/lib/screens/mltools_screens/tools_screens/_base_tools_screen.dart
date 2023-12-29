@@ -13,7 +13,7 @@ import 'package:taichi/taichi.dart' show TaichiOverlay;
 import 'package:highlight/languages/python.dart' as python;
 
 abstract class BaseToolsScreen extends StatefulWidget {
-  const BaseToolsScreen({Key? key, required this.barTitle}) : super(key: key);
+  const BaseToolsScreen({super.key, required this.barTitle});
   final String barTitle;
 
   @override

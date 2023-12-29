@@ -3,7 +3,7 @@ import 'package:mltools_viewer/app_style.dart';
 import 'dart:math' as math;
 
 class BlankScreen extends StatelessWidget {
-  const BlankScreen({Key? key}) : super(key: key);
+  const BlankScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
